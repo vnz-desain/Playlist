@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Midnight Playlist — M. Evan Almunawar</title>
+  <meta name="description" content="A collection of songs I listen to while editing, thinking, and creating." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <a href="https://evanalmunawar.my.id" class="nav-brand">
+      <span class="nav-dot"></span>
+      evan
+    </a>
+    <div class="nav-right">
+      <a href="https://evanalmunawar.my.id" class="nav-link">← Portfolio</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <div class="hero-grain"></div>
+      <div class="hero-overlay"></div>
+      <!-- Generative SVG cityscape background -->
+      <svg class="hero-svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="glow1" cx="50%" cy="60%" r="50%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.03"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="glow2" cx="30%" cy="80%" r="30%">
+            <stop offset="0%" stop-color="#c8b89a" stop-opacity="0.04"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="blur-soft">
+            <feGaussianBlur stdDeviation="2"/>
+          </filter>
+        </defs>
+        <rect width="1440" height="900" fill="#080808"/>
+        <!-- distant city silhouette -->
+        <rect x="0" y="600" width="1440" height="300" fill="#0a0a0a"/>
+        <rect x="60" y="540" width="30" height="60" fill="#111"/>
+        <rect x="100" y="510" width="20" height="90" fill="#0e0e0e"/>
+        <rect x="130" y="530" width="40" height="70" fill="#101010"/>
+        <rect x="200" y="490" width="25" height="110" fill="#0d0d0d"/>
+        <rect x="240" y="520" width="35" height="80" fill="#111"/>
+        <rect x="290" y="500" width="20" height="100" fill="#0e0e0e"/>
+        <rect x="320" y="480" width="50" height="120" fill="#0c0c0c"/>
+        <rect x="390" y="510" width="30" height="90" fill="#111"/>
+        <rect x="430" y="460" width="40" height="140" fill="#0d0d0d"/>
+        <rect x="490" y="495" width="22" height="105" fill="#0f0f0f"/>
+        <rect x="530" y="470" width="60" height="130" fill="#0b0b0b"/>
+        <rect x="610" y="485" width="28" height="115" fill="#0e0e0e"/>
+        <rect x="660" y="450" width="35" height="150" fill="#0c0c0c"/>
+        <rect x="720" y="475" width="45" height="125" fill="#111"/>
+        <rect x="790" y="460" width="30" height="140" fill="#0d0d0d"/>
+        <rect x="840" y="490" width="20" height="110" fill="#0f0f0f"/>
+        <rect x="880" y="472" width="55" height="128" fill="#0c0c0c"/>
+        <rect x="960" y="500" width="25" height="100" fill="#111"/>
+        <rect x="1000" y="480" width="40" height="120" fill="#0d0d0d"/>
+        <rect x="1060" y="510" width="30" height="90" fill="#0e0e0e"/>
+        <rect x="1110" y="465" width="50" height="135" fill="#0b0b0b"/>
+        <rect x="1190" y="495" width="22" height="105" fill="#111"/>
+        <rect x="1230" y="520" width="35" height="80" fill="#0e0e0e"/>
+        <rect x="1280" y="505" width="28" height="95" fill="#0f0f0f"/>
+        <rect x="1330" y="480" width="45" height="120" fill="#0c0c0c"/>
+        <rect x="1390" y="535" width="50" height="65" fill="#111"/>
+        <!-- window lights scattered -->
+        <g fill="#d4c5a9" opacity="0.12">
+          <rect x="205" y="495" width="3" height="4"/>
+          <rect x="213" y="502" width="3" height="4"/>
+          <rect x="335" y="488" width="4" height="5"/>
+          <rect x="345" y="498" width="4" height="5"/>
+          <rect x="445" y="468" width="4" height="5"/>
+          <rect x="455" y="480" width="4" height="5"/>
+          <rect x="540" y="478" width="5" height="6"/>
+          <rect x="560" y="488" width="5" height="6"/>
+          <rect x="670" y="460" width="4" height="5"/>
+          <rect x="680" y="472" width="4" height="5"/>
+          <rect x="730" y="482" width="5" height="6"/>
+          <rect x="750" y="492" width="5" height="6"/>
+          <rect x="800" y="468" width="4" height="5"/>
+          <rect x="812" y="480" width="4" height="5"/>
+          <rect x="892" y="480" width="5" height="6"/>
+          <rect x="912" y="490" width="5" height="6"/>
+          <rect x="1012" y="488" width="4" height="5"/>
+          <rect x="1024" y="500" width="4" height="5"/>
+          <rect x="1120" y="473" width="5" height="6"/>
+          <rect x="1140" y="485" width="5" height="6"/>
+        </g>
+        <!-- ambient glows -->
+        <ellipse cx="400" cy="700" rx="300" ry="120" fill="#c8b89a" opacity="0.015"/>
+        <ellipse cx="1000" cy="720" rx="250" ry="100" fill="#c8b89a" opacity="0.012"/>
+        <rect width="1440" height="900" fill="url(#glow1)"/>
+        <rect width="1440" height="900" fill="url(#glow2)"/>
+        <!-- horizon glow line -->
+        <line x1="0" y1="600" x2="1440" y2="600" stroke="#c8b89a" stroke-width="0.5" opacity="0.08"/>
+      </svg>
+    </div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow">playlist.evanalmunawar.my.id</p>
+      <h1 class="hero-title">Midnight<br/><em>Playlist</em></h1>
+      <p class="hero-subtitle">A collection of songs I listen to while<br/>editing, thinking, and creating.</p>
+      <a href="#playlists" class="hero-cta">
+        <span>Explore Playlists</span>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8l5 5 5-5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <div class="hero-scroll-hint">
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- MOOD FILTER -->
+  <section class="mood-filter" id="mood-filter">
+    <div class="container">
+      <div class="mood-chips">
+        <button class="chip active" data-mood="all">All</button>
+        <button class="chip" data-mood="midnight">Midnight Drive</button>
+        <button class="chip" data-mood="editing">Editing Session</button>
+        <button class="chip" data-mood="calm">Calm Night</button>
+        <button class="chip" data-mood="cinematic">Cinematic</button>
+        <button class="chip" data-mood="late-night">Late Night Thoughts</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLAYLISTS -->
+  <section class="playlists" id="playlists">
+    <div class="container">
+
+      <div class="playlist-grid">
+
+        <!-- Card 1: Midnight Drive -->
+        <article class="playlist-card" data-mood="midnight" data-visible="false">
+          <div class="card-cover">
+            <div class="card-cover-art" style="background: linear-gradient(135deg, #0d0d0d 0%, #1a1410 50%, #0a0a0a 100%);">
+              <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="cover-svg">
+                <defs>
+                  <radialGradient id="rg1" cx="50%" cy="40%" r="60%">
+                    <stop offset="0%" stop-color="#c8b89a" stop-opacity="0.15"/>
+                    <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+                  </radialGradient>
+                </defs>
+                <rect width="200" height="200" fill="#0a0a0a"/>
+                <rect width="200" height="200" fill="url(#rg1)"/>
+                <circle cx="100" cy="85" r="30" fill="none" stroke="#c8b89a" stroke-width="0.5" opacity="0.4"/>
+                <circle cx="100" cy="85" r="50" fill="none" stroke="#c8b89a" stroke-width="0.3" opacity="0.2"/>
+                <circle cx="100" cy="85" r="70" fill="none" stroke="#c8b89a" stroke-width="0.2" opacity="0.1"/>
+                <line x1="100" y1="55" x2="100" y2="85" stroke="#c8b89a" stroke-width="0.8" opacity="0.6"/>
+                <line x1="100" y1="85" x2="115" y2="95" stroke="#c8b89a" stroke-width="0.6" opacity="0.5"/>
+                <circle cx="100" cy="85" r="3" fill="#c8b89a" opacity="0.7"/>
+                <!-- road perspective lines -->
+                <line x1="60" y1="180" x2="100" y2="130" stroke="#c8b89a" stroke-width="0.4" opacity="0.2"/>
+                <line x1="140" y1="180" x2="100" y2="130" stroke="#c8b89a" stroke-width="0.4" opacity="0.2"/>
+                <text x="100" y="170" text-anchor="middle" font-family="serif" font-size="9" fill="#c8b89a" opacity="0.35" letter-spacing="3">DRIVE</text>
+              </svg>
+            </div>
+            <div class="card-player-wrap">
+              <iframe
+                src="https://www.youtube.com/embed/videoseries?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG&autoplay=0&controls=1&rel=0&modestbranding=1&color=white"
+                title="Midnight Drive Playlist"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+            <button class="card-play-toggle" aria-label="Show player">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M7 5l6 4-6 4V5z" fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="card-mood-tag">Midnight Drive</div>
+            <h2 class="card-title">Night Roads</h2>
+            <p class="card-desc">Lo-fi beats and ambient textures for long drives through empty streets at 2 AM.</p>
+            <a href="https://www.youtube.com/playlist?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG" target="_blank" rel="noopener" class="card-btn">
+              <span>Open Playlist</span>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Card 2: Editing Session -->
+        <article class="playlist-card" data-mood="editing" data-visible="false">
+          <div class="card-cover">
+            <div class="card-cover-art" style="background: linear-gradient(135deg, #080e10 0%, #0d1a1a 50%, #08080a 100%);">
+              <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="cover-svg">
+                <defs>
+                  <radialGradient id="rg2" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#8ab4c8" stop-opacity="0.12"/>
+                    <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+                  </radialGradient>
+                </defs>
+                <rect width="200" height="200" fill="#090d0f"/>
+                <rect width="200" height="200" fill="url(#rg2)"/>
+                <!-- waveform bars -->
+                <g opacity="0.5">
+                  <rect x="25" y="95" width="4" height="10" fill="#8ab4c8" rx="1"/>
+                  <rect x="33" y="85" width="4" height="30" fill="#8ab4c8" rx="1"/>
+                  <rect x="41" y="75" width="4" height="50" fill="#8ab4c8" rx="1"/>
+                  <rect x="49" y="80" width="4" height="40" fill="#8ab4c8" rx="1"/>
+                  <rect x="57" y="68" width="4" height="64" fill="#8ab4c8" rx="1"/>
+                  <rect x="65" y="78" width="4" height="44" fill="#8ab4c8" rx="1"/>
+                  <rect x="73" y="72" width="4" height="56" fill="#8ab4c8" rx="1"/>
+                  <rect x="81" y="60" width="4" height="80" fill="#8ab4c8" rx="1"/>
+                  <rect x="89" y="55" width="4" height="90" fill="#8ab4c8" rx="1"/>
+                  <rect x="97" y="65" width="4" height="70" fill="#8ab4c8" rx="1"/>
+                  <rect x="105" y="58" width="4" height="84" fill="#8ab4c8" rx="1"/>
+                  <rect x="113" y="70" width="4" height="60" fill="#8ab4c8" rx="1"/>
+                  <rect x="121" y="75" width="4" height="50" fill="#8ab4c8" rx="1"/>
+                  <rect x="129" y="82" width="4" height="36" fill="#8ab4c8" rx="1"/>
+                  <rect x="137" y="78" width="4" height="44" fill="#8ab4c8" rx="1"/>
+                  <rect x="145" y="88" width="4" height="24" fill="#8ab4c8" rx="1"/>
+                  <rect x="153" y="92" width="4" height="16" fill="#8ab4c8" rx="1"/>
+                  <rect x="161" y="96" width="4" height="8" fill="#8ab4c8" rx="1"/>
+                  <rect x="169" y="93" width="4" height="14" fill="#8ab4c8" rx="1"/>
+                </g>
+                <text x="100" y="165" text-anchor="middle" font-family="monospace" font-size="8" fill="#8ab4c8" opacity="0.3" letter-spacing="4">SESSION</text>
+              </svg>
+            </div>
+            <div class="card-player-wrap">
+              <iframe
+                src="https://www.youtube.com/embed/videoseries?list=PLOHoVaTp8R7dfrJW5pumS0GEHMBNJn-H8&autoplay=0&controls=1&rel=0&modestbranding=1&color=white"
+                title="Editing Session Playlist"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+            <button class="card-play-toggle" aria-label="Show player">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M7 5l6 4-6 4V5z" fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="card-mood-tag">Editing Session</div>
+            <h2 class="card-title">Deep Focus</h2>
+            <p class="card-desc">Electronic textures and rhythmic flow. What plays when the timeline is open and nothing else matters.</p>
+            <a href="https://www.youtube.com/playlist?list=PLOHoVaTp8R7dfrJW5pumS0GEHMBNJn-H8" target="_blank" rel="noopener" class="card-btn">
+              <span>Open Playlist</span>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Card 3: Cinematic Atmosphere -->
+        <article class="playlist-card card-featured" data-mood="cinematic" data-visible="false">
+          <div class="card-cover">
+            <div class="card-cover-art" style="background: linear-gradient(135deg, #0c0a08 0%, #1c1510 50%, #0a0808 100%);">
+              <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="cover-svg">
+                <defs>
+                  <radialGradient id="rg3" cx="50%" cy="50%" r="55%">
+                    <stop offset="0%" stop-color="#e8c87a" stop-opacity="0.12"/>
+                    <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+                  </radialGradient>
+                </defs>
+                <rect width="200" height="200" fill="#0c0a08"/>
+                <rect width="200" height="200" fill="url(#rg3)"/>
+                <!-- film grain lines -->
+                <line x1="0" y1="0" x2="0" y2="200" stroke="#e8c87a" stroke-width="0.3" opacity="0.05"/>
+                <line x1="20" y1="0" x2="20" y2="200" stroke="#e8c87a" stroke-width="0.3" opacity="0.03"/>
+                <line x1="40" y1="0" x2="40" y2="200" stroke="#e8c87a" stroke-width="0.3" opacity="0.05"/>
+                <line x1="60" y1="0" x2="60" y2="200" stroke="#e8c87a" stroke-width="0.3" opacity="0.03"/>
+                <line x1="80" y1="0" x2="80" y2="200" stroke="#e8c87a" stroke-width="0.3" opacity="0.05"/>
+                <line x1="100" y1="0" x2="100" y2="200" stroke="#e8c87a" stroke-width="0.3" opacity="0.03"/>
+                <line x1="120" y1="0" x2="120" y2="200" stroke="#e8c87a" stroke-width="0.3" opacity="0.05"/>
+                <line x1="140" y1="0" x2="140" y2="200" stroke="#e8c87a" stroke-width="0.3" opacity="0.03"/>
+                <line x1="160" y1="0" x2="160" y2="200" stroke="#e8c87a" stroke-width="0.3" opacity="0.05"/>
+                <line x1="180" y1="0" x2="180" y2="200" stroke="#e8c87a" stroke-width="0.3" opacity="0.03"/>
+                <!-- film frame ornament -->
+                <rect x="30" y="30" width="140" height="140" fill="none" stroke="#e8c87a" stroke-width="0.5" opacity="0.25"/>
+                <rect x="38" y="38" width="124" height="124" fill="none" stroke="#e8c87a" stroke-width="0.3" opacity="0.15"/>
+                <!-- center star/compass -->
+                <line x1="100" y1="55" x2="100" y2="145" stroke="#e8c87a" stroke-width="0.6" opacity="0.4"/>
+                <line x1="55" y1="100" x2="145" y2="100" stroke="#e8c87a" stroke-width="0.6" opacity="0.4"/>
+                <line x1="68" y1="68" x2="132" y2="132" stroke="#e8c87a" stroke-width="0.4" opacity="0.2"/>
+                <line x1="132" y1="68" x2="68" y2="132" stroke="#e8c87a" stroke-width="0.4" opacity="0.2"/>
+                <circle cx="100" cy="100" r="8" fill="none" stroke="#e8c87a" stroke-width="0.8" opacity="0.5"/>
+                <circle cx="100" cy="100" r="2" fill="#e8c87a" opacity="0.7"/>
+                <text x="100" y="175" text-anchor="middle" font-family="serif" font-size="8" fill="#e8c87a" opacity="0.35" letter-spacing="4">CINEMATIC</text>
+              </svg>
+            </div>
+            <div class="card-player-wrap">
+              <iframe
+                src="https://www.youtube.com/embed/videoseries?list=PLw-VjHDlEOgs658kAHR_LAaILBXb-s6Q5&autoplay=0&controls=1&rel=0&modestbranding=1&color=white"
+                title="Cinematic Atmosphere Playlist"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+            <button class="card-play-toggle" aria-label="Show player">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M7 5l6 4-6 4V5z" fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="card-mood-tag card-mood-tag--gold">Cinematic</div>
+            <h2 class="card-title">Cinematic Atmosphere</h2>
+            <p class="card-desc">Orchestral layers, film scores, and soundscapes that turn any ordinary moment into a scene.</p>
+            <a href="https://www.youtube.com/playlist?list=PLw-VjHDlEOgs658kAHR_LAaILBXb-s6Q5" target="_blank" rel="noopener" class="card-btn card-btn--gold">
+              <span>Open Playlist</span>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Card 4: Calm Night -->
+        <article class="playlist-card" data-mood="calm" data-visible="false">
+          <div class="card-cover">
+            <div class="card-cover-art" style="background: linear-gradient(135deg, #080c10 0%, #0d1218 50%, #080a0c 100%);">
+              <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="cover-svg">
+                <defs>
+                  <radialGradient id="rg4" cx="50%" cy="35%" r="45%">
+                    <stop offset="0%" stop-color="#a0b4cc" stop-opacity="0.1"/>
+                    <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+                  </radialGradient>
+                </defs>
+                <rect width="200" height="200" fill="#090c10"/>
+                <rect width="200" height="200" fill="url(#rg4)"/>
+                <!-- moon -->
+                <circle cx="100" cy="75" r="28" fill="none" stroke="#a0b4cc" stroke-width="0.6" opacity="0.3"/>
+                <circle cx="112" cy="70" r="22" fill="#090c10"/>
+                <!-- stars -->
+                <circle cx="45" cy="40" r="1" fill="#a0b4cc" opacity="0.5"/>
+                <circle cx="155" cy="35" r="1.2" fill="#a0b4cc" opacity="0.6"/>
+                <circle cx="30" cy="80" r="0.8" fill="#a0b4cc" opacity="0.4"/>
+                <circle cx="170" cy="60" r="0.8" fill="#a0b4cc" opacity="0.4"/>
+                <circle cx="60" cy="25" r="0.6" fill="#a0b4cc" opacity="0.5"/>
+                <circle cx="130" cy="28" r="0.6" fill="#a0b4cc" opacity="0.4"/>
+                <circle cx="175" cy="90" r="0.5" fill="#a0b4cc" opacity="0.3"/>
+                <circle cx="20" cy="55" r="0.7" fill="#a0b4cc" opacity="0.5"/>
+                <!-- horizon glow -->
+                <ellipse cx="100" cy="160" rx="70" ry="20" fill="#a0b4cc" opacity="0.03"/>
+                <!-- ground silhouette -->
+                <rect x="0" y="148" width="200" height="52" fill="#060809"/>
+                <rect x="15" y="130" width="12" height="18" fill="#070a0d"/>
+                <rect x="40" y="120" width="8" height="28" fill="#060809"/>
+                <rect x="55" y="115" width="15" height="33" fill="#070a0d"/>
+                <rect x="140" y="118" width="10" height="30" fill="#060809"/>
+                <rect x="160" y="125" width="14" height="23" fill="#070a0d"/>
+                <rect x="175" y="132" width="10" height="16" fill="#060809"/>
+                <text x="100" y="178" text-anchor="middle" font-family="serif" font-size="8" fill="#a0b4cc" opacity="0.25" letter-spacing="3">CALM</text>
+              </svg>
+            </div>
+            <div class="card-player-wrap">
+              <iframe
+                src="https://www.youtube.com/embed/videoseries?list=PLaiJjHvEuSHCH5eHBPpRc12Kzz1HaA_Dd&autoplay=0&controls=1&rel=0&modestbranding=1&color=white"
+                title="Calm Night Playlist"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+            <button class="card-play-toggle" aria-label="Show player">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M7 5l6 4-6 4V5z" fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="card-mood-tag">Calm Night</div>
+            <h2 class="card-title">Still Hours</h2>
+            <p class="card-desc">Soft acoustic and ambient sounds for when the world is quiet and the mind finally settles.</p>
+            <a href="https://www.youtube.com/playlist?list=PLaiJjHvEuSHCH5eHBPpRc12Kzz1HaA_Dd" target="_blank" rel="noopener" class="card-btn">
+              <span>Open Playlist</span>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Card 5: Late Night Thoughts -->
+        <article class="playlist-card" data-mood="late-night" data-visible="false">
+          <div class="card-cover">
+            <div class="card-cover-art" style="background: linear-gradient(135deg, #0a080c 0%, #160e1a 50%, #08080c 100%);">
+              <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="cover-svg">
+                <defs>
+                  <radialGradient id="rg5" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#b09ec0" stop-opacity="0.1"/>
+                    <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+                  </radialGradient>
+                </defs>
+                <rect width="200" height="200" fill="#0a080c"/>
+                <rect width="200" height="200" fill="url(#rg5)"/>
+                <!-- thought lines / signal waves -->
+                <path d="M 30 100 Q 50 80 70 100 Q 90 120 110 100 Q 130 80 150 100 Q 170 120 190 100" fill="none" stroke="#b09ec0" stroke-width="0.6" opacity="0.25"/>
+                <path d="M 10 110 Q 30 85 55 110 Q 80 135 105 110 Q 130 85 155 110 Q 180 135 200 110" fill="none" stroke="#b09ec0" stroke-width="0.4" opacity="0.15"/>
+                <path d="M 30 90 Q 50 70 70 90 Q 90 110 110 90 Q 130 70 150 90 Q 170 110 190 90" fill="none" stroke="#b09ec0" stroke-width="0.4" opacity="0.15"/>
+                <!-- center pulse circle -->
+                <circle cx="100" cy="100" r="25" fill="none" stroke="#b09ec0" stroke-width="0.6" opacity="0.3"/>
+                <circle cx="100" cy="100" r="45" fill="none" stroke="#b09ec0" stroke-width="0.3" opacity="0.15"/>
+                <circle cx="100" cy="100" r="65" fill="none" stroke="#b09ec0" stroke-width="0.2" opacity="0.08"/>
+                <circle cx="100" cy="100" r="4" fill="#b09ec0" opacity="0.5"/>
+                <text x="100" y="175" text-anchor="middle" font-family="serif" font-size="8" fill="#b09ec0" opacity="0.3" letter-spacing="2">THOUGHTS</text>
+              </svg>
+            </div>
+            <div class="card-player-wrap">
+              <iframe
+                src="https://www.youtube.com/embed/videoseries?list=PLboThbKHHLzlQMvJGMF0iEPY6CpZl-Sm1&autoplay=0&controls=1&rel=0&modestbranding=1&color=white"
+                title="Late Night Thoughts Playlist"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+            <button class="card-play-toggle" aria-label="Show player">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M7 5l6 4-6 4V5z" fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="card-mood-tag">Late Night Thoughts</div>
+            <h2 class="card-title">Introspect</h2>
+            <p class="card-desc">Indie, alternative, and singer-songwriter pieces that feel like a 3 AM conversation with yourself.</p>
+            <a href="https://www.youtube.com/playlist?list=PLboThbKHHLzlQMvJGMF0iEPY6CpZl-Sm1" target="_blank" rel="noopener" class="card-btn">
+              <span>Open Playlist</span>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Card 6: Editing II -->
+        <article class="playlist-card" data-mood="editing" data-visible="false">
+          <div class="card-cover">
+            <div class="card-cover-art" style="background: linear-gradient(135deg, #080a08 0%, #101410 50%, #08080a 100%);">
+              <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="cover-svg">
+                <defs>
+                  <radialGradient id="rg6" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#9abca8" stop-opacity="0.1"/>
+                    <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+                  </radialGradient>
+                </defs>
+                <rect width="200" height="200" fill="#080a08"/>
+                <rect width="200" height="200" fill="url(#rg6)"/>
+                <!-- grid lines -->
+                <line x1="0" y1="50" x2="200" y2="50" stroke="#9abca8" stroke-width="0.3" opacity="0.1"/>
+                <line x1="0" y1="100" x2="200" y2="100" stroke="#9abca8" stroke-width="0.5" opacity="0.15"/>
+                <line x1="0" y1="150" x2="200" y2="150" stroke="#9abca8" stroke-width="0.3" opacity="0.1"/>
+                <line x1="50" y1="0" x2="50" y2="200" stroke="#9abca8" stroke-width="0.3" opacity="0.1"/>
+                <line x1="100" y1="0" x2="100" y2="200" stroke="#9abca8" stroke-width="0.5" opacity="0.15"/>
+                <line x1="150" y1="0" x2="150" y2="200" stroke="#9abca8" stroke-width="0.3" opacity="0.1"/>
+                <!-- timeline scrubber aesthetic -->
+                <rect x="20" y="92" width="160" height="2" fill="#9abca8" opacity="0.2" rx="1"/>
+                <rect x="20" y="92" width="85" height="2" fill="#9abca8" opacity="0.5" rx="1"/>
+                <circle cx="105" cy="93" r="4" fill="#9abca8" opacity="0.7"/>
+                <text x="100" y="170" text-anchor="middle" font-family="monospace" font-size="8" fill="#9abca8" opacity="0.3" letter-spacing="3">FLOW</text>
+              </svg>
+            </div>
+            <div class="card-player-wrap">
+              <iframe
+                src="https://www.youtube.com/embed/videoseries?list=PLOHoVaTp8R7dfrJW5pumS0GEHMBNJn-H8&autoplay=0&controls=1&rel=0&modestbranding=1&color=white"
+                title="Edit Flow Playlist"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+            <button class="card-play-toggle" aria-label="Show player">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M7 5l6 4-6 4V5z" fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <div class="card-mood-tag">Editing Session</div>
+            <h2 class="card-title">Edit Flow</h2>
+            <p class="card-desc">Minimal house and downtempo for those long render waits and perfect cut moments.</p>
+            <a href="https://www.youtube.com/playlist?list=PLOHoVaTp8R7dfrJW5pumS0GEHMBNJn-H8" target="_blank" rel="noopener" class="card-btn">
+              <span>Open Playlist</span>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE INTERLUDE -->
+  <section class="quote-section">
+    <div class="container">
+      <blockquote class="quote-block">
+        <span class="quote-mark">"</span>
+        Music gives color to the air of the moment.
+        <span class="quote-attr">— Karl Lagerfeld</span>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-glow"></div>
+      <a href="https://evanalmunawar.my.id" class="footer-logo">
+        <span class="nav-dot"></span>
+        evan
+      </a>
+      <p class="footer-copy">© 2026 M. Evan Almunawar</p>
+      <p class="footer-tagline">Crafted with intention</p>
+      <div class="footer-links">
+        <a href="https://evanalmunawar.my.id" class="footer-link">Portfolio</a>
+        <span class="footer-sep">·</span>
+        <a href="mailto:hello@evanalmunawar.my.id" class="footer-link">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
