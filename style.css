@@ -899,9 +899,4 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   transform:translateY(0);
 }
 
-..song-card.hidden{
-  opacity:0;
-  transform:translateY(20px);
-  pointer-events:none;
-  position:absolute;
-     }
+     
