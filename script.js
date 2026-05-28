@@ -169,9 +169,9 @@
   }
 
   /* ─────────────────────────────────────────────
-     7. PLAYLIST CARD REVEAL — staggered reveal
-     Each card gets .visible after a staggered delay
-     based on its position in the grid.
+     7a. SONG CARD REVEAL — staggered reveal
+     Only .song-card elements. These are also the
+     target of the genre filter (section 8).
   ───────────────────────────────────────────── */
   var cards = document.querySelectorAll('.song-card');
 
@@ -183,15 +183,39 @@
         var idx = Array.prototype.indexOf.call(cards, card);
         setTimeout(function () {
           card.classList.add('visible');
-        }, idx * 70); // 70ms stagger between each card
+        }, idx * 70);
         cardObs.unobserve(card);
       });
     }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
     cards.forEach(function (card) { cardObs.observe(card); });
   } else {
-    // Fallback: reveal all immediately
     cards.forEach(function (card) { card.classList.add('visible'); });
+  }
+
+  /* ─────────────────────────────────────────────
+     7b. PLAYLIST CARD REVEAL — staggered reveal
+     Separate observer for .playlist-card elements.
+     These are NEVER touched by the genre filter.
+  ───────────────────────────────────────────── */
+  var playlistCards = document.querySelectorAll('.playlist-card');
+
+  if ('IntersectionObserver' in window) {
+    var playlistCardObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var card = entry.target;
+        var idx = Array.prototype.indexOf.call(playlistCards, card);
+        setTimeout(function () {
+          card.classList.add('visible');
+        }, idx * 70);
+        playlistCardObs.unobserve(card);
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    playlistCards.forEach(function (card) { playlistCardObs.observe(card); });
+  } else {
+    playlistCards.forEach(function (card) { card.classList.add('visible'); });
   }
 
   /* ─────────────────────────────────────────────
