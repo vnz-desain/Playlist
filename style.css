@@ -1,70 +1,32 @@
 /* ============================================================
    M. EVAN ALMUNAWAR — Midnight Playlist
-   style-playlist.css  |  Diselaraskan dengan style-portofolio.css
+   style.css | Diselaraskan penuh dengan evanalmunawar.my.id
 
-   PERUBAHAN UTAMA DARI VERSI LAMA
-   ────────────────────────────────
-   1. CSS variables sepenuhnya diambil dari sistem portfolio:
-      --black, --black-soft, --black-card, --white, --white-dim,
-      --grey-border, --font-display, --font-body, --font-mono,
-      --t-fast, --t-normal, --red, --red-mid, --red-bright.
-      Variabel eksklusif playlist (--gold, --blue-tint, radius, dll)
-      DIHAPUS dan diganti dengan padanannya di sistem portfolio.
-
-   2. Tipografi: font-display kembali ke Bebas Neue (bukan Cormorant).
-      Cormorant tetap dipakai untuk elemen italic/serif seperti di portfolio.
-
-   3. Accent colour: --gold (#c8b89a) dipertahankan sebagai satu-satunya
-      warna tambahan yang tidak ada di portfolio — dipakai hanya pada
-      elemen playlist-spesifik (mood tag, card featured, quote mark).
-      Warna --red-bright tetap digunakan untuk section-label & nav-logo
-      agar identik dengan portfolio.
-
-   4. Scrollbar: diselaraskan — thumb pakai --red bukan --gray-2.
-
-   5. Nav: struktur transisi mengikuti portfolio (background + padding
-      transition, z-index 1000, border-bottom on scroll).
-      backdrop-filter DIHAPUS sesuai filosofi perf portfolio.
-
-   6. Hero: animasi reveal terpisah per elemen (reveal-up + delay class)
-      menggantikan satu blok hero-fadein tunggal — konsisten dengan portfolio.
-      hero-btn berbentuk rectangular (bukan pill/rounded) seperti portfolio.
-
-   7. Grain: diangkat ke .grain element (bukan ::before di body) agar
-      konsisten dengan HTML portfolio. Menggunakan teknik will-change:transform
-      + steps() animation yang sama persis.
-
-   8. Mood filter: sticky bar menggunakan --black (bukan gradient), chip
-      berbentuk rectangular tanpa border-radius besar — sesuai estetika portfolio.
-
-   9. Playlist card: border-radius DIHAPUS (portfolio tidak pakai radius).
-      box-shadow pada hover DIHAPUS — diganti border-color + translateY saja
-      (sesuai perf guideline portfolio: "border changes are composited").
-      contain:content ditambahkan seperti project-card portfolio.
-
-  10. card-btn: pill-shape DIHAPUS, diganti border-bottom underline style
-      seperti tombol link di portfolio.
-
-  11. Footer: diselaraskan — horizontal layout seperti portfolio,
-      footer-name pakai --red-bright, footer-glow dihapus (tidak ada di portfolio).
-
-  12. Entrance animation: menggunakan kelas .reveal-up + IntersectionObserver
-      yang sama dengan portfolio (bukan .in-view sistem terpisah).
-
-  13. @media (prefers-reduced-motion) ditambahkan sesuai portfolio.
+   SISTEM WARNA — Portfolio Evan Almunawar
+   ────────────────────────────────────────
+   Background   : #050505 (--black)
+   Surface      : #0D0D0D (--black-soft), #111111 (--black-card)
+   Accent merah : #8B0000, #A31515, #C41E3A (--red-bright) ← warna utama portfolio
+   Text utama   : #F0EDE8 (--white)
+   Text redup   : #9A9690 (--white-dim)
+   Border       : rgba(255,255,255,0.07) (--grey-border)
+   Gold accent  : #c8b89a (hanya untuk playlist cover art & featured card)
+   Font display : Bebas Neue
+   Font body    : Cormorant Garamond
+   Font mono    : Space Mono
 ============================================================ */
 
 /* ===== RESET & BASE ===== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ===== DESIGN TOKENS — identik dengan portfolio ===== */
+/* ===== DESIGN TOKENS — identik dengan portfolio evanalmunawar.my.id ===== */
 :root {
   /* Backgrounds */
   --black:       #050505;
   --black-soft:  #0D0D0D;
   --black-card:  #111111;
 
-  /* Accent — portfolio merah */
+  /* Accent merah — warna signature portfolio */
   --red:         #8B0000;
   --red-mid:     #A31515;
   --red-bright:  #C41E3A;
@@ -76,24 +38,27 @@
   /* Borders */
   --grey-border: rgba(255,255,255,0.07);
 
-  /* Font stacks — sama persis dengan portfolio */
+  /* Font stacks — identik dengan portfolio */
   --font-display: 'Bebas Neue', sans-serif;
   --font-body:    'Cormorant Garamond', serif;
   --font-mono:    'Space Mono', monospace;
 
-  /* Transitions — compositor-safe (transform + opacity only) */
+  /* Transitions — compositor-safe */
   --t-fast:   0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  --t-normal: 0.4s  cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --t-normal: 0.40s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* Playlist-only accent (gold untuk cover art & featured card) */
-  --gold:        #c8b89a;
-  --gold-dim:    rgba(200,184,154,0.10);
+  /* Playlist-only: gold untuk cover art & featured card */
+  --gold:      #c8b89a;
+  --gold-dim:  rgba(200,184,154,0.10);
+
+  --nav-h: 64px;
 }
 
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
-  scroll-padding-top: 70px;
+  scroll-padding-top: var(--nav-h);
 }
 
 body {
@@ -101,10 +66,11 @@ body {
   color: var(--white);
   font-family: var(--font-body);
   font-size: 18px;
+  font-weight: 300;
   line-height: 1.7;
   overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Scrollbar — identik dengan portfolio */
@@ -114,67 +80,61 @@ body {
 
 /* Selection */
 ::selection {
-  background: rgba(200,184,154,0.18);
+  background: rgba(196,30,58,0.18);
   color: var(--white);
 }
 
 img { display: block; width: 100%; height: 100%; object-fit: cover; }
 a   { color: inherit; text-decoration: none; }
+button { background: none; border: none; cursor: pointer; color: inherit; font: inherit; }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2.5rem;
+  padding: 0 clamp(1.25rem, 5vw, 2.5rem);
 }
 .section-pad { padding: 8rem 0; }
 
 
-/* ===== GRAIN =====
-   Identik dengan portfolio — will-change:transform + steps() animation.
-   Membutuhkan <div class="grain" aria-hidden="true"> di dalam <body>.
-*/
+/* ===== GRAIN OVERLAY — identik teknik portfolio ===== */
 .grain {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.025;
+  opacity: 0.03;
   will-change: transform;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 200px 200px;
   animation: grain 0.18s steps(1) infinite;
 }
 @keyframes grain {
-  0%  { transform: translate(0, 0); }
-  20% { transform: translate(-3%, 2%); }
-  40% { transform: translate(2%, -3%); }
-  60% { transform: translate(3%, 1%); }
-  80% { transform: translate(-1%, 3%); }
-  100%{ transform: translate(1%, -1%); }
+  0%   { transform: translate(0, 0); }
+  20%  { transform: translate(-3%, 2%); }
+  40%  { transform: translate(2%, -3%); }
+  60%  { transform: translate(3%, 1%); }
+  80%  { transform: translate(-1%, 3%); }
+  100% { transform: translate(1%, -1%); }
 }
 
 
-/* ===== NAVIGATION =====
-   backdrop-filter DIHAPUS — sama dengan portfolio.
-   Menggunakan solid semi-opaque bg saat scrolled.
-*/
+/* ===== NAVIGATION ===== */
 .nav {
   position: fixed;
   top: 0; left: 0; right: 0;
+  height: var(--nav-h);
   z-index: 1000;
-  padding: 1.5rem 2.5rem;
+  padding: 0 clamp(1.25rem, 5vw, 2.5rem);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  transition: background var(--t-normal), padding var(--t-fast);
+  transition: background var(--t-normal), border-color var(--t-normal);
 }
 .nav.scrolled {
   background: rgba(5,5,5,0.95);
-  padding: 0.9rem 2.5rem;
   border-bottom: 1px solid var(--grey-border);
 }
 
-/* Logo — identik dengan portfolio */
 .nav-logo {
   font-family: var(--font-display);
   font-size: 1.5rem;
@@ -182,7 +142,6 @@ a   { color: inherit; text-decoration: none; }
   color: var(--red-bright);
 }
 
-/* Tombol kembali ke portfolio */
 .nav-back {
   display: flex;
   align-items: center;
@@ -202,12 +161,14 @@ a   { color: inherit; text-decoration: none; }
 /* ===== HERO ===== */
 .hero {
   position: relative;
-  height: 100vh;
-  min-height: 600px;
+  min-height: 100svh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
   overflow: hidden;
+  padding: calc(var(--nav-h) + 2rem) clamp(1.5rem, 5vw, 3rem) 4rem;
 }
 
 .hero-bg {
@@ -223,131 +184,131 @@ a   { color: inherit; text-decoration: none; }
   height: 100%;
   object-fit: cover;
 }
-/* Gradient overlay identik dengan portfolio */
 .hero-bg::after {
   content: '';
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg,
-    rgba(5,5,5,0.25) 0%,
-    rgba(5,5,5,0.05) 40%,
-    rgba(5,5,5,0.65) 100%
+    rgba(5,5,5,0.35) 0%,
+    rgba(5,5,5,0.10) 40%,
+    rgba(5,5,5,0.75) 100%
   );
 }
 
 .hero-content {
   position: relative;
-  z-index: 10;
-  text-align: center;
-  padding: 0 1.5rem;
+  z-index: 1;
 }
 
-/* Eyebrow — sama dengan portfolio (pakai --red-bright) */
+/* Eyebrow — pakai --red-bright identik portfolio */
 .hero-eyebrow {
   font-family: var(--font-mono);
   font-size: 0.65rem;
-  letter-spacing: 0.4em;
+  letter-spacing: 0.35em;
   text-transform: uppercase;
   color: var(--red-bright);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
-/* Title — Bebas Neue seperti portfolio */
+/* Title — Bebas Neue */
 .hero-title {
   font-family: var(--font-display);
-  font-size: clamp(4rem, 11vw, 10rem);
-  line-height: 0.9;
+  font-size: clamp(4rem, 13vw, 10rem);
+  line-height: 0.92;
   letter-spacing: 0.04em;
+  text-transform: uppercase;
   color: var(--white);
-  margin-bottom: 1.5rem;
 }
-.hero-title .line { display: block; }
-
-/* Baris italic — pakai Cormorant seperti pola accent-line portfolio */
-.hero-title .accent-line {
+.hero-title em {
   font-family: var(--font-body);
   font-style: italic;
   font-weight: 300;
   font-size: 0.72em;
   color: var(--gold);
+  text-transform: none;
+  display: block;
   letter-spacing: 0.02em;
 }
 
 .hero-sub {
-  font-family: var(--font-body);
-  font-size: clamp(1rem, 2.2vw, 1.5rem);
-  font-style: italic;
-  font-weight: 300;
+  margin-top: 1.5rem;
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
   color: var(--white-dim);
-  letter-spacing: 0.05em;
-  margin-bottom: 3rem;
+  font-style: italic;
+  max-width: 42ch;
+  margin-inline: auto;
 }
 
-/* CTA button — rectangular, identik dengan .hero-btn portfolio */
+/* CTA button — rectangular, identik portfolio */
 .hero-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.8rem;
-  padding: 1rem 2.2rem;
+  gap: 0.7rem;
+  margin-top: 2.5rem;
+  padding: 0.9rem 2.1rem;
   border: 1px solid var(--red);
   background: transparent;
   color: var(--white);
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   cursor: pointer;
   transition: background-color var(--t-fast), border-color var(--t-fast);
   touch-action: manipulation;
 }
-.hero-btn:hover, .hero-btn:focus-visible {
+.hero-btn:hover,
+.hero-btn:focus-visible {
   background-color: var(--red);
-  border-color: var(--red);
+  border-color: var(--red-bright);
+  outline: none;
 }
 .hero-btn svg { transition: transform var(--t-fast); flex-shrink: 0; }
 .hero-btn:hover svg { transform: translateX(4px); }
 
-/* Scroll indicator — identik portfolio */
+/* Scroll indicator */
 .scroll-indicator {
   position: absolute;
   bottom: 2.5rem;
   left: 50%;
-  transform: translate(-50%, 0);
-  z-index: 10;
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
+  z-index: 1;
 }
 .scroll-line {
-  display: block;
-  width: 1px; height: 44px;
-  background: linear-gradient(180deg, var(--red-bright), transparent);
-  animation: scroll-pulse 2.5s ease-in-out infinite;
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, var(--red-bright), transparent);
+  animation: scrollPulse 2.5s ease-in-out infinite;
 }
-@keyframes scroll-pulse {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.2; }
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 1; }
 }
 .scroll-label {
   font-family: var(--font-mono);
   font-size: 0.55rem;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.25em;
   color: var(--white-dim);
 }
 
-/* Garis bawah hero — identik portfolio */
+/* Garis merah bawah hero */
 .hero-rule {
   position: absolute;
   bottom: 0; left: 0; right: 0;
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--red), transparent);
-  z-index: 10;
+  z-index: 1;
 }
 
 
-/* ===== REVEAL ANIMATIONS — identik dengan portfolio ===== */
-.reveal-up, .reveal-left, .reveal-right {
+/* ===== REVEAL ANIMATIONS — identik portofolio ===== */
+.reveal-up,
+.reveal-left,
+.reveal-right {
   opacity: 0;
   transition:
     opacity  0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94),
@@ -368,13 +329,14 @@ a   { color: inherit; text-decoration: none; }
 .delay-1 { transition-delay: 0.1s !important; }
 .delay-2 { transition-delay: 0.2s !important; }
 .delay-3 { transition-delay: 0.3s !important; }
+.delay-4 { transition-delay: 0.4s !important; }
 
 
-/* ===== SECTION TYPOGRAPHY — identik portfolio ===== */
+/* ===== SECTION TYPOGRAPHY ===== */
 .section-label {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.3em;
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--red-bright);
   margin-bottom: 1rem;
@@ -382,24 +344,28 @@ a   { color: inherit; text-decoration: none; }
 .section-title {
   font-family: var(--font-display);
   font-size: clamp(2.8rem, 5.5vw, 5rem);
-  line-height: 1.0;
-  letter-spacing: 0.03em;
+  line-height: 0.97;
+  letter-spacing: 0.04em;
   color: var(--white);
   margin-bottom: 2.5rem;
 }
 .section-title em {
-  font-style: normal;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(240,237,232,0.35);
+  font-family: var(--font-body);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 0.78em;
+  color: var(--gold);
+  text-transform: none;
+  display: block;
 }
 .section-header { margin-bottom: 4rem; }
 
 
 /* ===== MOOD FILTER ===== */
-.mood-filter {
-  padding: 5rem 0 1.5rem;
+.mood-section {
+  padding: 3rem 0 1.5rem;
   position: sticky;
-  top: 70px;           /* sama dengan scroll-padding-top portfolio */
+  top: var(--nav-h);
   z-index: 50;
   background: var(--black);
   border-bottom: 1px solid var(--grey-border);
@@ -408,7 +374,7 @@ a   { color: inherit; text-decoration: none; }
 .mood-label {
   font-family: var(--font-mono);
   font-size: 0.6rem;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--white-dim);
   margin-bottom: 1rem;
@@ -425,12 +391,12 @@ a   { color: inherit; text-decoration: none; }
 }
 .mood-chips::-webkit-scrollbar { display: none; }
 
-/* Chip — rectangular, tanpa radius besar, sesuai estetika portfolio */
+/* Chip — rectangular, tanpa radius besar */
 .chip {
   flex-shrink: 0;
   font-family: var(--font-mono);
   font-size: 0.62rem;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--white-dim);
   background: transparent;
@@ -446,32 +412,26 @@ a   { color: inherit; text-decoration: none; }
   border-color: rgba(255,255,255,0.18);
 }
 .chip.active {
-  color: var(--gold);
-  border-color: rgba(200,184,154,0.35);
-  background: var(--gold-dim);
+  color: var(--red-bright);
+  border-color: rgba(196,30,58,0.4);
+  background: rgba(196,30,58,0.06);
 }
 
 
 /* ===== PLAYLISTS SECTION ===== */
-.playlists {
+.playlists-section {
   background: var(--black);
-  padding: 6rem 0 8rem;
+  padding: 5rem 0 7rem;
 }
 
 .playlist-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+  gap: 1.5px;
 }
 
 
-/* ===== PLAYLIST CARD =====
-   Mengikuti konvensi project-card portfolio:
-   - Tanpa border-radius
-   - Hover: border-color + translateY, tanpa box-shadow
-   - contain:content
-   - Transition hanya transform + border-color (compositor-safe)
-*/
+/* ===== PLAYLIST CARD ===== */
 .playlist-card {
   position: relative;
   background: var(--black-card);
@@ -480,39 +440,40 @@ a   { color: inherit; text-decoration: none; }
   contain: content;
   display: flex;
   flex-direction: column;
-  /* State awal untuk reveal animation */
+  /* Reveal state awal */
   opacity: 0;
-  transform: translateY(32px);
+  transform: translateY(28px);
   transition:
-    opacity 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    opacity  0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94),
     transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .playlist-card.visible {
   opacity: 1;
   transform: translateY(0);
-}
-/* Setelah visible, ubah transition agar hover terasa responsif */
-.playlist-card.visible {
   transition:
-    opacity 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    opacity  0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94),
     transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94),
     border-color var(--t-fast);
 }
+.playlist-card.hidden {
+  display: none;
+}
 .playlist-card:hover {
-  border-color: rgba(196,30,58,0.35);
-  transform: translateY(-5px);
+  border-color: rgba(196,30,58,0.3);
+  transform: translateY(-4px);
 }
 
-/* Featured card — gold border seperti portofolio punya accent tersendiri */
+/* Featured card */
 .playlist-card.card-featured {
   grid-column: span 2;
-  border-color: rgba(200,184,154,0.15);
+  border-color: rgba(200,184,154,0.12);
 }
 .playlist-card.card-featured:hover {
-  border-color: rgba(200,184,154,0.3);
+  border-color: rgba(200,184,154,0.28);
+  transform: translateY(-4px);
 }
 
-/* Stagger delays — mengikuti pola .delay-N portfolio */
+/* Stagger delays */
 .playlist-card:nth-child(1) { transition-delay: 0.05s; }
 .playlist-card:nth-child(2) { transition-delay: 0.12s; }
 .playlist-card:nth-child(3) { transition-delay: 0.19s; }
@@ -520,12 +481,12 @@ a   { color: inherit; text-decoration: none; }
 .playlist-card:nth-child(5) { transition-delay: 0.33s; }
 .playlist-card:nth-child(6) { transition-delay: 0.40s; }
 
-/* Hover glow — pseudo-element seperti project-card portfolio */
+/* Hover glow pseudo-element */
 .playlist-card::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 40%, rgba(196,30,58,0.06) 0%, transparent 65%);
+  background: radial-gradient(circle at 50% 35%, rgba(196,30,58,0.07) 0%, transparent 65%);
   opacity: 0;
   transition: opacity var(--t-fast);
   pointer-events: none;
@@ -533,7 +494,7 @@ a   { color: inherit; text-decoration: none; }
 }
 .playlist-card:hover::after { opacity: 1; }
 .playlist-card.card-featured::after {
-  background: radial-gradient(circle at 50% 40%, rgba(200,184,154,0.05) 0%, transparent 65%);
+  background: radial-gradient(circle at 50% 35%, rgba(200,184,154,0.05) 0%, transparent 65%);
 }
 
 
@@ -556,7 +517,7 @@ a   { color: inherit; text-decoration: none; }
 }
 .playlist-card:hover .card-cover-art { transform: scale(1.04); }
 
-.cover-svg { width: 55%; height: 55%; }
+.cover-svg { width: 55%; height: 55%; opacity: 0.85; }
 
 /* Player embed */
 .card-player-wrap {
@@ -572,21 +533,26 @@ a   { color: inherit; text-decoration: none; }
   opacity: 1;
   pointer-events: auto;
 }
-.card-cover.player-open .card-cover-art { opacity: 0; pointer-events: none; }
+.card-cover.player-open .card-cover-art {
+  opacity: 0;
+  pointer-events: none;
+}
 
 .card-player-wrap iframe {
-  width: 100%; height: 100%;
+  width: 100%;
+  height: 100%;
   border: none;
   display: block;
 }
 
-/* Play toggle — rectangular seperti elemen UI portfolio, tanpa border-radius */
+/* Play toggle button */
 .card-play-toggle {
   position: absolute;
   bottom: 0.75rem;
   right: 0.75rem;
   z-index: 3;
-  width: 36px; height: 36px;
+  width: 36px;
+  height: 36px;
   background: rgba(5,5,5,0.82);
   border: 1px solid var(--grey-border);
   color: var(--white);
@@ -594,62 +560,69 @@ a   { color: inherit; text-decoration: none; }
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;
   transition: opacity var(--t-fast), border-color var(--t-fast), background-color var(--t-fast);
   touch-action: manipulation;
 }
-.card-cover:hover .card-play-toggle { opacity: 1; }
+/* Selalu tampil di touch; fade-in on hover di desktop */
+@media (hover: hover) {
+  .card-play-toggle { opacity: 0; }
+  .card-cover:hover .card-play-toggle { opacity: 1; }
+}
 .card-play-toggle:hover {
-  border-color: var(--gold);
-  background-color: rgba(200,184,154,0.12);
+  border-color: var(--red-bright);
+  background-color: rgba(196,30,58,0.12);
 }
 
 
 /* ─── Card Body ─── */
 .card-body {
-  padding: 1.5rem;
+  padding: 1.5rem 1.6rem 1.6rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.45rem;
   flex: 1;
   position: relative;
   z-index: 1;
+  border-top: 1px solid var(--grey-border);
 }
 
-/* Mood tag — mengikuti .card-num portfolio */
+/* Mood tag — pakai --red-bright seperti portfolio section labels */
 .card-mood-tag {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: 0.58rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--red-bright);
-  display: block;
-  margin-bottom: 0.25rem;
+  display: inline-block;
+  border: 1px solid rgba(196,30,58,0.25);
+  padding: 0.2rem 0.6rem;
+  margin-bottom: 0.5rem;
 }
 .card-mood-tag--gold {
   color: var(--gold);
+  border-color: rgba(200,184,154,0.3);
 }
 
-/* Card title — identik dengan .card-title portfolio */
+/* Card title */
 .card-title {
   font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
   letter-spacing: 0.05em;
+  line-height: 1;
   color: var(--white);
-  line-height: 1.1;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.35rem;
 }
 
-/* Card desc — identik dengan .card-desc portfolio */
+/* Card desc */
 .card-desc {
   font-size: 0.88rem;
   color: var(--white-dim);
-  line-height: 1.6;
+  line-height: 1.65;
   font-weight: 300;
   flex: 1;
 }
 
-/* Card button — underline style seperti nav-link portfolio, bukan pill */
+/* Card button — underline style, identik pola portfolio */
 .card-btn {
   display: inline-flex;
   align-items: center;
@@ -660,50 +633,48 @@ a   { color: inherit; text-decoration: none; }
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--white-dim);
-  position: relative;
-  margin-top: 0.5rem;
-  transition: color var(--t-fast);
+  border-bottom: 1px solid var(--grey-border);
+  padding-bottom: 0.15rem;
+  margin-top: 0.75rem;
+  transition: color var(--t-fast), border-color var(--t-fast);
 }
-.card-btn::after {
-  content: '';
-  position: absolute;
-  bottom: -3px; left: 0;
-  width: 0; height: 1px;
-  background: var(--red-bright);
-  transition: width var(--t-fast);
+.card-btn:hover {
+  color: var(--red-bright);
+  border-color: rgba(196,30,58,0.5);
 }
-.card-btn:hover { color: var(--white); }
-.card-btn:hover::after { width: 100%; }
-
-.card-btn--gold { color: var(--gold); }
-.card-btn--gold::after { background: var(--gold); }
-.card-btn--gold:hover { color: var(--white); }
+.card-btn--gold {
+  color: var(--gold);
+  border-color: rgba(200,184,154,0.4);
+}
+.card-btn--gold:hover {
+  color: var(--white);
+  border-color: var(--white-dim);
+}
 
 
 /* ===== QUOTE SECTION ===== */
 .quote-section {
   background: var(--black-soft);
-  padding: 8rem 0;
+  padding: 7rem 0;
   border-top: 1px solid var(--grey-border);
   border-bottom: 1px solid var(--grey-border);
   position: relative;
   contain: layout;
 }
-/* Glow pseudo-element — seperti .about::before dan .skills::before di portfolio */
 .quote-section::before {
   content: '';
   position: absolute;
   left: 50%; top: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   width: 500px; height: 300px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(200,184,154,0.035) 0%, transparent 60%);
+  background: radial-gradient(circle, rgba(196,30,58,0.03) 0%, transparent 60%);
   pointer-events: none;
 }
 
 .quote-block {
   font-family: var(--font-body);
-  font-size: clamp(1.35rem, 3vw, 1.85rem);
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
   font-weight: 300;
   font-style: italic;
   line-height: 1.5;
@@ -721,7 +692,7 @@ a   { color: inherit; text-decoration: none; }
   font-size: 5rem;
   line-height: 0.6;
   color: var(--red-bright);
-  opacity: 0.25;
+  opacity: 0.2;
   margin-bottom: 0.75rem;
 }
 
@@ -730,7 +701,7 @@ a   { color: inherit; text-decoration: none; }
   font-family: var(--font-mono);
   font-style: normal;
   font-size: 0.62rem;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--white-dim);
   margin-top: 1.5rem;
@@ -741,25 +712,29 @@ a   { color: inherit; text-decoration: none; }
 .footer {
   background: var(--black);
   border-top: 1px solid var(--grey-border);
-  padding: 2rem 0;
+  padding: 2.5rem 0;
 }
 .footer-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.75rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 5vw, 2.5rem);
 }
 .footer-name {
   font-family: var(--font-display);
-  font-size: 1.1rem;
-  letter-spacing: 0.1em;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
   color: var(--red-bright);
 }
-.footer-copy, .footer-craft {
+.footer-copy,
+.footer-craft {
   font-family: var(--font-mono);
   font-size: 0.6rem;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.14em;
   color: var(--white-dim);
 }
 .footer-links {
@@ -769,7 +744,7 @@ a   { color: inherit; text-decoration: none; }
 .footer-link {
   font-family: var(--font-mono);
   font-size: 0.6rem;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--white-dim);
   transition: color var(--t-fast);
@@ -779,19 +754,18 @@ a   { color: inherit; text-decoration: none; }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
-  .playlist-grid { grid-template-columns: repeat(2, 1fr); }
+  .playlist-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
   .playlist-card.card-featured { grid-column: span 2; }
 }
-@media (max-width: 768px) {
-  .section-pad { padding: 5rem 0; }
-  .container { padding: 0 1.25rem; }
-  .playlist-grid { grid-template-columns: 1fr; gap: 1rem; }
+@media (max-width: 720px) {
+  .playlist-grid { grid-template-columns: 1fr; gap: 1px; }
   .playlist-card.card-featured { grid-column: span 1; }
-  .hero-title { font-size: clamp(2.8rem, 14vw, 5rem); }
+  .section-pad { padding: 5rem 0; }
   .footer-inner { flex-direction: column; text-align: center; }
   .footer-links { justify-content: center; }
-  .card-play-toggle { opacity: 1; } /* always visible on touch devices */
-  .delay-1, .delay-2, .delay-3 { transition-delay: 0s !important; }
+  /* Always show play button on touch */
+  .card-play-toggle { opacity: 1 !important; }
+  .delay-1, .delay-2, .delay-3, .delay-4 { transition-delay: 0s !important; }
 }
 @media (max-width: 480px) {
   .hero-btn { width: 100%; justify-content: center; }
@@ -799,7 +773,7 @@ a   { color: inherit; text-decoration: none; }
 }
 
 
-/* ===== REDUCED MOTION — identik portfolio ===== */
+/* ===== REDUCED MOTION ===== */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -808,12 +782,6 @@ a   { color: inherit; text-decoration: none; }
     scroll-behavior: auto !important;
   }
   .grain { animation: none; }
-  .reveal-up, .reveal-left, .reveal-right {
-    opacity: 1;
-    transform: none;
-  }
-  .playlist-card {
-    opacity: 1;
-    transform: none;
-  }
+  .reveal-up, .reveal-left, .reveal-right { opacity: 1; transform: none; }
+  .playlist-card { opacity: 1; transform: none; }
 }
