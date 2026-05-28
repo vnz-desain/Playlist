@@ -173,7 +173,7 @@
      Each card gets .visible after a staggered delay
      based on its position in the grid.
   ───────────────────────────────────────────── */
-  var cards = document.querySelectorAll('.song-card');
+  var cards = document.querySelectorAll('.songs-section .song-card');
 
   if ('IntersectionObserver' in window) {
     var cardObs = new IntersectionObserver(function (entries) {
@@ -226,7 +226,7 @@
 
         if (match) {
           // Show card: remove hidden, re-trigger reveal animation
-          card.classList.remove('hidden');
+          card.style.display = 'block';
           card.classList.remove('visible');
           void card.offsetWidth; // force browser reflow to reset animation
           setTimeout(function () {
@@ -235,7 +235,7 @@
         } else {
           // Hide card: remove visible first to avoid stuck state
           card.classList.remove('visible');
-          card.classList.add('hidden');
+          card.style.display = 'none';
         }
       });
     });
