@@ -7,7 +7,7 @@
   <title>Midnight Playlist — M. Evan Almunawar</title>
   <meta name="description" content="A collection of songs I listen to while editing, thinking, and creating." />
 
-  <!-- Fonts identik dengan portfolio: Bebas Neue + Cormorant Garamond + Space Mono -->
+  <!-- Fonts: Bebas Neue + Cormorant Garamond + Space Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -15,12 +15,11 @@
     rel="stylesheet"
   />
 
-  <!-- Stylesheet playlist yang telah diselaraskan -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- Grain overlay (teknik identik portfolio) -->
+  <!-- Grain overlay (film grain texture — fixed overlay) -->
   <div class="grain" aria-hidden="true"></div>
 
   <!-- ===================== NAV ===================== -->
@@ -35,9 +34,16 @@
   </nav>
 
   <!-- ===================== HERO ===================== -->
+  <!--
+    HERO SECTION
+    - hero-bg: cityscape SVG background (z-index: 0)
+    - hero-content: all text elements (z-index: 2)
+    - scroll-indicator: bottom animated line (z-index: 2)
+    Do NOT add position:relative/static to .hero-bg or remove z-index values.
+  -->
   <section class="hero" id="hero">
+    <!-- Background layer — stays BEHIND content -->
     <div class="hero-bg" aria-hidden="true">
-      <!-- SVG cityscape — sama estetika dark portfolio -->
       <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <radialGradient id="gHero1" cx="50%" cy="60%" r="50%">
@@ -50,7 +56,7 @@
           </radialGradient>
         </defs>
         <rect width="1440" height="900" fill="#080808"/>
-        <!-- city silhouette -->
+        <!-- City silhouette -->
         <rect x="0"    y="600" width="1440" height="300" fill="#0a0a0a"/>
         <rect x="60"   y="540" width="30"   height="60"  fill="#111"/>
         <rect x="100"  y="510" width="20"   height="90"  fill="#0e0e0e"/>
@@ -68,7 +74,7 @@
         <rect x="1110" y="465" width="50"   height="135" fill="#0b0b0b"/>
         <rect x="1280" y="505" width="28"   height="95"  fill="#0f0f0f"/>
         <rect x="1390" y="535" width="50"   height="65"  fill="#111"/>
-        <!-- window lights — warna merah redup sesuai palette portfolio -->
+        <!-- Window lights (red accents) -->
         <g fill="#C41E3A" opacity="0.08">
           <rect x="205" y="495" width="3" height="4"/><rect x="335" y="488" width="4" height="5"/>
           <rect x="445" y="468" width="4" height="5"/><rect x="540" y="478" width="5" height="6"/>
@@ -76,21 +82,21 @@
           <rect x="892" y="480" width="5" height="6"/><rect x="1012" y="488" width="4" height="5"/>
           <rect x="1120" y="473" width="5" height="6"/>
         </g>
-        <!-- ambient glows merah -->
+        <!-- Ambient glows -->
         <ellipse cx="400"  cy="700" rx="300" ry="120" fill="#8B0000" opacity="0.015"/>
         <ellipse cx="1000" cy="720" rx="250" ry="100" fill="#8B0000" opacity="0.010"/>
         <rect width="1440" height="900" fill="url(#gHero1)"/>
         <rect width="1440" height="900" fill="url(#gHero2)"/>
-        <!-- horizon accent line — merah portfolio -->
+        <!-- Horizon accent line -->
         <line x1="0" y1="600" x2="1440" y2="600" stroke="#C41E3A" stroke-width="0.5" opacity="0.1"/>
       </svg>
     </div>
 
-    <!-- Hero rule merah -->
+    <!-- Decorative red line at bottom of hero -->
     <div class="hero-rule" aria-hidden="true"></div>
 
+    <!-- Hero text content — always above background -->
     <div class="hero-content">
-      <!-- Eyebrow pakai reveal-up + delay -->
       <p class="hero-eyebrow reveal-up">playlist.evanalmunawar.my.id</p>
       <h1 class="hero-title reveal-up delay-1">
         Midnight
@@ -111,22 +117,44 @@
     </div>
   </section>
 
-  <!-- ===================== MOOD FILTER ===================== -->
-  <section class="mood-section" id="mood-filter">
+  <!-- ===================== GENRE FILTER ===================== -->
+  <!--
+    FILTER SECTION
+    ─────────────────────────────────────────────
+    TO ADD A NEW FILTER BUTTON:
+      1. Add a new <button> below with data-genre="your-genre"
+      2. Match the data-genre value to data-category on your playlist cards
+      3. The JS will handle showing/hiding automatically
+
+    CURRENT GENRES: all | kpop | cpop | jpop | lofi | instrumental | night-drive
+  -->
+  <section class="mood-section" id="genre-filter">
     <div class="container">
-      <p class="mood-label">— Filter by mood</p>
+      <p class="mood-label">— Filter by genre</p>
       <div class="mood-chips">
-        <button class="chip active" data-mood="all">All</button>
-        <button class="chip" data-mood="midnight">Midnight Drive</button>
-        <button class="chip" data-mood="editing">Editing Session</button>
-        <button class="chip" data-mood="calm">Calm Night</button>
-        <button class="chip" data-mood="cinematic">Cinematic</button>
-        <button class="chip" data-mood="late-night">Late Night Thoughts</button>
+        <!-- FILTER BUTTONS — edit data-genre to match playlist card data-category values -->
+        <button class="chip active" data-genre="all">All</button>
+        <button class="chip" data-genre="kpop">K-Pop</button>
+        <button class="chip" data-genre="cpop">C-Pop</button>
+        <button class="chip" data-genre="jpop">J-Pop</button>
+        <button class="chip" data-genre="lofi">Lofi</button>
+        <button class="chip" data-genre="instrumental">Instrumental</button>
+        <button class="chip" data-genre="night-drive">Night Drive</button>
       </div>
     </div>
   </section>
 
   <!-- ===================== PLAYLISTS ===================== -->
+  <!--
+    PLAYLISTS SECTION
+    Keep "MY PLAYLISTS" label and "SELECTED SOUNDS" heading as-is.
+    Do NOT rename or remove this section.
+
+    TO ADD A NEW PLAYLIST CARD:
+      1. Copy one of the <!-- EDIT PLAYLIST HERE --> blocks below
+      2. Paste it inside .playlist-grid
+      3. Update: data-category, iframe src, playlist link, title, description, cover image
+  -->
   <section class="playlists-section" id="playlists">
     <div class="container">
 
@@ -137,31 +165,44 @@
 
       <div class="playlist-grid">
 
-        <!-- Card 1: Midnight Drive -->
-        <article class="playlist-card" data-mood="midnight">
+        <!-- ════════════════════════════════════════════
+             EDIT PLAYLIST HERE — Card 1: K-Pop
+             ════════════════════════════════════════════
+             data-category: kpop | cpop | jpop | lofi | instrumental | night-drive
+             To change:
+               - Link: edit href in <a class="card-btn"> AND the iframe src list= param
+               - Image: change style="background-image:url('images/your-cover.jpg')" on .card-cover-art
+                        (if no image file, the SVG fallback art shows automatically)
+               - Title: edit text in <h2 class="card-title">
+               - Description: edit text in <p class="card-desc">
+               - Category tag label: edit text in <div class="card-mood-tag">
+               - Genre filter: change data-category="kpop" to match a filter button's data-genre
+        -->
+        <article class="playlist-card" data-category="kpop">
           <div class="card-cover">
+            <!-- COVER ART — change background-image url to use a custom image -->
+            <!-- If no image, the SVG art below shows as fallback -->
             <div class="card-cover-art" style="background:linear-gradient(135deg,#0a0a0a 0%,#14100a 50%,#0a0a0a 100%)">
               <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="cover-svg">
-                <defs><radialGradient id="rg1" cx="50%" cy="40%" r="60%">
+                <defs><radialGradient id="rg-kpop" cx="50%" cy="40%" r="60%">
                   <stop offset="0%" stop-color="#C41E3A" stop-opacity="0.12"/>
                   <stop offset="100%" stop-color="#000" stop-opacity="0"/>
                 </radialGradient></defs>
                 <rect width="200" height="200" fill="#0a0a0a"/>
-                <rect width="200" height="200" fill="url(#rg1)"/>
+                <rect width="200" height="200" fill="url(#rg-kpop)"/>
                 <circle cx="100" cy="85" r="30" fill="none" stroke="#C41E3A" stroke-width="0.5" opacity="0.35"/>
                 <circle cx="100" cy="85" r="50" fill="none" stroke="#C41E3A" stroke-width="0.3" opacity="0.18"/>
                 <line x1="100" y1="55" x2="100" y2="85" stroke="#C41E3A" stroke-width="0.8" opacity="0.55"/>
                 <line x1="100" y1="85" x2="115" y2="95" stroke="#C41E3A" stroke-width="0.6" opacity="0.45"/>
                 <circle cx="100" cy="85" r="3" fill="#C41E3A" opacity="0.65"/>
-                <line x1="60" y1="180" x2="100" y2="130" stroke="#C41E3A" stroke-width="0.4" opacity="0.18"/>
-                <line x1="140" y1="180" x2="100" y2="130" stroke="#C41E3A" stroke-width="0.4" opacity="0.18"/>
-                <text x="100" y="170" text-anchor="middle" font-family="serif" font-size="9" fill="#C41E3A" opacity="0.3" letter-spacing="3">DRIVE</text>
+                <text x="100" y="170" text-anchor="middle" font-family="serif" font-size="9" fill="#C41E3A" opacity="0.3" letter-spacing="3">K-POP</text>
               </svg>
             </div>
+            <!-- PLAYER EMBED — change list= param to your YouTube playlist ID -->
             <div class="card-player-wrap">
               <iframe
                 src="https://www.youtube.com/embed/videoseries?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG&autoplay=0&controls=1&rel=0&modestbranding=1&color=white"
-                title="Midnight Drive Playlist"
+                title="K-Pop Playlist"
                 allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
                 allowfullscreen
                 loading="lazy">
@@ -172,9 +213,13 @@
             </button>
           </div>
           <div class="card-body">
-            <div class="card-mood-tag">Midnight Drive</div>
+            <!-- GENRE TAG — change to match the playlist genre -->
+            <div class="card-mood-tag">K-Pop</div>
+            <!-- TITLE — change to your playlist name -->
             <h2 class="card-title">Night Roads</h2>
-            <p class="card-desc">Lo-fi beats and ambient textures for long drives through empty streets at 2 AM.</p>
+            <!-- DESCRIPTION — change to describe the playlist -->
+            <p class="card-desc">K-pop beats and dreamy synths for late-night playlists and neon-lit moments.</p>
+            <!-- PLAYLIST LINK — change href to your YouTube playlist URL -->
             <a href="https://www.youtube.com/playlist?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG" target="_blank" rel="noopener" class="card-btn">
               <span>Open Playlist</span>
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -182,17 +227,19 @@
           </div>
         </article>
 
-        <!-- Card 2: Editing Session -->
-        <article class="playlist-card" data-mood="editing">
+        <!-- ════════════════════════════════════════════
+             EDIT PLAYLIST HERE — Card 2: Lofi
+             ════════════════════════════════════════════ -->
+        <article class="playlist-card" data-category="lofi">
           <div class="card-cover">
             <div class="card-cover-art" style="background:linear-gradient(135deg,#080e10 0%,#0d1414 50%,#08080a 100%)">
               <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="cover-svg">
-                <defs><radialGradient id="rg2" cx="50%" cy="50%" r="50%">
+                <defs><radialGradient id="rg-lofi" cx="50%" cy="50%" r="50%">
                   <stop offset="0%" stop-color="#C41E3A" stop-opacity="0.10"/>
                   <stop offset="100%" stop-color="#000" stop-opacity="0"/>
                 </radialGradient></defs>
                 <rect width="200" height="200" fill="#090d0f"/>
-                <rect width="200" height="200" fill="url(#rg2)"/>
+                <rect width="200" height="200" fill="url(#rg-lofi)"/>
                 <g opacity="0.45">
                   <rect x="25" y="95" width="4" height="10" fill="#C41E3A" rx="1"/>
                   <rect x="33" y="85" width="4" height="30" fill="#C41E3A" rx="1"/>
@@ -205,13 +252,13 @@
                   <rect x="145" y="88" width="4" height="24" fill="#C41E3A" rx="1"/>
                   <rect x="161" y="96" width="4" height="8"  fill="#C41E3A" rx="1"/>
                 </g>
-                <text x="100" y="165" text-anchor="middle" font-family="monospace" font-size="8" fill="#C41E3A" opacity="0.28" letter-spacing="4">SESSION</text>
+                <text x="100" y="165" text-anchor="middle" font-family="monospace" font-size="8" fill="#C41E3A" opacity="0.28" letter-spacing="4">LOFI</text>
               </svg>
             </div>
             <div class="card-player-wrap">
               <iframe
                 src="https://www.youtube.com/embed/videoseries?list=PLOHoVaTp8R7dfrJW5pumS0GEHMBNJn-H8&autoplay=0&controls=1&rel=0&modestbranding=1&color=white"
-                title="Editing Session Playlist"
+                title="Lofi Playlist"
                 allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
                 allowfullscreen
                 loading="lazy">
@@ -222,9 +269,9 @@
             </button>
           </div>
           <div class="card-body">
-            <div class="card-mood-tag">Editing Session</div>
+            <div class="card-mood-tag">Lofi</div>
             <h2 class="card-title">Deep Focus</h2>
-            <p class="card-desc">Electronic textures and rhythmic flow. What plays when the timeline is open and nothing else matters.</p>
+            <p class="card-desc">Lo-fi textures and rhythmic flow. What plays when the timeline is open and nothing else matters.</p>
             <a href="https://www.youtube.com/playlist?list=PLOHoVaTp8R7dfrJW5pumS0GEHMBNJn-H8" target="_blank" rel="noopener" class="card-btn">
               <span>Open Playlist</span>
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -232,17 +279,20 @@
           </div>
         </article>
 
-        <!-- Card 3: Cinematic — featured, spans 2 cols -->
-        <article class="playlist-card card-featured" data-mood="cinematic">
+        <!-- ════════════════════════════════════════════
+             EDIT PLAYLIST HERE — Card 3: Instrumental (FEATURED)
+             This card spans 2 columns. Keep class="playlist-card card-featured"
+             ════════════════════════════════════════════ -->
+        <article class="playlist-card card-featured" data-category="instrumental">
           <div class="card-cover">
             <div class="card-cover-art" style="background:linear-gradient(135deg,#0c0a08 0%,#1c1510 50%,#0a0808 100%)">
               <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="cover-svg">
-                <defs><radialGradient id="rg3" cx="50%" cy="50%" r="55%">
+                <defs><radialGradient id="rg-inst" cx="50%" cy="50%" r="55%">
                   <stop offset="0%" stop-color="#c8b89a" stop-opacity="0.14"/>
                   <stop offset="100%" stop-color="#000" stop-opacity="0"/>
                 </radialGradient></defs>
                 <rect width="200" height="200" fill="#0c0a08"/>
-                <rect width="200" height="200" fill="url(#rg3)"/>
+                <rect width="200" height="200" fill="url(#rg-inst)"/>
                 <rect x="30" y="30" width="140" height="140" fill="none" stroke="#c8b89a" stroke-width="0.5" opacity="0.25"/>
                 <rect x="38" y="38" width="124" height="124" fill="none" stroke="#c8b89a" stroke-width="0.3" opacity="0.15"/>
                 <line x1="100" y1="55" x2="100" y2="145" stroke="#c8b89a" stroke-width="0.6" opacity="0.4"/>
@@ -251,13 +301,13 @@
                 <line x1="132" y1="68"  x2="68"  y2="132" stroke="#c8b89a" stroke-width="0.4" opacity="0.2"/>
                 <circle cx="100" cy="100" r="8" fill="none" stroke="#c8b89a" stroke-width="0.8" opacity="0.5"/>
                 <circle cx="100" cy="100" r="2" fill="#c8b89a" opacity="0.7"/>
-                <text x="100" y="175" text-anchor="middle" font-family="serif" font-size="8" fill="#c8b89a" opacity="0.35" letter-spacing="4">CINEMATIC</text>
+                <text x="100" y="175" text-anchor="middle" font-family="serif" font-size="8" fill="#c8b89a" opacity="0.35" letter-spacing="4">INSTRUMENTAL</text>
               </svg>
             </div>
             <div class="card-player-wrap">
               <iframe
                 src="https://www.youtube.com/embed/videoseries?list=PLw-VjHDlEOgs658kAHR_LAaILBXb-s6Q5&autoplay=0&controls=1&rel=0&modestbranding=1&color=white"
-                title="Cinematic Atmosphere Playlist"
+                title="Instrumental Playlist"
                 allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
                 allowfullscreen
                 loading="lazy">
@@ -268,7 +318,8 @@
             </button>
           </div>
           <div class="card-body">
-            <div class="card-mood-tag card-mood-tag--gold">Cinematic</div>
+            <!-- Gold variant tag for featured card -->
+            <div class="card-mood-tag card-mood-tag--gold">Instrumental</div>
             <h2 class="card-title">Cinematic Atmosphere</h2>
             <p class="card-desc">Orchestral layers, film scores, and soundscapes that turn any ordinary moment into a scene.</p>
             <a href="https://www.youtube.com/playlist?list=PLw-VjHDlEOgs658kAHR_LAaILBXb-s6Q5" target="_blank" rel="noopener" class="card-btn card-btn--gold">
@@ -278,17 +329,19 @@
           </div>
         </article>
 
-        <!-- Card 4: Calm Night -->
-        <article class="playlist-card" data-mood="calm">
+        <!-- ════════════════════════════════════════════
+             EDIT PLAYLIST HERE — Card 4: C-Pop
+             ════════════════════════════════════════════ -->
+        <article class="playlist-card" data-category="cpop">
           <div class="card-cover">
             <div class="card-cover-art" style="background:linear-gradient(135deg,#080c10 0%,#0d1218 50%,#080a0c 100%)">
               <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="cover-svg">
-                <defs><radialGradient id="rg4" cx="50%" cy="35%" r="45%">
+                <defs><radialGradient id="rg-cpop" cx="50%" cy="35%" r="45%">
                   <stop offset="0%" stop-color="#F0EDE8" stop-opacity="0.08"/>
                   <stop offset="100%" stop-color="#000" stop-opacity="0"/>
                 </radialGradient></defs>
                 <rect width="200" height="200" fill="#090c10"/>
-                <rect width="200" height="200" fill="url(#rg4)"/>
+                <rect width="200" height="200" fill="url(#rg-cpop)"/>
                 <circle cx="100" cy="75" r="28" fill="none" stroke="#F0EDE8" stroke-width="0.6" opacity="0.25"/>
                 <circle cx="112" cy="70" r="22" fill="#090c10"/>
                 <circle cx="45"  cy="40" r="1"   fill="#9A9690" opacity="0.5"/>
@@ -298,13 +351,13 @@
                 <rect x="0" y="148" width="200" height="52" fill="#060809"/>
                 <rect x="40" y="120" width="8"  height="28" fill="#060809"/>
                 <rect x="55" y="115" width="15" height="33" fill="#070a0d"/>
-                <text x="100" y="178" text-anchor="middle" font-family="serif" font-size="8" fill="#9A9690" opacity="0.25" letter-spacing="3">CALM</text>
+                <text x="100" y="178" text-anchor="middle" font-family="serif" font-size="8" fill="#9A9690" opacity="0.25" letter-spacing="3">C-POP</text>
               </svg>
             </div>
             <div class="card-player-wrap">
               <iframe
                 src="https://www.youtube.com/embed/videoseries?list=PLaiJjHvEuSHCH5eHBPpRc12Kzz1HaA_Dd&autoplay=0&controls=1&rel=0&modestbranding=1&color=white"
-                title="Calm Night Playlist"
+                title="C-Pop Playlist"
                 allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
                 allowfullscreen
                 loading="lazy">
@@ -315,9 +368,9 @@
             </button>
           </div>
           <div class="card-body">
-            <div class="card-mood-tag">Calm Night</div>
+            <div class="card-mood-tag">C-Pop</div>
             <h2 class="card-title">Still Hours</h2>
-            <p class="card-desc">Soft acoustic and ambient sounds for when the world is quiet and the mind finally settles.</p>
+            <p class="card-desc">Soft C-Pop and mandopop melodies for when the world is quiet and the mind finally settles.</p>
             <a href="https://www.youtube.com/playlist?list=PLaiJjHvEuSHCH5eHBPpRc12Kzz1HaA_Dd" target="_blank" rel="noopener" class="card-btn">
               <span>Open Playlist</span>
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -325,28 +378,30 @@
           </div>
         </article>
 
-        <!-- Card 5: Late Night Thoughts -->
-        <article class="playlist-card" data-mood="late-night">
+        <!-- ════════════════════════════════════════════
+             EDIT PLAYLIST HERE — Card 5: J-Pop
+             ════════════════════════════════════════════ -->
+        <article class="playlist-card" data-category="jpop">
           <div class="card-cover">
             <div class="card-cover-art" style="background:linear-gradient(135deg,#0a080c 0%,#160e1a 50%,#08080c 100%)">
               <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="cover-svg">
-                <defs><radialGradient id="rg5" cx="50%" cy="50%" r="50%">
+                <defs><radialGradient id="rg-jpop" cx="50%" cy="50%" r="50%">
                   <stop offset="0%" stop-color="#C41E3A" stop-opacity="0.08"/>
                   <stop offset="100%" stop-color="#000" stop-opacity="0"/>
                 </radialGradient></defs>
                 <rect width="200" height="200" fill="#0a080c"/>
-                <rect width="200" height="200" fill="url(#rg5)"/>
+                <rect width="200" height="200" fill="url(#rg-jpop)"/>
                 <path d="M30 100 Q50 80 70 100 Q90 120 110 100 Q130 80 150 100 Q170 120 190 100" fill="none" stroke="#C41E3A" stroke-width="0.6" opacity="0.22"/>
                 <circle cx="100" cy="100" r="25" fill="none" stroke="#C41E3A" stroke-width="0.6" opacity="0.28"/>
                 <circle cx="100" cy="100" r="45" fill="none" stroke="#C41E3A" stroke-width="0.3" opacity="0.12"/>
                 <circle cx="100" cy="100" r="4" fill="#C41E3A" opacity="0.45"/>
-                <text x="100" y="175" text-anchor="middle" font-family="serif" font-size="8" fill="#C41E3A" opacity="0.28" letter-spacing="2">THOUGHTS</text>
+                <text x="100" y="175" text-anchor="middle" font-family="serif" font-size="8" fill="#C41E3A" opacity="0.28" letter-spacing="2">J-POP</text>
               </svg>
             </div>
             <div class="card-player-wrap">
               <iframe
                 src="https://www.youtube.com/embed/videoseries?list=PLboThbKHHLzlQMvJGMF0iEPY6CpZl-Sm1&autoplay=0&controls=1&rel=0&modestbranding=1&color=white"
-                title="Late Night Thoughts Playlist"
+                title="J-Pop Playlist"
                 allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
                 allowfullscreen
                 loading="lazy">
@@ -357,9 +412,9 @@
             </button>
           </div>
           <div class="card-body">
-            <div class="card-mood-tag">Late Night Thoughts</div>
+            <div class="card-mood-tag">J-Pop</div>
             <h2 class="card-title">Introspect</h2>
-            <p class="card-desc">Indie, alternative, and singer-songwriter pieces that feel like a 3 AM conversation with yourself.</p>
+            <p class="card-desc">J-Pop and city pop pieces that feel like a 3 AM Tokyo conversation with yourself.</p>
             <a href="https://www.youtube.com/playlist?list=PLboThbKHHLzlQMvJGMF0iEPY6CpZl-Sm1" target="_blank" rel="noopener" class="card-btn">
               <span>Open Playlist</span>
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -367,29 +422,31 @@
           </div>
         </article>
 
-        <!-- Card 6: Edit Flow -->
-        <article class="playlist-card" data-mood="editing">
+        <!-- ════════════════════════════════════════════
+             EDIT PLAYLIST HERE — Card 6: Night Drive
+             ════════════════════════════════════════════ -->
+        <article class="playlist-card" data-category="night-drive">
           <div class="card-cover">
             <div class="card-cover-art" style="background:linear-gradient(135deg,#080a08 0%,#101410 50%,#08080a 100%)">
               <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="cover-svg">
-                <defs><radialGradient id="rg6" cx="50%" cy="50%" r="50%">
+                <defs><radialGradient id="rg-nd" cx="50%" cy="50%" r="50%">
                   <stop offset="0%" stop-color="#C41E3A" stop-opacity="0.08"/>
                   <stop offset="100%" stop-color="#000" stop-opacity="0"/>
                 </radialGradient></defs>
                 <rect width="200" height="200" fill="#080a08"/>
-                <rect width="200" height="200" fill="url(#rg6)"/>
+                <rect width="200" height="200" fill="url(#rg-nd)"/>
                 <line x1="0" y1="100" x2="200" y2="100" stroke="#C41E3A" stroke-width="0.5" opacity="0.12"/>
                 <line x1="100" y1="0" x2="100" y2="200" stroke="#C41E3A" stroke-width="0.5" opacity="0.12"/>
                 <rect x="20" y="92" width="160" height="2" fill="#C41E3A" opacity="0.18" rx="1"/>
                 <rect x="20" y="92" width="85"  height="2" fill="#C41E3A" opacity="0.5"  rx="1"/>
                 <circle cx="105" cy="93" r="4" fill="#C41E3A" opacity="0.65"/>
-                <text x="100" y="170" text-anchor="middle" font-family="monospace" font-size="8" fill="#C41E3A" opacity="0.28" letter-spacing="3">FLOW</text>
+                <text x="100" y="170" text-anchor="middle" font-family="monospace" font-size="8" fill="#C41E3A" opacity="0.28" letter-spacing="3">DRIVE</text>
               </svg>
             </div>
             <div class="card-player-wrap">
               <iframe
                 src="https://www.youtube.com/embed/videoseries?list=PLOHoVaTp8R7dfrJW5pumS0GEHMBNJn-H8&autoplay=0&controls=1&rel=0&modestbranding=1&color=white"
-                title="Edit Flow Playlist"
+                title="Night Drive Playlist"
                 allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
                 allowfullscreen
                 loading="lazy">
@@ -400,15 +457,28 @@
             </button>
           </div>
           <div class="card-body">
-            <div class="card-mood-tag">Editing Session</div>
+            <div class="card-mood-tag">Night Drive</div>
             <h2 class="card-title">Edit Flow</h2>
-            <p class="card-desc">Minimal house and downtempo for those long render waits and perfect cut moments.</p>
+            <p class="card-desc">Dark synth and downtempo for long night drives, empty highways, and streetlight reverie.</p>
             <a href="https://www.youtube.com/playlist?list=PLOHoVaTp8R7dfrJW5pumS0GEHMBNJn-H8" target="_blank" rel="noopener" class="card-btn">
               <span>Open Playlist</span>
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
           </div>
         </article>
+
+        <!--
+          ══════════════════════════════════════════════════
+          ADD NEW PLAYLIST CARDS HERE (inside .playlist-grid)
+          ══════════════════════════════════════════════════
+          Copy the block above, paste here, then change:
+          1. data-category="your-genre"       ← must match a filter button's data-genre
+          2. iframe src list=YOUR_PLAYLIST_ID ← YouTube playlist ID
+          3. card-mood-tag text               ← genre label on the card
+          4. card-title text                  ← playlist name
+          5. card-desc text                   ← description
+          6. card-btn href                    ← full YouTube playlist URL
+        -->
 
       </div><!-- /playlist-grid -->
     </div><!-- /container -->
@@ -438,8 +508,7 @@
     </div>
   </footer>
 
-  <!-- Script playlist yang telah diselaraskan dengan script-portofolio -->
-  <script src="script-playlist.js"></script>
+  <script src="script.js"></script>
 
 </body>
 </html>

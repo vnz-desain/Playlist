@@ -1,16 +1,16 @@
 /* ============================================================
    M. EVAN ALMUNAWAR — Midnight Playlist
-   style.css | Diselaraskan penuh dengan evanalmunawar.my.id
+   style.css | Fixed & Improved
 
-   SISTEM WARNA — Portfolio Evan Almunawar
+   SYSTEM COLORS
    ────────────────────────────────────────
    Background   : #050505 (--black)
    Surface      : #0D0D0D (--black-soft), #111111 (--black-card)
-   Accent merah : #8B0000, #A31515, #C41E3A (--red-bright) ← warna utama portfolio
-   Text utama   : #F0EDE8 (--white)
-   Text redup   : #9A9690 (--white-dim)
+   Red accent   : #8B0000, #A31515, #C41E3A (--red-bright)
+   Text primary : #F0EDE8 (--white)
+   Text dim     : #9A9690 (--white-dim)
    Border       : rgba(255,255,255,0.07) (--grey-border)
-   Gold accent  : #c8b89a (hanya untuk playlist cover art & featured card)
+   Gold accent  : #c8b89a (featured card & cover art only)
    Font display : Bebas Neue
    Font body    : Cormorant Garamond
    Font mono    : Space Mono
@@ -19,14 +19,14 @@
 /* ===== RESET & BASE ===== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ===== DESIGN TOKENS — identik dengan portfolio evanalmunawar.my.id ===== */
+/* ===== DESIGN TOKENS ===== */
 :root {
   /* Backgrounds */
   --black:       #050505;
   --black-soft:  #0D0D0D;
   --black-card:  #111111;
 
-  /* Accent merah — warna signature portfolio */
+  /* Red accent — signature color */
   --red:         #8B0000;
   --red-mid:     #A31515;
   --red-bright:  #C41E3A;
@@ -38,17 +38,17 @@
   /* Borders */
   --grey-border: rgba(255,255,255,0.07);
 
-  /* Font stacks — identik dengan portfolio */
+  /* Fonts */
   --font-display: 'Bebas Neue', sans-serif;
   --font-body:    'Cormorant Garamond', serif;
   --font-mono:    'Space Mono', monospace;
 
-  /* Transitions — compositor-safe */
+  /* Transitions — compositor-safe (transform + opacity only) */
   --t-fast:   0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --t-normal: 0.40s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* Playlist-only: gold untuk cover art & featured card */
+  /* Gold — featured card & cover art only */
   --gold:      #c8b89a;
   --gold-dim:  rgba(200,184,154,0.10);
 
@@ -73,7 +73,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Scrollbar — identik dengan portfolio */
+/* Scrollbar */
 ::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: var(--black); }
 ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 2px; }
@@ -96,7 +96,13 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
 .section-pad { padding: 8rem 0; }
 
 
-/* ===== GRAIN OVERLAY — identik teknik portfolio ===== */
+/* ===== GRAIN OVERLAY ===== */
+/*
+  Film grain texture — fixed overlay on top of everything.
+  z-index: 9999 keeps it above all content visually,
+  pointer-events: none lets clicks pass through.
+  NOTE: grain is ABOVE hero text but only 3% opacity — invisible functionally.
+*/
 .grain {
   position: fixed;
   inset: 0;
@@ -123,6 +129,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   position: fixed;
   top: 0; left: 0; right: 0;
   height: var(--nav-h);
+  /* z-index: 1000 — above hero background (0), below grain (9999) */
   z-index: 1000;
   padding: 0 clamp(1.25rem, 5vw, 2.5rem);
   display: flex;
@@ -133,6 +140,8 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
 .nav.scrolled {
   background: rgba(5,5,5,0.95);
   border-bottom: 1px solid var(--grey-border);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .nav-logo {
@@ -158,9 +167,21 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
 .nav-back:hover svg { transform: translateX(-3px); }
 
 
-/* ===== HERO ===== */
+/* ===== HERO =====
+   Z-INDEX LAYERING (fix for hero text visibility):
+   ─────────────────────────────────────────────────
+   .hero              → position: relative (stacking context)
+   .hero-bg           → z-index: 0   (SVG background, stays behind)
+   .hero-bg::after    → pseudo (vignette gradient, inside .hero-bg layer)
+   .hero-rule         → z-index: 2   (decorative line)
+   .hero-content      → z-index: 2   (ALL TEXT — always on top of bg)
+   .scroll-indicator  → z-index: 2   (scroll line below text)
+
+   IMPORTANT: Do NOT set isolation: isolate or contain: layout on .hero
+   as these create new stacking contexts that can break z-index ordering.
+*/
 .hero {
-  position: relative;
+  position: relative;          /* required: creates stacking context for children */
   min-height: 100svh;
   display: flex;
   flex-direction: column;
@@ -169,12 +190,15 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   text-align: center;
   overflow: hidden;
   padding: calc(var(--nav-h) + 2rem) clamp(1.5rem, 5vw, 3rem) 4rem;
+  /* background fallback — ensures text is readable even if SVG fails */
+  background-color: #080808;
 }
 
+/* Background layer — SVG cityscape */
 .hero-bg {
   position: absolute;
   inset: 0;
-  z-index: 0;
+  z-index: 0;                  /* behind everything */
   background: #080808;
 }
 .hero-bg svg {
@@ -182,25 +206,33 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  display: block;              /* prevent inline baseline gap */
 }
+/* Dark vignette over background — ensures text contrast */
 .hero-bg::after {
   content: '';
   position: absolute;
   inset: 0;
+  z-index: 1;                  /* above SVG, still inside .hero-bg layer */
   background: linear-gradient(180deg,
-    rgba(5,5,5,0.35) 0%,
-    rgba(5,5,5,0.10) 40%,
-    rgba(5,5,5,0.75) 100%
+    rgba(5,5,5,0.40) 0%,
+    rgba(5,5,5,0.15) 40%,
+    rgba(5,5,5,0.80) 100%
   );
+  pointer-events: none;
 }
 
+/* Hero content — text layer, always above background */
 .hero-content {
   position: relative;
-  z-index: 1;
+  z-index: 2;                  /* above .hero-bg (z:0) */
+  /* Force GPU layer for smoother animation composite */
+  transform: translateZ(0);
+  /* Ensure text renders above any stacking glitches */
+  isolation: isolate;
 }
 
-/* Eyebrow — pakai --red-bright identik portfolio */
+/* Eyebrow */
 .hero-eyebrow {
   font-family: var(--font-mono);
   font-size: 0.65rem;
@@ -218,6 +250,8 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--white);
+  /* text-shadow: subtle depth to ensure visibility on any background brightness */
+  text-shadow: 0 2px 40px rgba(0,0,0,0.6);
 }
 .hero-title em {
   font-family: var(--font-body);
@@ -239,7 +273,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   margin-inline: auto;
 }
 
-/* CTA button — rectangular, identik portfolio */
+/* CTA button */
 .hero-btn {
   display: inline-flex;
   align-items: center;
@@ -264,7 +298,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   outline: none;
 }
 .hero-btn svg { transition: transform var(--t-fast); flex-shrink: 0; }
-.hero-btn:hover svg { transform: translateX(4px); }
+.hero-btn:hover svg { transform: translateY(4px); }
 
 /* Scroll indicator */
 .scroll-indicator {
@@ -276,7 +310,8 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   flex-direction: column;
   align-items: center;
   gap: 0.4rem;
-  z-index: 1;
+  z-index: 2;                  /* same layer as hero-content */
+  pointer-events: none;
 }
 .scroll-line {
   width: 1px;
@@ -295,17 +330,18 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   color: var(--white-dim);
 }
 
-/* Garis merah bawah hero */
+/* Red rule at bottom of hero */
 .hero-rule {
   position: absolute;
   bottom: 0; left: 0; right: 0;
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--red), transparent);
-  z-index: 1;
+  z-index: 2;
+  pointer-events: none;
 }
 
 
-/* ===== REVEAL ANIMATIONS — identik portofolio ===== */
+/* ===== REVEAL ANIMATIONS ===== */
 .reveal-up,
 .reveal-left,
 .reveal-right {
@@ -361,7 +397,11 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
 .section-header { margin-bottom: 4rem; }
 
 
-/* ===== MOOD FILTER ===== */
+/* ===== GENRE FILTER =====
+   Sticky below nav (top: --nav-h).
+   z-index: 50 — above scroll content, below nav (1000).
+   Label reads "Filter by genre" — do NOT change class names (mood-section, mood-chips, chip).
+*/
 .mood-section {
   padding: 3rem 0 1.5rem;
   position: sticky;
@@ -369,6 +409,8 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   z-index: 50;
   background: var(--black);
   border-bottom: 1px solid var(--grey-border);
+  /* Performance: promote to own composite layer */
+  transform: translateZ(0);
 }
 
 .mood-label {
@@ -388,10 +430,12 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   padding-bottom: 0.25rem;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  /* Smooth momentum scroll on mobile */
+  -webkit-overflow-scrolling: touch;
 }
 .mood-chips::-webkit-scrollbar { display: none; }
 
-/* Chip — rectangular, tanpa radius besar */
+/* Chip — rectangular, no large border-radius */
 .chip {
   flex-shrink: 0;
   font-family: var(--font-mono);
@@ -406,6 +450,8 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   white-space: nowrap;
   transition: color var(--t-fast), border-color var(--t-fast), background-color var(--t-fast);
   touch-action: manipulation;
+  /* Minimum tap target for mobile */
+  min-height: 36px;
 }
 .chip:hover {
   color: var(--white);
@@ -432,21 +478,30 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
 
 
 /* ===== PLAYLIST CARD ===== */
+/*
+  IMAGE SYSTEM:
+  To use a custom image cover, add to .card-cover-art:
+    style="background-image: url('images/playlist-name.jpg'); background-size: cover; background-position: center;"
+  The SVG inside is the fallback — it shows if no background-image is set.
+  Fallback to solid gradient is handled by the inline style on .card-cover-art.
+*/
 .playlist-card {
   position: relative;
   background: var(--black-card);
   border: 1px solid var(--grey-border);
   overflow: hidden;
-  contain: content;
+  /* contain: content can clip box-shadow — use layout+style instead */
+  contain: layout style;
   display: flex;
   flex-direction: column;
-  /* Reveal state awal */
+  /* Reveal animation start state */
   opacity: 0;
   transform: translateY(28px);
   transition:
     opacity  0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94),
     transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+/* Revealed state */
 .playlist-card.visible {
   opacity: 1;
   transform: translateY(0);
@@ -455,25 +510,27 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
     transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94),
     border-color var(--t-fast);
 }
+/* Hidden (filtered out) state */
 .playlist-card.hidden {
   display: none;
 }
-.playlist-card:hover {
+/* Hover — only when visible (avoids transform conflict during reveal) */
+.playlist-card.visible:hover {
   border-color: rgba(196,30,58,0.3);
   transform: translateY(-4px);
 }
 
-/* Featured card */
+/* Featured card spans 2 columns */
 .playlist-card.card-featured {
   grid-column: span 2;
   border-color: rgba(200,184,154,0.12);
 }
-.playlist-card.card-featured:hover {
+.playlist-card.card-featured.visible:hover {
   border-color: rgba(200,184,154,0.28);
   transform: translateY(-4px);
 }
 
-/* Stagger delays */
+/* Stagger delays for staggered reveal */
 .playlist-card:nth-child(1) { transition-delay: 0.05s; }
 .playlist-card:nth-child(2) { transition-delay: 0.12s; }
 .playlist-card:nth-child(3) { transition-delay: 0.19s; }
@@ -481,7 +538,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
 .playlist-card:nth-child(5) { transition-delay: 0.33s; }
 .playlist-card:nth-child(6) { transition-delay: 0.40s; }
 
-/* Hover glow pseudo-element */
+/* Hover glow */
 .playlist-card::after {
   content: '';
   position: absolute;
@@ -492,7 +549,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   pointer-events: none;
   z-index: 0;
 }
-.playlist-card:hover::after { opacity: 1; }
+.playlist-card.visible:hover::after { opacity: 1; }
 .playlist-card.card-featured::after {
   background: radial-gradient(circle at 50% 35%, rgba(200,184,154,0.05) 0%, transparent 65%);
 }
@@ -514,10 +571,18 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   align-items: center;
   justify-content: center;
   transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94), opacity var(--t-fast);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
-.playlist-card:hover .card-cover-art { transform: scale(1.04); }
+.playlist-card.visible:hover .card-cover-art { transform: scale(1.04); }
 
 .cover-svg { width: 55%; height: 55%; opacity: 0.85; }
+
+/* Fallback: show cover SVG when no bg-image loaded */
+.card-cover-art[data-img-error] {
+  background-image: none !important;
+}
 
 /* Player embed */
 .card-player-wrap {
@@ -563,7 +628,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   transition: opacity var(--t-fast), border-color var(--t-fast), background-color var(--t-fast);
   touch-action: manipulation;
 }
-/* Selalu tampil di touch; fade-in on hover di desktop */
+/* Desktop: fade in on hover; touch: always visible */
 @media (hover: hover) {
   .card-play-toggle { opacity: 0; }
   .card-cover:hover .card-play-toggle { opacity: 1; }
@@ -586,7 +651,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   border-top: 1px solid var(--grey-border);
 }
 
-/* Mood tag — pakai --red-bright seperti portfolio section labels */
+/* Genre tag */
 .card-mood-tag {
   font-family: var(--font-mono);
   font-size: 0.58rem;
@@ -613,7 +678,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   margin-bottom: 0.35rem;
 }
 
-/* Card desc */
+/* Card description */
 .card-desc {
   font-size: 0.88rem;
   color: var(--white-dim);
@@ -622,7 +687,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   flex: 1;
 }
 
-/* Card button — underline style, identik pola portfolio */
+/* Card link button */
 .card-btn {
   display: inline-flex;
   align-items: center;
@@ -708,7 +773,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
 }
 
 
-/* ===== FOOTER — identik dengan portfolio ===== */
+/* ===== FOOTER ===== */
 .footer {
   background: var(--black);
   border-top: 1px solid var(--grey-border);
@@ -757,23 +822,34 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   .playlist-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
   .playlist-card.card-featured { grid-column: span 2; }
 }
+
 @media (max-width: 720px) {
   .playlist-grid { grid-template-columns: 1fr; gap: 1px; }
   .playlist-card.card-featured { grid-column: span 1; }
   .section-pad { padding: 5rem 0; }
   .footer-inner { flex-direction: column; text-align: center; }
   .footer-links { justify-content: center; }
-  /* Always show play button on touch */
+  /* Always show play button on touch devices */
   .card-play-toggle { opacity: 1 !important; }
+  /* Remove stagger delays on mobile for snappier feel */
   .delay-1, .delay-2, .delay-3, .delay-4 { transition-delay: 0s !important; }
+  /* Slightly looser hero padding on small screens */
+  .hero { padding-top: calc(var(--nav-h) + 1rem); }
 }
+
 @media (max-width: 480px) {
   .hero-btn { width: 100%; justify-content: center; }
+  /* Allow horizontal scroll on filter chips on very small screens */
   .mood-chips { flex-wrap: nowrap; }
 }
 
 
 /* ===== REDUCED MOTION ===== */
+/*
+  Respects user OS preference for reduced motion.
+  Disables all animations & transitions.
+  Reveals immediately so content is still accessible.
+*/
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -784,4 +860,5 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   .grain { animation: none; }
   .reveal-up, .reveal-left, .reveal-right { opacity: 1; transform: none; }
   .playlist-card { opacity: 1; transform: none; }
+  .playlist-card.visible:hover { transform: none; }
 }
