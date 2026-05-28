@@ -19,7 +19,7 @@
 </head>
 <body>
 
-  <!-- Grain overlay (film grain texture — fixed overlay) -->
+  <!-- Film grain texture -->
   <div class="grain" aria-hidden="true"></div>
 
   <!-- ===================== NAV ===================== -->
@@ -35,14 +35,10 @@
 
   <!-- ===================== HERO ===================== -->
   <!--
-    HERO SECTION
-    - hero-bg: cityscape SVG background (z-index: 0)
-    - hero-content: all text elements (z-index: 2)
-    - scroll-indicator: bottom animated line (z-index: 2)
-    Do NOT add position:relative/static to .hero-bg or remove z-index values.
+    HERO SECTION — Do NOT restructure z-index layering.
+    .hero-bg (z:0) → .hero-content (z:2) → .scroll-indicator (z:2)
   -->
   <section class="hero" id="hero">
-    <!-- Background layer — stays BEHIND content -->
     <div class="hero-bg" aria-hidden="true">
       <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -74,7 +70,7 @@
         <rect x="1110" y="465" width="50"   height="135" fill="#0b0b0b"/>
         <rect x="1280" y="505" width="28"   height="95"  fill="#0f0f0f"/>
         <rect x="1390" y="535" width="50"   height="65"  fill="#111"/>
-        <!-- Window lights (red accents) -->
+        <!-- Window lights -->
         <g fill="#C41E3A" opacity="0.08">
           <rect x="205" y="495" width="3" height="4"/><rect x="335" y="488" width="4" height="5"/>
           <rect x="445" y="468" width="4" height="5"/><rect x="540" y="478" width="5" height="6"/>
@@ -87,15 +83,12 @@
         <ellipse cx="1000" cy="720" rx="250" ry="100" fill="#8B0000" opacity="0.010"/>
         <rect width="1440" height="900" fill="url(#gHero1)"/>
         <rect width="1440" height="900" fill="url(#gHero2)"/>
-        <!-- Horizon accent line -->
         <line x1="0" y1="600" x2="1440" y2="600" stroke="#C41E3A" stroke-width="0.5" opacity="0.1"/>
       </svg>
     </div>
 
-    <!-- Decorative red line at bottom of hero -->
     <div class="hero-rule" aria-hidden="true"></div>
 
-    <!-- Hero text content — always above background -->
     <div class="hero-content">
       <p class="hero-eyebrow reveal-up">playlist.evanalmunawar.my.id</p>
       <h1 class="hero-title reveal-up delay-1">
@@ -103,8 +96,8 @@
         <em>Playlist</em>
       </h1>
       <p class="hero-sub reveal-up delay-2">A collection of songs I listen to while<br/>editing, thinking, and creating.</p>
-      <a href="#playlists" class="hero-btn reveal-up delay-3">
-        <span>Explore Playlists</span>
+      <a href="#songs" class="hero-btn reveal-up delay-3">
+        <span>Explore Songs</span>
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
           <path d="M8 3v10M3 8l5 5 5-5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -117,80 +110,185 @@
     </div>
   </section>
 
-  <!-- ===================== GENRE FILTER ===================== -->
-  <!--
-    FILTER SECTION
-    ─────────────────────────────────────────────
-    TO ADD A NEW FILTER BUTTON:
-      1. Add a new <button> below with data-genre="your-genre"
-      2. Match the data-genre value to data-category on your SONG cards (not playlist cards)
-      3. The JS will handle showing/hiding automatically
-      NOTE: Filters only affect .song-card elements. Playlist cards are never filtered.
 
-    CURRENT GENRES: all | kpop | cpop | jpop | lofi | instrumental | night-drive
+  <!-- ===================== SONGS SECTION ===================== -->
+  <!--
+    SONGS SECTION — Individual playable tracks.
+    ─────────────────────────────────────────────────────────────
+    HOW TO ADD A SONG CARD:
+      1. Copy an <article class="song-card" data-category="..."> block below
+      2. Set data-category to one of: kpop | cpop | jpop | lofi | instrumental | night-drive
+      3. Update: song-title, song-artist, iframe src (YouTube video ID), data-bg (optional custom thumb)
+      4. The auto-thumbnail system will try to pull the YT thumbnail from the embed src.
+         If it fails, the SVG fallback art is shown automatically.
+      5. Filters ONLY affect .song-card — playlist cards are never touched.
+
+    SONG CARD ANATOMY:
+      <article class="song-card" data-category="kpop">
+        <div class="song-cover">
+          <div class="song-thumb" data-yt-id="VIDEO_ID_HERE" data-bg="images/optional-custom.jpg">
+            <svg class="song-thumb-svg">...</svg>  ← SVG fallback
+          </div>
+          <div class="song-player-wrap">
+            <iframe src="https://www.youtube.com/embed/VIDEO_ID" ...></iframe>
+          </div>
+          <button class="song-play-toggle" aria-label="Show player">...</button>
+        </div>
+        <div class="song-body">
+          <div class="song-genre-tag">K-Pop</div>
+          <h3 class="song-title">Song Title</h3>
+          <p class="song-artist">Artist Name</p>
+        </div>
+      </article>
   -->
-  <section class="mood-label" id="category-filter">
-    <div class="container">
-      <p class="mood-label">— Filter by genre</p>
-      <div class="mood-chips">
-        <!-- FILTER BUTTONS — edit data-genre to match song-card data-category values. Playlist cards are unaffected. -->
-        <button class="chip active" data-genre="all">All</button>
-        <button class="chip" data-genre="kpop">K-Pop</button>
-        <button class="chip" data-genre="cpop">C-Pop</button>
-        <button class="chip" data-genre="jpop">J-Pop</button>
-        <button class="chip" data-genre="lofi">Lofi</button>
-        <button class="chip" data-genre="instrumental">Instrumental</button>
-        <button class="chip" data-genre="night-drive">Night Drive</button>
+  <section class="songs-section" id="songs">
+
+    <!-- FILTER BAR — only affects .song-card, never .playlist-card -->
+    <!--
+      TO ADD A NEW GENRE FILTER:
+        1. Add <button class="chip" data-genre="your-genre">Label</button> below
+        2. Match data-genre to data-category on your song cards
+        No JS changes needed.
+    -->
+    <div class="songs-filter" id="songs-filter">
+      <div class="container">
+        <p class="filter-label">— Filter by genre</p>
+        <div class="mood-chips">
+          <button class="chip active" data-genre="all">All</button>
+          <button class="chip" data-genre="kpop">K-Pop</button>
+          <button class="chip" data-genre="cpop">C-Pop</button>
+          <button class="chip" data-genre="jpop">J-Pop</button>
+          <button class="chip" data-genre="lofi">Lofi</button>
+          <button class="chip" data-genre="instrumental">Instrumental</button>
+          <button class="chip" data-genre="night-drive">Night Drive</button>
+        </div>
       </div>
     </div>
+
+    <div class="container">
+      <div class="section-header reveal-up">
+        <p class="section-label">— Songs</p>
+        <h2 class="section-title">Selected<br/><em>Tracks</em></h2>
+      </div>
+
+      <div class="songs-grid">
+
+        <!-- ════════════════════════════════════════════
+             SONG CARD 1 — K-Pop
+             data-category: must match a filter chip's data-genre
+             data-yt-id:    YouTube video ID (auto-thumbnail)
+             data-bg:       optional custom image path (overrides auto-thumb)
+        ════════════════════════════════════════════ -->
+        <article class="song-card" data-category="kpop">
+          <div class="song-cover">
+            <div class="song-thumb" data-yt-id="pSUydWEqKwE">
+              <!-- SVG fallback art — shown if thumbnail load fails -->
+              <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="song-thumb-svg" aria-hidden="true">
+                <defs><radialGradient id="sg-k1" cx="50%" cy="40%" r="60%">
+                  <stop offset="0%" stop-color="#C41E3A" stop-opacity="0.15"/>
+                  <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+                </radialGradient></defs>
+                <rect width="200" height="200" fill="#0a0a0a"/>
+                <rect width="200" height="200" fill="url(#sg-k1)"/>
+                <circle cx="100" cy="85" r="30" fill="none" stroke="#C41E3A" stroke-width="0.5" opacity="0.4"/>
+                <circle cx="100" cy="85" r="3" fill="#C41E3A" opacity="0.7"/>
+                <text x="100" y="170" text-anchor="middle" font-family="serif" font-size="8" fill="#C41E3A" opacity="0.3" letter-spacing="3">K-POP</text>
+              </svg>
+            </div>
+            <div class="song-player-wrap">
+              <iframe
+                src="https://www.youtube.com/embed/pSUydWEqKwE"
+                title="ATTITUDE - Aespa"
+                allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
+                allowfullscreen
+                loading="lazy">
+              </iframe>
+            </div>
+            <button class="song-play-toggle" aria-label="Show player">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l8 4-8 4V4z" fill="currentColor"/></svg>
+            </button>
+          </div>
+          <div class="song-body">
+            <div class="song-genre-tag">K-Pop</div>
+            <h3 class="song-title">ATTITUDE</h3>
+            <p class="song-artist">Aespa</p>
+          </div>
+        </article>
+
+        <!-- ════════════════════════════════════════════
+             SONG CARD 2 — J-Pop
+        ════════════════════════════════════════════ -->
+        <article class="song-card" data-category="jpop">
+          <div class="song-cover">
+            <div class="song-thumb" data-yt-id="ZRtdQ81jPUQ">
+              <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="song-thumb-svg" aria-hidden="true">
+                <defs><radialGradient id="sg-j1" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#C41E3A" stop-opacity="0.10"/>
+                  <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+                </radialGradient></defs>
+                <rect width="200" height="200" fill="#0a080c"/>
+                <rect width="200" height="200" fill="url(#sg-j1)"/>
+                <path d="M30 100 Q50 80 70 100 Q90 120 110 100 Q130 80 150 100 Q170 120 190 100" fill="none" stroke="#C41E3A" stroke-width="0.8" opacity="0.3"/>
+                <circle cx="100" cy="100" r="4" fill="#C41E3A" opacity="0.5"/>
+                <text x="100" y="170" text-anchor="middle" font-family="serif" font-size="8" fill="#C41E3A" opacity="0.28" letter-spacing="2">J-POP</text>
+              </svg>
+            </div>
+            <div class="song-player-wrap">
+              <iframe
+                src="https://www.youtube.com/embed/ZRtdQ81jPUQ"
+                title="Idol - YOASOBI"
+                allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
+                allowfullscreen
+                loading="lazy">
+              </iframe>
+            </div>
+            <button class="song-play-toggle" aria-label="Show player">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l8 4-8 4V4z" fill="currentColor"/></svg>
+            </button>
+          </div>
+          <div class="song-body">
+            <div class="song-genre-tag">J-Pop</div>
+            <h3 class="song-title">Idol</h3>
+            <p class="song-artist">YOASOBI</p>
+          </div>
+        </article>
+
+        <!--
+          ══════════════════════════════════════════════════
+          ADD NEW SONG CARDS HERE (inside .songs-grid)
+          ══════════════════════════════════════════════════
+          Copy a block above, paste here, then update:
+            1. data-category="your-genre"        ← matches filter chip data-genre
+            2. data-yt-id="YOUTUBE_VIDEO_ID"     ← used for auto-thumbnail
+            3. data-bg="images/custom.jpg"       ← optional; overrides auto-thumb
+            4. iframe src embed URL              ← YouTube embed link
+            5. song-genre-tag text               ← visible genre label
+            6. song-title                        ← song name
+            7. song-artist                       ← artist name
+        -->
+
+      </div><!-- /songs-grid -->
+    </div><!-- /container -->
   </section>
 
-  <!-- ===================== PLAYLISTS ===================== -->
+
+  <!-- ===================== PLAYLISTS SECTION ===================== -->
   <!--
-    PLAYLISTS SECTION
-    Keep "MY PLAYLISTS" label and "SELECTED SOUNDS" heading as-is.
-    Do NOT rename or remove this section.
+    PLAYLISTS SECTION — Curated mood collections.
+    ─────────────────────────────────────────────────────────────
+    IMPORTANT RULES:
+      - Playlist cards NEVER use data-category
+      - Playlist cards are NEVER filtered or hidden
+      - .playlist-card is static and always visible
 
-    TO ADD A NEW PLAYLIST CARD:
-      1. Copy one of the <!-- EDIT PLAYLIST HERE -- blocks below
-      2. Paste it inside .playlist-grid
-      3. Update: iframe src, playlist link, title, description, cover image
-      NOTE: Do NOT add data-category to playlist cards — they are never filtered.
+    HOW TO ADD A PLAYLIST CARD:
+      1. Copy an <article class="playlist-card"> block below
+      2. Do NOT add data-category — it causes filtering bugs
+      3. Update: iframe src (playlist ID), title, description, link, SVG cover label
+      4. For custom cover: add data-bg="images/my-cover.jpg" to .card-cover-art
+         If image fails, the SVG art shows automatically.
+      5. Featured (wide) card: keep class="playlist-card card-featured"
   -->
-  <section class="songs-section">  <div class="container"><div class="section-header reveal-up">
-  <p class="section-label">— Songs</p>
-  <h2 class="section-title">
-    Selected<br><em>Tracks</em>
-  </h2>
-</div>
-
-<div class="songs-grid">
-
-  <!-- SONG -->
-  <article class="song-card" data-category="kpop">
-    <h3>ATTITUDE - Aespa</h3>
-
-    <iframe
-      src="https://www.youtube.com/embed/pSUydWEqKwE"
-      loading="lazy"
-      allowfullscreen>
-    </iframe>
-  </article>
-
-  <!-- SONG -->
-  <article class="song-card" data-category="jpop">
-    <h3>YOASOBI — Idol</h3>
-
-    <iframe
-      src="https://www.youtube.com/embed/ZRtdQ81jPUQ"
-      loading="lazy"
-      allowfullscreen>
-    </iframe>
-  </article>
-
-</div>
-
-  </div></section>
   <section class="playlists-section" id="playlists">
     <div class="container">
 
@@ -204,20 +302,17 @@
         <!-- ════════════════════════════════════════════
              EDIT PLAYLIST HERE — Card 1: K-Pop
              ════════════════════════════════════════════
-             data-category: kpop | cpop | jpop | lofi | instrumental | night-drive
              To change:
-               - Link: edit href in <a class="card-btn"> AND the iframe src list= param
-               - Image: change style="background-image:url('images/your-cover.jpg')" on .card-cover-art
-                        (if no image file, the SVG fallback art shows automatically)
-               - Title: edit text in <h2 class="card-title">
-               - Description: edit text in <p class="card-desc">
-               - Category tag label: edit text in <div class="card-mood-tag">
-               - Genre filter: change data-category="kpop" to match a filter button's data-genre
+               - iframe list= param   → YouTube playlist ID
+               - card-btn href        → full YouTube playlist URL
+               - card-title           → playlist name
+               - card-desc            → description text
+               - card-mood-tag        → genre label
+               - data-bg on .card-cover-art → custom cover image path
         -->
         <article class="playlist-card">
           <div class="card-cover">
-            <!-- COVER ART — change background-image url to use a custom image -->
-            <!-- If no image, the SVG art below shows as fallback -->
+            <!-- COVER ART — add data-bg="images/custom.jpg" for custom image; SVG is fallback -->
             <div class="card-cover-art" style="background:linear-gradient(135deg,#0a0a0a 0%,#14100a 50%,#0a0a0a 100%)">
               <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="cover-svg">
                 <defs><radialGradient id="rg-kpop" cx="50%" cy="40%" r="60%">
@@ -234,7 +329,6 @@
                 <text x="100" y="170" text-anchor="middle" font-family="serif" font-size="9" fill="#C41E3A" opacity="0.3" letter-spacing="3">K-POP</text>
               </svg>
             </div>
-            <!-- PLAYER EMBED — change list= param to your YouTube playlist ID -->
             <div class="card-player-wrap">
               <iframe
                 src="https://www.youtube.com/embed/videoseries?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG&autoplay=0&controls=1&rel=0&modestbranding=1&color=white"
@@ -249,13 +343,9 @@
             </button>
           </div>
           <div class="card-body">
-            <!-- GENRE TAG — change to match the playlist genre -->
             <div class="card-mood-tag">K-Pop</div>
-            <!-- TITLE — change to your playlist name -->
             <h2 class="card-title">Night Roads</h2>
-            <!-- DESCRIPTION — change to describe the playlist -->
             <p class="card-desc">K-pop beats and dreamy synths for late-night playlists and neon-lit moments.</p>
-            <!-- PLAYLIST LINK — change href to your YouTube playlist URL -->
             <a href="https://www.youtube.com/playlist?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG" target="_blank" rel="noopener" class="card-btn">
               <span>Open Playlist</span>
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -265,7 +355,7 @@
 
         <!-- ════════════════════════════════════════════
              EDIT PLAYLIST HERE — Card 2: Lofi
-             ════════════════════════════════════════════ -->
+        ════════════════════════════════════════════ -->
         <article class="playlist-card">
           <div class="card-cover">
             <div class="card-cover-art" style="background:linear-gradient(135deg,#080e10 0%,#0d1414 50%,#08080a 100%)">
@@ -317,8 +407,8 @@
 
         <!-- ════════════════════════════════════════════
              EDIT PLAYLIST HERE — Card 3: Instrumental (FEATURED)
-             This card spans 2 columns. Keep class="playlist-card card-featured"
-             ════════════════════════════════════════════ -->
+             Keep class="playlist-card card-featured" to span 2 columns.
+        ════════════════════════════════════════════ -->
         <article class="playlist-card card-featured">
           <div class="card-cover">
             <div class="card-cover-art" style="background:linear-gradient(135deg,#0c0a08 0%,#1c1510 50%,#0a0808 100%)">
@@ -354,7 +444,6 @@
             </button>
           </div>
           <div class="card-body">
-            <!-- Gold variant tag for featured card -->
             <div class="card-mood-tag card-mood-tag--gold">Instrumental</div>
             <h2 class="card-title">Cinematic Atmosphere</h2>
             <p class="card-desc">Orchestral layers, film scores, and soundscapes that turn any ordinary moment into a scene.</p>
@@ -367,7 +456,7 @@
 
         <!-- ════════════════════════════════════════════
              EDIT PLAYLIST HERE — Card 4: C-Pop
-             ════════════════════════════════════════════ -->
+        ════════════════════════════════════════════ -->
         <article class="playlist-card">
           <div class="card-cover">
             <div class="card-cover-art" style="background:linear-gradient(135deg,#080c10 0%,#0d1218 50%,#080a0c 100%)">
@@ -416,7 +505,7 @@
 
         <!-- ════════════════════════════════════════════
              EDIT PLAYLIST HERE — Card 5: J-Pop
-             ════════════════════════════════════════════ -->
+        ════════════════════════════════════════════ -->
         <article class="playlist-card">
           <div class="card-cover">
             <div class="card-cover-art" style="background:linear-gradient(135deg,#0a080c 0%,#160e1a 50%,#08080c 100%)">
@@ -460,7 +549,7 @@
 
         <!-- ════════════════════════════════════════════
              EDIT PLAYLIST HERE — Card 6: Night Drive
-             ════════════════════════════════════════════ -->
+        ════════════════════════════════════════════ -->
         <article class="playlist-card">
           <div class="card-cover">
             <div class="card-cover-art" style="background:linear-gradient(135deg,#080a08 0%,#101410 50%,#08080a 100%)">
@@ -507,18 +596,19 @@
           ══════════════════════════════════════════════════
           ADD NEW PLAYLIST CARDS HERE (inside .playlist-grid)
           ══════════════════════════════════════════════════
-          Copy the block above, paste here, then change:
-          1. data-category="your-genre"       ← must match a filter button's data-genre
-          2. iframe src list=YOUR_PLAYLIST_ID ← YouTube playlist ID
-          3. card-mood-tag text               ← genre label on the card
-          4. card-title text                  ← playlist name
-          5. card-desc text                   ← description
-          6. card-btn href                    ← full YouTube playlist URL
+          Copy a block above, paste here, then update:
+            1. iframe src list= param     ← YouTube playlist ID
+            2. card-mood-tag text         ← genre label
+            3. card-title text            ← playlist name
+            4. card-desc text             ← description
+            5. card-btn href              ← full YouTube playlist URL
+          DO NOT add data-category to playlist cards.
         -->
 
       </div><!-- /playlist-grid -->
     </div><!-- /container -->
   </section>
+
 
   <!-- ===================== QUOTE ===================== -->
   <section class="quote-section">

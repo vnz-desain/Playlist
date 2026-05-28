@@ -1,6 +1,6 @@
 /**
  * M. EVAN ALMUNAWAR — Midnight Playlist
- * script.js — Fixed & Improved
+ * script.js
  *
  * SECTIONS:
  * ──────────────────────────────────────────────────
@@ -11,12 +11,15 @@
  * 4.  Scroll indicator fade
  * 5.  Smooth anchor scrolling
  * 6.  Lazy-load images (polyfill)
- * 7.  Playlist card reveal (staggered observer)
- * 8.  Genre filter (data-genre → data-category matching)
- * 9.  Card player toggle (iframe embed)
- * 10. Lazy iframe observer
- * 11. Cursor ambient glow (desktop only)
- * 12. Cover image fallback handler
+ * 7a. Song card reveal (staggered observer)
+ * 7b. Playlist card reveal (staggered observer)
+ * 8.  Genre filter (ONLY targets .song-card, never .playlist-card)
+ * 9.  Playlist card player toggle
+ * 10. Song card player toggle
+ * 11. Lazy iframe observer
+ * 12. Auto-thumbnail system (YouTube HQ → MQ fallback → SVG)
+ * 13. Custom cover image fallback handler (data-bg)
+ * 14. Cursor ambient glow (desktop only)
  */
 
 (function () {
@@ -33,7 +36,7 @@
   }
 
   /* ─────────────────────────────────────────────
-     1. NAVIGATION — scroll state with rAF throttle
+     1. NAVIGATION — scroll state (rAF throttle)
      Adds .scrolled class when scrolled past 60px.
   ───────────────────────────────────────────── */
   var nav = document.getElementById('nav');
@@ -50,13 +53,12 @@
   }
 
   window.addEventListener('scroll', handleNavScroll, { passive: true });
-  handleNavScroll(); // run once on load to set initial state
+  handleNavScroll();
 
   /* ─────────────────────────────────────────────
      2. REVEAL ANIMATIONS — IntersectionObserver
      Targets .reveal-up, .reveal-left, .reveal-right.
-     Adds .visible class when element enters viewport.
-     Removes will-change after transition to save memory.
+     Removes will-change after animation to save memory.
   ───────────────────────────────────────────── */
   var revealEls = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right');
 
@@ -67,34 +69,22 @@
         var el = entry.target;
         el.classList.add('visible');
         revealObs.unobserve(el);
-
-        // Clean up will-change after animation completes (memory optimization)
         el.addEventListener('transitionend', function cleanup() {
           el.style.willChange = 'auto';
           el.removeEventListener('transitionend', cleanup);
         }, { once: true });
       });
-    }, {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
     revealEls.forEach(function (el) { revealObs.observe(el); });
   } else {
-    // Fallback: show everything if IntersectionObserver not supported
     revealEls.forEach(function (el) { el.classList.add('visible'); });
   }
 
   /* ─────────────────────────────────────────────
-     3. HERO ENTRANCE — force trigger after first paint
-     ─────────────────────────────────────────────
-     FIX: Hero text is initially opacity:0 (reveal-up class).
-     IntersectionObserver may not fire for elements already
-     in the viewport on load. We force .visible after 120ms
-     to guarantee text appears regardless of browser paint timing.
-
-     WHY 120ms: enough time for first paint to complete,
-     short enough to feel instant to the user.
+     3. HERO ENTRANCE — force after first paint
+     Hero items are in viewport on load so IO may
+     not fire. Force .visible after 120ms.
   ───────────────────────────────────────────── */
   setTimeout(function () {
     document.querySelectorAll('.hero .reveal-up').forEach(function (el) {
@@ -102,7 +92,6 @@
     });
   }, 120);
 
-  // Additional safety: also fire on DOMContentLoaded if not already visible
   document.addEventListener('DOMContentLoaded', function () {
     setTimeout(function () {
       document.querySelectorAll('.hero .reveal-up:not(.visible)').forEach(function (el) {
@@ -131,7 +120,6 @@
 
   /* ─────────────────────────────────────────────
      5. SMOOTH ANCHOR SCROLLING
-     Intercepts clicks on #hash links.
      CSS scroll-padding-top: --nav-h handles offset.
   ───────────────────────────────────────────── */
   document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
@@ -147,8 +135,6 @@
 
   /* ─────────────────────────────────────────────
      6. LAZY-LOAD IMAGES — polyfill for older browsers
-     Modern browsers handle loading="lazy" natively.
-     This polyfill covers browsers without native support.
   ───────────────────────────────────────────── */
   var lazyImgs = document.querySelectorAll('img[loading="lazy"]');
   if (!('loading' in HTMLImageElement.prototype) && 'IntersectionObserver' in window) {
@@ -169,34 +155,34 @@
   }
 
   /* ─────────────────────────────────────────────
-     7a. SONG CARD REVEAL — staggered reveal
-     Only .song-card elements. These are also the
-     target of the genre filter (section 8).
+     7a. SONG CARD REVEAL — staggered IntersectionObserver
+     Only .song-card elements.
+     NOTE: Genre filter (section 8) also targets only .song-card.
   ───────────────────────────────────────────── */
-  var cards = document.querySelectorAll('.song-card');
+  var songCards = document.querySelectorAll('.song-card');
 
   if ('IntersectionObserver' in window) {
-    var cardObs = new IntersectionObserver(function (entries) {
+    var songCardObs = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
         var card = entry.target;
-        var idx = Array.prototype.indexOf.call(cards, card);
+        var idx = Array.prototype.indexOf.call(songCards, card);
         setTimeout(function () {
           card.classList.add('visible');
         }, idx * 70);
-        cardObs.unobserve(card);
+        songCardObs.unobserve(card);
       });
     }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
-    cards.forEach(function (card) { cardObs.observe(card); });
+    songCards.forEach(function (card) { songCardObs.observe(card); });
   } else {
-    cards.forEach(function (card) { card.classList.add('visible'); });
+    songCards.forEach(function (card) { card.classList.add('visible'); });
   }
 
   /* ─────────────────────────────────────────────
-     7b. PLAYLIST CARD REVEAL — staggered reveal
-     Separate observer for .playlist-card elements.
-     These are NEVER touched by the genre filter.
+     7b. PLAYLIST CARD REVEAL — staggered IntersectionObserver
+     Separate from song cards.
+     IMPORTANT: Playlist cards are NEVER touched by the genre filter.
   ───────────────────────────────────────────── */
   var playlistCards = document.querySelectorAll('.playlist-card');
 
@@ -222,45 +208,42 @@
      8. GENRE FILTER
      ─────────────────────────────────────────────
      HOW IT WORKS:
-     - Filter buttons use data-genre="kpop" (etc.) on <button class="chip">
-     - SONG cards use data-category="kpop" (etc.) on <article class="song-card">
-     - "all" button shows every song card regardless of category
-     - Other genres show only song cards where data-category matches
+     - Filter chips: data-genre="kpop" on <button class="chip">
+     - Song cards:   data-category="kpop" on <article class="song-card">
+     - "all" shows every song card
+     - Matching genre shows only song cards with matching data-category
 
-     PLAYLIST CARDS (.song-card) are NEVER affected by filters.
-     Do NOT add data-category to playlist cards.
+     RULES:
+     - ONLY targets .song-card — NEVER .playlist-card
+     - Playlist cards are permanent and never hidden
+     - Cards re-animate (fade + slide) on filter change
 
      TO ADD A NEW GENRE:
-     1. Add <button class="chip" data-genre="your-genre">Your Genre</button> in HTML
-     2. Add data-category="your-genre" to SONG cards only in HTML
-     No JS changes needed.
-
-     ANIMATION: cards re-animate (fade + slide) when filter changes.
+       1. Add <button class="chip" data-genre="new-genre">Label</button> in HTML
+       2. Add data-category="new-genre" to song cards in HTML
+       No JS changes needed.
   ───────────────────────────────────────────── */
   var chips = document.querySelectorAll('.chip');
 
   chips.forEach(function (chip) {
     chip.addEventListener('click', function () {
-      // Update active chip
       chips.forEach(function (c) { c.classList.remove('active'); });
       chip.classList.add('active');
 
-      var genre = chip.dataset.genre; // reads data-genre attribute from filter button
+      var genre = chip.dataset.genre;
 
-      cards.forEach(function (card) {
-        // data-category on card must match data-genre on button
+      // ONLY filter .song-card — playlist cards are NEVER touched
+      songCards.forEach(function (card) {
         var match = (genre === 'all' || card.dataset.category === genre);
 
         if (match) {
-          // Show card: remove hidden, re-trigger reveal animation
           card.classList.remove('hidden');
           card.classList.remove('visible');
-          void card.offsetWidth; // force browser reflow to reset animation
+          void card.offsetWidth; // force reflow to reset animation
           setTimeout(function () {
             card.classList.add('visible');
           }, 30);
         } else {
-          // Hide card: remove visible first to avoid stuck state
           card.classList.remove('visible');
           card.classList.add('hidden');
         }
@@ -269,36 +252,32 @@
   });
 
   /* ─────────────────────────────────────────────
-     9. CARD PLAYER TOGGLE
-     Toggles the embedded YouTube iframe for each card.
-     - Clicks the play button → shows iframe, hides cover art
-     - Only one player open at a time
-     - Closing a player resets iframe src (stops playback)
+     9. PLAYLIST CARD PLAYER TOGGLE
+     Toggle embedded YouTube iframe for each playlist card.
+     - One player open at a time
+     - Closing resets iframe src (stops playback)
   ───────────────────────────────────────────── */
-  document.querySelectorAll('.card-play-toggle').forEach(function (btn) {
+  document.querySelectorAll('.playlist-card .card-play-toggle').forEach(function (btn) {
     btn.addEventListener('click', function () {
       var cover = btn.closest('.card-cover');
       var isOpen = cover.classList.contains('player-open');
 
-      // Close all other open players first
-      document.querySelectorAll('.card-cover.player-open').forEach(function (openCover) {
+      // Close all other open playlist players
+      document.querySelectorAll('.playlist-card .card-cover.player-open').forEach(function (openCover) {
         if (openCover !== cover) {
           openCover.classList.remove('player-open');
           var otherBtn = openCover.querySelector('.card-play-toggle');
           if (otherBtn) otherBtn.setAttribute('aria-label', 'Show player');
-          setPlayIcon(otherBtn, false);
-          // Reset iframe src to stop playback
+          setPlaylistIcon(otherBtn, false);
           var iframe = openCover.querySelector('iframe');
           if (iframe) { iframe.src = iframe.src; }
         }
       });
 
-      // Toggle current player
       cover.classList.toggle('player-open', !isOpen);
       btn.setAttribute('aria-label', isOpen ? 'Show player' : 'Hide player');
-      setPlayIcon(btn, !isOpen);
+      setPlaylistIcon(btn, !isOpen);
 
-      // Stop playback when closing
       if (isOpen) {
         var iframe = cover.querySelector('iframe');
         if (iframe) { iframe.src = iframe.src; }
@@ -306,22 +285,61 @@
     });
   });
 
-  function setPlayIcon(btn, playing) {
+  function setPlaylistIcon(btn, playing) {
     if (!btn) return;
     if (playing) {
-      // Close (X) icon when player is open
       btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>';
     } else {
-      // Play (triangle) icon when player is closed
       btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M7 5l6 4-6 4V5z" fill="currentColor"/></svg>';
     }
   }
 
   /* ─────────────────────────────────────────────
-     10. LAZY IFRAMES — observe for performance
-     Iframes have loading="lazy" in HTML.
-     This observer marks them loaded once in range.
-     Actual src is already in HTML — this just tracks load state.
+     10. SONG CARD PLAYER TOGGLE
+     Toggle embedded YouTube iframe for each song card.
+     Shares same single-player-at-a-time logic.
+  ───────────────────────────────────────────── */
+  document.querySelectorAll('.song-card .song-play-toggle').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var cover = btn.closest('.song-cover');
+      var isOpen = cover.classList.contains('player-open');
+
+      // Close all other open song players
+      document.querySelectorAll('.song-card .song-cover.player-open').forEach(function (openCover) {
+        if (openCover !== cover) {
+          openCover.classList.remove('player-open');
+          var otherBtn = openCover.querySelector('.song-play-toggle');
+          if (otherBtn) otherBtn.setAttribute('aria-label', 'Show player');
+          setSongIcon(otherBtn, false);
+          var iframe = openCover.querySelector('iframe');
+          if (iframe) { iframe.src = iframe.src; }
+        }
+      });
+
+      cover.classList.toggle('player-open', !isOpen);
+      btn.setAttribute('aria-label', isOpen ? 'Show player' : 'Hide player');
+      setSongIcon(btn, !isOpen);
+
+      if (isOpen) {
+        var iframe = cover.querySelector('iframe');
+        if (iframe) { iframe.src = iframe.src; }
+      }
+    });
+  });
+
+  function setSongIcon(btn, playing) {
+    if (!btn) return;
+    if (playing) {
+      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>';
+    } else {
+      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l8 4-8 4V4z" fill="currentColor"/></svg>';
+    }
+  }
+
+  /* ─────────────────────────────────────────────
+     11. LAZY IFRAMES — observer
+     Marks iframes as loaded when they enter viewport.
+     Actual src is in HTML — loading="lazy" handles deferral.
   ───────────────────────────────────────────── */
   if ('IntersectionObserver' in window) {
     var iframeObs = new IntersectionObserver(function (entries) {
@@ -339,9 +357,101 @@
   }
 
   /* ─────────────────────────────────────────────
-     11. CURSOR AMBIENT GLOW — desktop only
-     Smooth lerp glow following cursor position.
-     Only active on pointer:fine devices (mouse, not touch).
+     12. AUTO-THUMBNAIL SYSTEM (Song Cards)
+     ─────────────────────────────────────────────
+     Priority chain for each .song-thumb:
+
+       1. data-bg="images/custom.jpg"  ← manual override (highest priority)
+       2. data-yt-id="VIDEO_ID"        ← YouTube HQ thumbnail auto-fetch
+          → falls back to MQ if HQ 404s
+       3. SVG fallback art             ← always rendered; hidden when real thumb loads
+
+     HOW TO USE:
+       Custom image:  add data-bg="images/cover.jpg" to .song-thumb
+       Auto YouTube:  ensure data-yt-id="VIDEO_ID" matches the embed iframe
+       Pure SVG:      leave both attributes off; SVG is shown automatically
+
+     NOTE: YouTube thumbnail URLs are constructed client-side —
+     no API key needed. HQ = maxresdefault.jpg, MQ = mqdefault.jpg.
+  ───────────────────────────────────────────── */
+  document.querySelectorAll('.song-thumb').forEach(function (thumb) {
+    var customBg = thumb.dataset.bg;
+    var ytId     = thumb.dataset.ytId;
+
+    // Priority 1: manual data-bg image
+    if (customBg) {
+      loadThumbImage(thumb, customBg);
+      return;
+    }
+
+    // Priority 2: auto YouTube thumbnail
+    if (ytId) {
+      var hqUrl = 'https://img.youtube.com/vi/' + ytId + '/maxresdefault.jpg';
+      var mqUrl = 'https://img.youtube.com/vi/' + ytId + '/mqdefault.jpg';
+      var testHQ = new Image();
+      testHQ.onload = function () {
+        // YouTube returns a 120x90 placeholder for missing HQ — detect it
+        if (testHQ.naturalWidth > 120) {
+          applyThumb(thumb, hqUrl);
+        } else {
+          // HQ not available — try MQ
+          loadThumbImage(thumb, mqUrl);
+        }
+      };
+      testHQ.onerror = function () {
+        loadThumbImage(thumb, mqUrl);
+      };
+      testHQ.src = hqUrl;
+    }
+    // Priority 3: SVG fallback — already in HTML, no action needed
+  });
+
+  function loadThumbImage(thumb, url) {
+    var img = new Image();
+    img.onload = function () { applyThumb(thumb, url); };
+    img.onerror = function () { /* SVG fallback stays visible */ };
+    img.src = url;
+  }
+
+  function applyThumb(thumb, url) {
+    thumb.style.backgroundImage = 'url("' + url + '")';
+    thumb.style.backgroundSize  = 'cover';
+    thumb.style.backgroundPosition = 'center';
+    thumb.dataset.thumbLoaded = 'true'; // hides SVG via CSS
+  }
+
+  /* ─────────────────────────────────────────────
+     13. CUSTOM COVER IMAGE FALLBACK (Playlist Cards)
+     ─────────────────────────────────────────────
+     For .card-cover-art[data-bg="images/custom.jpg"]:
+       - If image loads → apply as background, hide SVG
+       - If image fails → mark [data-img-error], CSS shows SVG
+
+     HOW TO USE:
+       <div class="card-cover-art" data-bg="images/kpop-cover.jpg" style="background:...">
+  ───────────────────────────────────────────── */
+  document.querySelectorAll('.card-cover-art[data-bg]').forEach(function (el) {
+    var src = el.dataset.bg;
+    if (!src) return;
+
+    var testImg = new Image();
+    testImg.onload = function () {
+      el.style.backgroundImage   = 'url("' + src + '")';
+      el.style.backgroundSize    = 'cover';
+      el.style.backgroundPosition = 'center center';
+      var svg = el.querySelector('.cover-svg');
+      if (svg) svg.style.display = 'none';
+    };
+    testImg.onerror = function () {
+      el.setAttribute('data-img-error', 'true');
+    };
+    testImg.src = src;
+  });
+
+  /* ─────────────────────────────────────────────
+     14. CURSOR AMBIENT GLOW — desktop only
+     Smooth lerp red glow following cursor.
+     Only on pointer:fine (mouse) devices.
   ───────────────────────────────────────────── */
   if (window.matchMedia && !window.matchMedia('(pointer: coarse)').matches) {
     var glow = document.createElement('div');
@@ -363,7 +473,6 @@
     document.body.appendChild(glow);
 
     var gx = 0, gy = 0, cx = 0, cy = 0;
-    var glowRaf = null;
 
     document.addEventListener('mousemove', function (e) {
       gx = e.clientX;
@@ -380,46 +489,9 @@
       cy = lerpN(cy, gy, 0.1);
       glow.style.left = cx + 'px';
       glow.style.top  = cy + 'px';
-      glowRaf = requestAnimationFrame(animateGlow);
+      requestAnimationFrame(animateGlow);
     }
     animateGlow();
   }
-
-  /* ─────────────────────────────────────────────
-     12. COVER IMAGE FALLBACK HANDLER
-     ─────────────────────────────────────────────
-     If a playlist cover image fails to load
-     (e.g. images/playlist-name.jpg not found),
-     this marks the element so CSS shows the SVG fallback instead.
-
-     HOW TO USE CUSTOM COVER IMAGES:
-     1. Put image in images/ folder: images/my-playlist.jpg
-     2. Add to card-cover-art: data-bg="images/my-playlist.jpg"
-     3. This script will load it and apply as background-image
-     4. If it fails, the SVG cover art shows automatically
-
-     Example:
-       <div class="card-cover-art" data-bg="images/kpop-cover.jpg" style="background:...">
-  ───────────────────────────────────────────── */
-  document.querySelectorAll('.card-cover-art[data-bg]').forEach(function (el) {
-    var src = el.dataset.bg;
-    if (!src) return;
-
-    var testImg = new Image();
-    testImg.onload = function () {
-      // Image loaded successfully — apply as background
-      el.style.backgroundImage = 'url("' + src + '")';
-      el.style.backgroundSize = 'cover';
-      el.style.backgroundPosition = 'center center';
-      // Hide SVG fallback since we have a real image
-      var svg = el.querySelector('.cover-svg');
-      if (svg) svg.style.display = 'none';
-    };
-    testImg.onerror = function () {
-      // Image failed to load — mark element, CSS will show SVG fallback
-      el.setAttribute('data-img-error', 'true');
-    };
-    testImg.src = src;
-  });
 
 })();

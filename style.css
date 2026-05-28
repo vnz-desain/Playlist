@@ -1,6 +1,6 @@
 /* ============================================================
    M. EVAN ALMUNAWAR — Midnight Playlist
-   style.css | Fixed & Improved
+   style.css
 
    SYSTEM COLORS
    ────────────────────────────────────────
@@ -21,34 +21,27 @@
 
 /* ===== DESIGN TOKENS ===== */
 :root {
-  /* Backgrounds */
   --black:       #050505;
   --black-soft:  #0D0D0D;
   --black-card:  #111111;
 
-  /* Red accent — signature color */
   --red:         #8B0000;
   --red-mid:     #A31515;
   --red-bright:  #C41E3A;
 
-  /* Text */
   --white:       #F0EDE8;
   --white-dim:   #9A9690;
 
-  /* Borders */
   --grey-border: rgba(255,255,255,0.07);
 
-  /* Fonts */
   --font-display: 'Bebas Neue', sans-serif;
   --font-body:    'Cormorant Garamond', serif;
   --font-mono:    'Space Mono', monospace;
 
-  /* Transitions — compositor-safe (transform + opacity only) */
   --t-fast:   0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --t-normal: 0.40s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* Gold — featured card & cover art only */
   --gold:      #c8b89a;
   --gold-dim:  rgba(200,184,154,0.10);
 
@@ -97,12 +90,6 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
 
 
 /* ===== GRAIN OVERLAY ===== */
-/*
-  Film grain texture — fixed overlay on top of everything.
-  z-index: 9999 keeps it above all content visually,
-  pointer-events: none lets clicks pass through.
-  NOTE: grain is ABOVE hero text but only 3% opacity — invisible functionally.
-*/
 .grain {
   position: fixed;
   inset: 0;
@@ -129,7 +116,6 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   position: fixed;
   top: 0; left: 0; right: 0;
   height: var(--nav-h);
-  /* z-index: 1000 — above hero background (0), below grain (9999) */
   z-index: 1000;
   padding: 0 clamp(1.25rem, 5vw, 2.5rem);
   display: flex;
@@ -168,20 +154,16 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
 
 
 /* ===== HERO =====
-   Z-INDEX LAYERING (fix for hero text visibility):
-   ─────────────────────────────────────────────────
+   Z-INDEX LAYERING:
    .hero              → position: relative (stacking context)
-   .hero-bg           → z-index: 0   (SVG background, stays behind)
-   .hero-bg::after    → pseudo (vignette gradient, inside .hero-bg layer)
-   .hero-rule         → z-index: 2   (decorative line)
-   .hero-content      → z-index: 2   (ALL TEXT — always on top of bg)
-   .scroll-indicator  → z-index: 2   (scroll line below text)
-
-   IMPORTANT: Do NOT set isolation: isolate or contain: layout on .hero
-   as these create new stacking contexts that can break z-index ordering.
+   .hero-bg           → z-index: 0
+   .hero-bg::after    → pseudo (vignette)
+   .hero-rule         → z-index: 2
+   .hero-content      → z-index: 2
+   .scroll-indicator  → z-index: 2
 */
 .hero {
-  position: relative;          /* required: creates stacking context for children */
+  position: relative;
   min-height: 100svh;
   display: flex;
   flex-direction: column;
@@ -190,15 +172,13 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   text-align: center;
   overflow: hidden;
   padding: calc(var(--nav-h) + 2rem) clamp(1.5rem, 5vw, 3rem) 4rem;
-  /* background fallback — ensures text is readable even if SVG fails */
   background-color: #080808;
 }
 
-/* Background layer — SVG cityscape */
 .hero-bg {
   position: absolute;
   inset: 0;
-  z-index: 0;                  /* behind everything */
+  z-index: 0;
   background: #080808;
 }
 .hero-bg svg {
@@ -206,14 +186,13 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   inset: 0;
   width: 100%;
   height: 100%;
-  display: block;              /* prevent inline baseline gap */
+  display: block;
 }
-/* Dark vignette over background — ensures text contrast */
 .hero-bg::after {
   content: '';
   position: absolute;
   inset: 0;
-  z-index: 1;                  /* above SVG, still inside .hero-bg layer */
+  z-index: 1;
   background: linear-gradient(180deg,
     rgba(5,5,5,0.40) 0%,
     rgba(5,5,5,0.15) 40%,
@@ -222,17 +201,13 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   pointer-events: none;
 }
 
-/* Hero content — text layer, always above background */
 .hero-content {
   position: relative;
-  z-index: 2;                  /* above .hero-bg (z:0) */
-  /* Force GPU layer for smoother animation composite */
+  z-index: 2;
   transform: translateZ(0);
-  /* Ensure text renders above any stacking glitches */
   isolation: isolate;
 }
 
-/* Eyebrow */
 .hero-eyebrow {
   font-family: var(--font-mono);
   font-size: 0.65rem;
@@ -242,7 +217,6 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   margin-bottom: 1.25rem;
 }
 
-/* Title — Bebas Neue */
 .hero-title {
   font-family: var(--font-display);
   font-size: clamp(4rem, 13vw, 10rem);
@@ -250,7 +224,6 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--white);
-  /* text-shadow: subtle depth to ensure visibility on any background brightness */
   text-shadow: 0 2px 40px rgba(0,0,0,0.6);
 }
 .hero-title em {
@@ -273,7 +246,6 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   margin-inline: auto;
 }
 
-/* CTA button */
 .hero-btn {
   display: inline-flex;
   align-items: center;
@@ -300,7 +272,6 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
 .hero-btn svg { transition: transform var(--t-fast); flex-shrink: 0; }
 .hero-btn:hover svg { transform: translateY(4px); }
 
-/* Scroll indicator */
 .scroll-indicator {
   position: absolute;
   bottom: 2.5rem;
@@ -310,7 +281,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   flex-direction: column;
   align-items: center;
   gap: 0.4rem;
-  z-index: 2;                  /* same layer as hero-content */
+  z-index: 2;
   pointer-events: none;
 }
 .scroll-line {
@@ -330,7 +301,6 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   color: var(--white-dim);
 }
 
-/* Red rule at bottom of hero */
 .hero-rule {
   position: absolute;
   bottom: 0; left: 0; right: 0;
@@ -397,23 +367,32 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
 .section-header { margin-bottom: 4rem; }
 
 
-/* ===== GENRE FILTER =====
-   Sticky below nav (top: --nav-h).
-   z-index: 50 — above scroll content, below nav (1000).
-   Label reads "Filter by genre" — do NOT change class names (mood-section, mood-chips, chip).
+/* ===================================================================
+   SONGS SECTION
+   ───────────────────────────────────────────────────────────────────
+   Flow: .songs-filter (sticky) → .container → .section-header → .songs-grid
+   Filter chips only show/hide .song-card. .playlist-card is never touched.
+=================================================================== */
+.songs-section {
+  background: var(--black);
+  padding-bottom: 7rem;
+}
+
+/* ── Filter Bar ──
+   Sticky below nav. z-index 50: above content, below nav (1000).
+   Only affects .song-card. Playlist cards are NEVER filtered.
 */
-.mood-section {
-  padding: 3rem 0 1.5rem;
+.songs-filter {
+  padding: 2.5rem 0 1.5rem;
   position: sticky;
   top: var(--nav-h);
   z-index: 50;
   background: var(--black);
   border-bottom: 1px solid var(--grey-border);
-  /* Performance: promote to own composite layer */
-  transform: translateZ(0);
+  transform: translateZ(0); /* own composite layer */
 }
 
-.mood-label {
+.filter-label {
   font-family: var(--font-mono);
   font-size: 0.6rem;
   letter-spacing: 0.22em;
@@ -430,12 +409,11 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   padding-bottom: 0.25rem;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  /* Smooth momentum scroll on mobile */
   -webkit-overflow-scrolling: touch;
 }
 .mood-chips::-webkit-scrollbar { display: none; }
 
-/* Chip — rectangular, no large border-radius */
+/* Chip button */
 .chip {
   flex-shrink: 0;
   font-family: var(--font-mono);
@@ -450,7 +428,6 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   white-space: nowrap;
   transition: color var(--t-fast), border-color var(--t-fast), background-color var(--t-fast);
   touch-action: manipulation;
-  /* Minimum tap target for mobile */
   min-height: 36px;
 }
 .chip:hover {
@@ -463,11 +440,206 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   background: rgba(196,30,58,0.06);
 }
 
+/* ── Songs header padding (accounts for sticky filter) ── */
+.songs-section .container { padding-top: 5rem; }
 
-/* ===== PLAYLISTS SECTION ===== */
+/* ── Songs Grid ── */
+.songs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 1.5px;
+}
+
+/* ── Song Card ──
+   IMPORTANT: Only .song-card is affected by genre filters.
+   data-category must match the filter chip's data-genre value.
+*/
+.song-card {
+  position: relative;
+  background: var(--black-card);
+  border: 1px solid var(--grey-border);
+  overflow: hidden;
+  contain: layout style;
+  display: flex;
+  flex-direction: column;
+  /* Reveal animation start state */
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity  0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.song-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity  0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    border-color var(--t-fast);
+}
+/* Hidden = filtered out — display:none avoids ghost layout space */
+.song-card.hidden {
+  display: none;
+}
+.song-card.visible:hover {
+  border-color: rgba(196,30,58,0.3);
+  transform: translateY(-4px);
+}
+/* Hover glow */
+.song-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 35%, rgba(196,30,58,0.07) 0%, transparent 65%);
+  opacity: 0;
+  transition: opacity var(--t-fast);
+  pointer-events: none;
+  z-index: 0;
+}
+.song-card.visible:hover::after { opacity: 1; }
+
+/* Stagger delays */
+.song-card:nth-child(1) { transition-delay: 0.04s; }
+.song-card:nth-child(2) { transition-delay: 0.09s; }
+.song-card:nth-child(3) { transition-delay: 0.14s; }
+.song-card:nth-child(4) { transition-delay: 0.19s; }
+.song-card:nth-child(5) { transition-delay: 0.24s; }
+.song-card:nth-child(6) { transition-delay: 0.29s; }
+.song-card:nth-child(7) { transition-delay: 0.34s; }
+.song-card:nth-child(8) { transition-delay: 0.39s; }
+
+/* ── Song Cover ── */
+.song-cover {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: #0a0a0a;
+  contain: paint;
+}
+
+/* Auto-thumbnail wrapper */
+.song-thumb {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94), opacity var(--t-fast);
+}
+.song-card.visible:hover .song-thumb { transform: scale(1.04); }
+
+/* SVG fallback inside thumb */
+.song-thumb-svg { width: 55%; height: 55%; opacity: 0.85; }
+
+/* Hide SVG when real thumbnail is loaded */
+.song-thumb[data-thumb-loaded] .song-thumb-svg { display: none; }
+
+/* ── Song Player ── */
+.song-player-wrap {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--t-normal);
+  background: var(--black);
+  z-index: 2;
+}
+.song-cover.player-open .song-player-wrap {
+  opacity: 1;
+  pointer-events: auto;
+}
+.song-cover.player-open .song-thumb {
+  opacity: 0;
+  pointer-events: none;
+}
+.song-player-wrap iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+/* ── Song Play Button ── */
+.song-play-toggle {
+  position: absolute;
+  bottom: 0.65rem;
+  right: 0.65rem;
+  z-index: 3;
+  width: 34px;
+  height: 34px;
+  background: rgba(5,5,5,0.82);
+  border: 1px solid var(--grey-border);
+  color: var(--white);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity var(--t-fast), border-color var(--t-fast), background-color var(--t-fast);
+  touch-action: manipulation;
+}
+@media (hover: hover) {
+  .song-play-toggle { opacity: 0; }
+  .song-cover:hover .song-play-toggle { opacity: 1; }
+}
+.song-play-toggle:hover {
+  border-color: var(--red-bright);
+  background-color: rgba(196,30,58,0.12);
+}
+
+/* ── Song Body ── */
+.song-body {
+  padding: 1.1rem 1.3rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--grey-border);
+}
+
+.song-genre-tag {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--red-bright);
+  display: inline-block;
+  border: 1px solid rgba(196,30,58,0.25);
+  padding: 0.18rem 0.55rem;
+  margin-bottom: 0.35rem;
+  align-self: flex-start;
+}
+
+.song-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 3.5vw, 1.7rem);
+  letter-spacing: 0.05em;
+  line-height: 1;
+  color: var(--white);
+}
+
+.song-artist {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--white-dim);
+  font-style: italic;
+  font-weight: 300;
+}
+
+
+/* ===================================================================
+   PLAYLISTS SECTION
+   ───────────────────────────────────────────────────────────────────
+   .playlist-card has NO data-category. These cards are NEVER filtered.
+   They are always visible and static.
+=================================================================== */
 .playlists-section {
   background: var(--black);
   padding: 5rem 0 7rem;
+  border-top: 1px solid var(--grey-border);
 }
 
 .playlist-grid {
@@ -480,28 +652,24 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
 /* ===== PLAYLIST CARD ===== */
 /*
   IMAGE SYSTEM:
-  To use a custom image cover, add to .card-cover-art:
-    style="background-image: url('images/playlist-name.jpg'); background-size: cover; background-position: center;"
-  The SVG inside is the fallback — it shows if no background-image is set.
-  Fallback to solid gradient is handled by the inline style on .card-cover-art.
+  To use a custom cover, add to .card-cover-art:
+    data-bg="images/playlist-name.jpg"
+  JS will load it. On failure, SVG art shows automatically.
 */
 .playlist-card {
   position: relative;
   background: var(--black-card);
   border: 1px solid var(--grey-border);
   overflow: hidden;
-  /* contain: content can clip box-shadow — use layout+style instead */
   contain: layout style;
   display: flex;
   flex-direction: column;
-  /* Reveal animation start state */
   opacity: 0;
   transform: translateY(28px);
   transition:
     opacity  0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94),
     transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-/* Revealed state */
 .playlist-card.visible {
   opacity: 1;
   transform: translateY(0);
@@ -510,17 +678,12 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
     transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94),
     border-color var(--t-fast);
 }
-/* Hidden (filtered out) state */
-.playlist-card.hidden {
-  display: none;
-}
-/* Hover — only when visible (avoids transform conflict during reveal) */
+/* Playlist cards are NEVER hidden — no .hidden rule here */
 .playlist-card.visible:hover {
   border-color: rgba(196,30,58,0.3);
   transform: translateY(-4px);
 }
 
-/* Featured card spans 2 columns */
 .playlist-card.card-featured {
   grid-column: span 2;
   border-color: rgba(200,184,154,0.12);
@@ -530,7 +693,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   transform: translateY(-4px);
 }
 
-/* Stagger delays for staggered reveal */
+/* Stagger delays */
 .playlist-card:nth-child(1) { transition-delay: 0.05s; }
 .playlist-card:nth-child(2) { transition-delay: 0.12s; }
 .playlist-card:nth-child(3) { transition-delay: 0.19s; }
@@ -579,7 +742,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
 
 .cover-svg { width: 55%; height: 55%; opacity: 0.85; }
 
-/* Fallback: show cover SVG when no bg-image loaded */
+/* Fallback: show cover SVG when bg-image fails */
 .card-cover-art[data-img-error] {
   background-image: none !important;
 }
@@ -628,7 +791,6 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   transition: opacity var(--t-fast), border-color var(--t-fast), background-color var(--t-fast);
   touch-action: manipulation;
 }
-/* Desktop: fade in on hover; touch: always visible */
 @media (hover: hover) {
   .card-play-toggle { opacity: 0; }
   .card-cover:hover .card-play-toggle { opacity: 1; }
@@ -651,7 +813,6 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   border-top: 1px solid var(--grey-border);
 }
 
-/* Genre tag */
 .card-mood-tag {
   font-family: var(--font-mono);
   font-size: 0.58rem;
@@ -668,7 +829,6 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   border-color: rgba(200,184,154,0.3);
 }
 
-/* Card title */
 .card-title {
   font-family: var(--font-display);
   font-size: clamp(1.6rem, 4vw, 2.1rem);
@@ -678,7 +838,6 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   margin-bottom: 0.35rem;
 }
 
-/* Card description */
 .card-desc {
   font-size: 0.88rem;
   color: var(--white-dim);
@@ -687,7 +846,6 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   flex: 1;
 }
 
-/* Card link button */
 .card-btn {
   display: inline-flex;
   align-items: center;
@@ -824,32 +982,25 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
 }
 
 @media (max-width: 720px) {
+  .songs-grid { grid-template-columns: 1fr; gap: 1px; }
   .playlist-grid { grid-template-columns: 1fr; gap: 1px; }
   .playlist-card.card-featured { grid-column: span 1; }
   .section-pad { padding: 5rem 0; }
   .footer-inner { flex-direction: column; text-align: center; }
   .footer-links { justify-content: center; }
-  /* Always show play button on touch devices */
-  .card-play-toggle { opacity: 1 !important; }
-  /* Remove stagger delays on mobile for snappier feel */
+  .card-play-toggle,
+  .song-play-toggle { opacity: 1 !important; }
   .delay-1, .delay-2, .delay-3, .delay-4 { transition-delay: 0s !important; }
-  /* Slightly looser hero padding on small screens */
   .hero { padding-top: calc(var(--nav-h) + 1rem); }
 }
 
 @media (max-width: 480px) {
   .hero-btn { width: 100%; justify-content: center; }
-  /* Allow horizontal scroll on filter chips on very small screens */
   .mood-chips { flex-wrap: nowrap; }
 }
 
 
 /* ===== REDUCED MOTION ===== */
-/*
-  Respects user OS preference for reduced motion.
-  Disables all animations & transitions.
-  Reveals immediately so content is still accessible.
-*/
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -859,30 +1010,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   }
   .grain { animation: none; }
   .reveal-up, .reveal-left, .reveal-right { opacity: 1; transform: none; }
-  .playlist-card { opacity: 1; transform: none; }
+  .song-card, .playlist-card { opacity: 1; transform: none; }
+  .song-card.visible:hover,
   .playlist-card.visible:hover { transform: none; }
 }
-
-/* SONGS SECTION */
-.songs-grid{
-  display:grid;
-  gap:24px;
-}
-
-.song-card{
-  border:1px solid rgba(255,255,255,0.08);
-  padding:20px;
-  background:#080808;
-}
-
-.song-card h3{
-  margin-bottom:16px;
-  font-size:1rem;
-  letter-spacing:0.08em;
-}
-
-.song-card iframe{
-  width:100%;
-  aspect-ratio:16/9;
-  border:none;
-     }
