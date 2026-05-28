@@ -173,7 +173,7 @@
      Each card gets .visible after a staggered delay
      based on its position in the grid.
   ───────────────────────────────────────────── */
-  var cards = document.querySelectorAll('.playlist-card');
+  var cards = document.querySelectorAll('.song-card');
 
   if ('IntersectionObserver' in window) {
     var cardObs = new IntersectionObserver(function (entries) {
