@@ -1014,3 +1014,26 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   .song-card.visible:hover,
   .playlist-card.visible:hover { transform: none; }
 }
+/* =========================================================
+   LIGHT MODE
+========================================================= */
+
+body.light-mode {
+
+  --black: #f5f5f5;
+  --black-soft: #ffffff;
+  --black-card: #ffffff;
+
+  --white: #111111;
+  --white-dim: #555555;
+
+  --grey-border: rgba(0,0,0,0.08);
+
+  --red: #8B0000;
+  --red-mid: #A31515;
+  --red-bright: #C41E3A;
+
+  background: #f5f5f5;
+  color: #111111;
+
+}
