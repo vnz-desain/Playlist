@@ -873,16 +873,6 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   border:1px solid rgba(255,255,255,0.08);
   padding:20px;
   background:#080808;
-  opacity: 1;
-  transform: translateY(0);
-  transition:
-    opacity  0.45s ease,
-    transform 0.45s ease;
-}
-
-/* Hidden state — applied by genre filter */
-.song-card.hidden {
-  display: none;
 }
 
 .song-card h3{
