@@ -886,17 +886,3 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   aspect-ratio:16/9;
   border:none;
      }
-.song-card{
-  opacity:0;
-  transform:translateY(28px);
-  transition:
-    opacity 0.65s cubic-bezier(0.25,0.46,0.45,0.94),
-    transform 0.65s cubic-bezier(0.25,0.46,0.45,0.94);
-}
-
-.song-card.visible{
-  opacity:1;
-  transform:translateY(0);
-}
-
-     

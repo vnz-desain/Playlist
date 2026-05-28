@@ -123,8 +123,9 @@
     ─────────────────────────────────────────────
     TO ADD A NEW FILTER BUTTON:
       1. Add a new <button> below with data-genre="your-genre"
-      2. Match the data-genre value to data-category on your playlist cards
+      2. Match the data-genre value to data-category on your SONG cards (not playlist cards)
       3. The JS will handle showing/hiding automatically
+      NOTE: Filters only affect .song-card elements. Playlist cards are never filtered.
 
     CURRENT GENRES: all | kpop | cpop | jpop | lofi | instrumental | night-drive
   -->
@@ -132,7 +133,7 @@
     <div class="container">
       <p class="mood-label">— Filter by genre</p>
       <div class="mood-chips">
-        <!-- FILTER BUTTONS — edit data-genre to match playlist card data-category values -->
+        <!-- FILTER BUTTONS — edit data-genre to match song-card data-category values. Playlist cards are unaffected. -->
         <button class="chip active" data-genre="all">All</button>
         <button class="chip" data-genre="kpop">K-Pop</button>
         <button class="chip" data-genre="cpop">C-Pop</button>
@@ -153,16 +154,17 @@
     TO ADD A NEW PLAYLIST CARD:
       1. Copy one of the <!-- EDIT PLAYLIST HERE -- blocks below
       2. Paste it inside .playlist-grid
-      3. Update: data-category, iframe src, playlist link, title, description, cover image
+      3. Update: iframe src, playlist link, title, description, cover image
+      NOTE: Do NOT add data-category to playlist cards — they are never filtered.
   -->
-  <section class="songs-section" id="songs">  <div class="container"><div class="section-header reveal-up">
+  <section class="songs-section">  <div class="container"><div class="section-header reveal-up">
   <p class="section-label">— Songs</p>
   <h2 class="section-title">
     Selected<br><em>Tracks</em>
   </h2>
 </div>
 
-<div class="songs-grid playlist-grid">
+<div class="songs-grid">
 
   <!-- SONG -->
   <article class="song-card" data-category="kpop">
@@ -212,7 +214,7 @@
                - Category tag label: edit text in <div class="card-mood-tag">
                - Genre filter: change data-category="kpop" to match a filter button's data-genre
         -->
-        <article class="playlist-card" data-category="kpop">
+        <article class="playlist-card">
           <div class="card-cover">
             <!-- COVER ART — change background-image url to use a custom image -->
             <!-- If no image, the SVG art below shows as fallback -->
@@ -264,7 +266,7 @@
         <!-- ════════════════════════════════════════════
              EDIT PLAYLIST HERE — Card 2: Lofi
              ════════════════════════════════════════════ -->
-        <article class="playlist-card" data-category="lofi">
+        <article class="playlist-card">
           <div class="card-cover">
             <div class="card-cover-art" style="background:linear-gradient(135deg,#080e10 0%,#0d1414 50%,#08080a 100%)">
               <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="cover-svg">
@@ -317,7 +319,7 @@
              EDIT PLAYLIST HERE — Card 3: Instrumental (FEATURED)
              This card spans 2 columns. Keep class="playlist-card card-featured"
              ════════════════════════════════════════════ -->
-        <article class="playlist-card card-featured" data-category="instrumental">
+        <article class="playlist-card card-featured">
           <div class="card-cover">
             <div class="card-cover-art" style="background:linear-gradient(135deg,#0c0a08 0%,#1c1510 50%,#0a0808 100%)">
               <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="cover-svg">
@@ -366,7 +368,7 @@
         <!-- ════════════════════════════════════════════
              EDIT PLAYLIST HERE — Card 4: C-Pop
              ════════════════════════════════════════════ -->
-        <article class="playlist-card" data-category="cpop">
+        <article class="playlist-card">
           <div class="card-cover">
             <div class="card-cover-art" style="background:linear-gradient(135deg,#080c10 0%,#0d1218 50%,#080a0c 100%)">
               <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="cover-svg">
@@ -415,7 +417,7 @@
         <!-- ════════════════════════════════════════════
              EDIT PLAYLIST HERE — Card 5: J-Pop
              ════════════════════════════════════════════ -->
-        <article class="playlist-card" data-category="jpop">
+        <article class="playlist-card">
           <div class="card-cover">
             <div class="card-cover-art" style="background:linear-gradient(135deg,#0a080c 0%,#160e1a 50%,#08080c 100%)">
               <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="cover-svg">
@@ -459,7 +461,7 @@
         <!-- ════════════════════════════════════════════
              EDIT PLAYLIST HERE — Card 6: Night Drive
              ════════════════════════════════════════════ -->
-        <article class="playlist-card" data-category="night-drive">
+        <article class="playlist-card">
           <div class="card-cover">
             <div class="card-cover-art" style="background:linear-gradient(135deg,#080a08 0%,#101410 50%,#08080a 100%)">
               <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="cover-svg">

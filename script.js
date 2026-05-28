@@ -173,7 +173,7 @@
      Each card gets .visible after a staggered delay
      based on its position in the grid.
   ───────────────────────────────────────────── */
-  var cards = document.querySelectorAll('.songs-section .song-card');
+  var cards = document.querySelectorAll('.song-card');
 
   if ('IntersectionObserver' in window) {
     var cardObs = new IntersectionObserver(function (entries) {
@@ -199,13 +199,16 @@
      ─────────────────────────────────────────────
      HOW IT WORKS:
      - Filter buttons use data-genre="kpop" (etc.) on <button class="chip">
-     - Playlist cards use data-category="kpop" (etc.) on <article class="playlist-card">
-     - "all" button shows every card regardless of category
-     - Other genres show only cards where data-category matches
+     - SONG cards use data-category="kpop" (etc.) on <article class="song-card">
+     - "all" button shows every song card regardless of category
+     - Other genres show only song cards where data-category matches
+
+     PLAYLIST CARDS (.playlist-card) are NEVER affected by filters.
+     Do NOT add data-category to playlist cards.
 
      TO ADD A NEW GENRE:
      1. Add <button class="chip" data-genre="your-genre">Your Genre</button> in HTML
-     2. Add data-category="your-genre" to playlist cards in HTML
+     2. Add data-category="your-genre" to SONG cards only in HTML
      No JS changes needed.
 
      ANIMATION: cards re-animate (fade + slide) when filter changes.
@@ -226,7 +229,7 @@
 
         if (match) {
           // Show card: remove hidden, re-trigger reveal animation
-          card.style.display = 'block';
+          card.classList.remove('hidden');
           card.classList.remove('visible');
           void card.offsetWidth; // force browser reflow to reset animation
           setTimeout(function () {
@@ -235,7 +238,7 @@
         } else {
           // Hide card: remove visible first to avoid stuck state
           card.classList.remove('visible');
-          card.style.display = 'none';
+          card.classList.add('hidden');
         }
       });
     });
