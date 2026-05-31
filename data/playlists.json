@@ -1,0 +1,28 @@
+[
+  {
+    "id": "kpop",
+    "title": "Korean Waves",
+    "genre": "K-Pop",
+    "genreTag": "kpop",
+    "description": "Energetic K-pop tracks with cinematic vibes and late-night energy.",
+    "playlistUrl": "https://youtube.com/playlist?list=PLJrin-OB1jF44XkKkqnBVTkKn1iVaI_g3&si=bSveD27BbA9Pm72q",
+    "embedUrl": "https://www.youtube.com/embed/videoseries?list=PLJrin-OB1jF44XkKkqnBVTkKn1iVaI_g3",
+    "featured": false,
+    "accentColor": "#C41E3A",
+    "svgLabel": "K-POP",
+    "svgStyle": "red"
+  },
+  {
+    "id": "cpop",
+    "title": "Chinese Waves",
+    "genre": "C-Pop",
+    "genreTag": "cpop",
+    "description": "Orchestral layers, film scores, and soundscapes that turn any ordinary moment into a scene.",
+    "playlistUrl": "https://youtube.com/playlist?list=PLJrin-OB1jF6W8NmgA2SR2IwjUFVI_IJ0&si=O-C5I042PxvdKdOW",
+    "embedUrl": "https://www.youtube.com/embed/videoseries?list=PLJrin-OB1jF7rM-jKE-pG99U7FizQcU_E",
+    "featured": true,
+    "accentColor": "#c8b89a",
+    "svgLabel": "C-POP",
+    "svgStyle": "gold"
+  }
+]

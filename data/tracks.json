@@ -1,0 +1,74 @@
+[
+  {
+    "id": "attitude-aespa",
+    "title": "ATTITUDE",
+    "artist": "Aespa",
+    "genre": "K-Pop",
+    "category": "kpop",
+    "youtubeId": "nMwSsHkjmfk"
+  },
+  {
+    "id": "idol-yoasobi",
+    "title": "Idol",
+    "artist": "YOASOBI",
+    "genre": "J-Pop",
+    "category": "jpop",
+    "youtubeId": "ZRtdQ81jPUQ"
+  },
+  {
+    "id": "meow-meovv",
+    "title": "MEOW",
+    "artist": "MEOVV",
+    "genre": "K-Pop",
+    "category": "kpop",
+    "youtubeId": "qC4aZbB9uWY"
+  },
+  {
+    "id": "earthquake-jisoo",
+    "title": "earthquake",
+    "artist": "JISOO",
+    "genre": "K-Pop",
+    "category": "kpop",
+    "youtubeId": "S25S9kK41aU"
+  },
+  {
+    "id": "psycho-babymonster",
+    "title": "PSYCHO",
+    "artist": "BABYMONSTER",
+    "genre": "K-Pop",
+    "category": "kpop",
+    "youtubeId": "JhNsZdw3_Iw"
+  },
+  {
+    "id": "darkarts-aespa",
+    "title": "Dark Arts",
+    "artist": "aespa",
+    "genre": "K-Pop",
+    "category": "kpop",
+    "youtubeId": "b9CCJMJGHJQ"
+  },
+  {
+    "id": "wegoup-babymonster",
+    "title": "WE GO UP",
+    "artist": "BABYMONSTER",
+    "genre": "K-Pop",
+    "category": "kpop",
+    "youtubeId": "e2majw1AVrw"
+  },
+  {
+    "id": "wokeupintokyo-babymonster",
+    "title": "Woke Up In Tokyo",
+    "artist": "BABYMONSTER",
+    "genre": "K-Pop",
+    "category": "kpop",
+    "youtubeId": "i2WcUnbZXuU"
+  },
+  {
+    "id": "drama-aespa",
+    "title": "Drama",
+    "artist": "aespa",
+    "genre": "K-Pop",
+    "category": "kpop",
+    "youtubeId": "S3Z6N7U7f6I"
+  }
+]
