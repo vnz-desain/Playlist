@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="theme-color" content="#050505" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Midnight Playlist — M. Evan Almunawar</title>
+  <meta name="description" content="A collection of songs I listen to while editing, thinking, and creating." />
+
+  <!-- Fonts: Bebas Neue + Cormorant Garamond + Space Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Film grain texture -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ===================== NAV ===================== -->
+  <nav class="nav" id="nav">
+    <div class="nav-logo">MEA</div>
+    <a href="https://evanalmunawar.my.id" class="nav-back">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+        <path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Portfolio
+    </a>
+  </nav>
+
+  <!-- ===================== HERO ===================== -->
+  <!--
+    HERO SECTION — Do NOT restructure z-index layering.
+    .hero-bg (z:0) → .hero-content (z:2) → .scroll-indicator (z:2)
+  -->
+  <section class="hero" id="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="gHero1" cx="50%" cy="60%" r="50%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.02"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="gHero2" cx="30%" cy="80%" r="35%">
+            <stop offset="0%" stop-color="#8B0000" stop-opacity="0.04"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="1440" height="900" fill="#080808"/>
+        <!-- City silhouette -->
+        <rect x="0"    y="600" width="1440" height="300" fill="#0a0a0a"/>
+        <rect x="60"   y="540" width="30"   height="60"  fill="#111"/>
+        <rect x="100"  y="510" width="20"   height="90"  fill="#0e0e0e"/>
+        <rect x="130"  y="530" width="40"   height="70"  fill="#101010"/>
+        <rect x="200"  y="490" width="25"   height="110" fill="#0d0d0d"/>
+        <rect x="240"  y="520" width="35"   height="80"  fill="#111"/>
+        <rect x="290"  y="500" width="20"   height="100" fill="#0e0e0e"/>
+        <rect x="320"  y="480" width="50"   height="120" fill="#0c0c0c"/>
+        <rect x="430"  y="460" width="40"   height="140" fill="#0d0d0d"/>
+        <rect x="530"  y="470" width="60"   height="130" fill="#0b0b0b"/>
+        <rect x="660"  y="450" width="35"   height="150" fill="#0c0c0c"/>
+        <rect x="720"  y="475" width="45"   height="125" fill="#111"/>
+        <rect x="880"  y="472" width="55"   height="128" fill="#0c0c0c"/>
+        <rect x="1000" y="480" width="40"   height="120" fill="#0d0d0d"/>
+        <rect x="1110" y="465" width="50"   height="135" fill="#0b0b0b"/>
+        <rect x="1280" y="505" width="28"   height="95"  fill="#0f0f0f"/>
+        <rect x="1390" y="535" width="50"   height="65"  fill="#111"/>
+        <!-- Window lights -->
+        <g fill="#C41E3A" opacity="0.08">
+          <rect x="205" y="495" width="3" height="4"/><rect x="335" y="488" width="4" height="5"/>
+          <rect x="445" y="468" width="4" height="5"/><rect x="540" y="478" width="5" height="6"/>
+          <rect x="670" y="460" width="4" height="5"/><rect x="730" y="482" width="5" height="6"/>
+          <rect x="892" y="480" width="5" height="6"/><rect x="1012" y="488" width="4" height="5"/>
+          <rect x="1120" y="473" width="5" height="6"/>
+        </g>
+        <!-- Ambient glows -->
+        <ellipse cx="400"  cy="700" rx="300" ry="120" fill="#8B0000" opacity="0.015"/>
+        <ellipse cx="1000" cy="720" rx="250" ry="100" fill="#8B0000" opacity="0.010"/>
+        <rect width="1440" height="900" fill="url(#gHero1)"/>
+        <rect width="1440" height="900" fill="url(#gHero2)"/>
+        <line x1="0" y1="600" x2="1440" y2="600" stroke="#C41E3A" stroke-width="0.5" opacity="0.1"/>
+      </svg>
+    </div>
+
+    <div class="hero-rule" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow reveal-up">playlist.evanalmunawar.my.id</p>
+      <h1 class="hero-title reveal-up delay-1">
+        Midnight
+        <em>Playlist</em>
+      </h1>
+      <p class="hero-sub reveal-up delay-2">A collection of songs I listen to while<br/>editing, thinking, and creating.</p>
+      <a href="#songs" class="hero-btn reveal-up delay-3">
+        <span>Explore Songs</span>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M8 3v10M3 8l5 5 5-5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="scroll-indicator" aria-hidden="true">
+      <span class="scroll-line"></span>
+      <span class="scroll-label">SCROLL</span>
+    </div>
+  </section>
+
+
+  <!-- ===================== SONGS SECTION ===================== -->
+  <!--
+    DATA-DRIVEN — Song cards are generated by script.js from data/tracks.json.
+    To add a song: edit data/tracks.json only. No HTML changes needed.
+
+    To add a new genre filter chip:
+      1. Add <button class="chip" data-genre="your-genre">Label</button> below
+      2. Add a matching entry in tracks.json with "category": "your-genre"
+  -->
+  <section class="songs-section" id="songs">
+
+    <!-- FILTER BAR — only affects .song-card, never .playlist-card -->
+    <div class="songs-filter" id="songs-filter">
+      <div class="container">
+        <p class="filter-label">— Filter by genre</p>
+        <div class="mood-chips">
+          <button class="chip active" data-genre="all">All</button>
+          <button class="chip" data-genre="kpop">K-Pop</button>
+          <button class="chip" data-genre="cpop">C-Pop</button>
+          <button class="chip" data-genre="jpop">J-Pop</button>
+          <button class="chip" data-genre="lofi">Lofi</button>
+          <button class="chip" data-genre="instrumental">Instrumental</button>
+          <button class="chip" data-genre="night-drive">Night Drive</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="section-header reveal-up">
+        <p class="section-label">— Songs</p>
+        <h2 class="section-title">Selected<br/><em>Tracks</em></h2>
+      </div>
+
+      <!--
+        Song cards are injected here by script.js → renderTracks()
+        To add a song, edit data/tracks.json — no HTML edit needed.
+      -->
+      <div class="songs-grid" id="songs-grid">
+        <!-- JS-rendered -->
+      </div>
+
+    </div><!-- /container -->
+  </section>
+
+
+  <!-- ===================== PLAYLISTS SECTION ===================== -->
+  <!--
+    DATA-DRIVEN — Playlist cards are generated by script.js from data/playlists.json.
+    To add a playlist: edit data/playlists.json only. No HTML changes needed.
+
+    featured: true  → card gets class="playlist-card card-featured" (wide card)
+    featured: false → standard card
+  -->
+  <section class="playlists-section" id="playlists">
+    <div class="container">
+
+      <div class="section-header reveal-up">
+        <p class="section-label">— My Playlists</p>
+        <h2 class="section-title">Selected<br/><em>Sounds</em></h2>
+      </div>
+
+      <!--
+        Playlist cards are injected here by script.js → renderPlaylists()
+        To add a playlist, edit data/playlists.json — no HTML edit needed.
+      -->
+      <div class="playlist-grid" id="playlist-grid">
+        <!-- JS-rendered -->
+      </div>
+
+    </div><!-- /container -->
+  </section>
+
+
+  <!-- ===================== QUOTE ===================== -->
+  <section class="quote-section">
+    <div class="container">
+      <blockquote class="quote-block reveal-up">
+        <span class="quote-mark">"</span>
+        Music gives color to the air of the moment.
+        <span class="quote-attr">— Karl Lagerfeld</span>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <span class="footer-name">M. EVAN ALMUNAWAR</span>
+      <span class="footer-copy">© 2026 — All rights reserved</span>
+      <span class="footer-craft">Crafted with intention</span>
+      <div class="footer-links">
+        <a href="https://evanalmunawar.my.id" class="footer-link">Portfolio</a>
+        <a href="mailto:hello@evanalmunawar.my.id" class="footer-link">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
