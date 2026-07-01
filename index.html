@@ -15,7 +15,7 @@
     rel="stylesheet"
   />
 
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
@@ -47,13 +47,13 @@
             <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
           </radialGradient>
           <radialGradient id="gHero2" cx="30%" cy="80%" r="35%">
-            <stop offset="0%" stop-color="#8B0000" stop-opacity="0.04"/>
+            <stop offset="0%" stop-color="#1e88e5" stop-opacity="0.04"/>
             <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
           </radialGradient>
         </defs>
-        <rect width="1440" height="900" fill="#080808"/>
+        <rect width="1440" height="900" fill="#050d1a"/>
         <!-- City silhouette -->
-        <rect x="0"    y="600" width="1440" height="300" fill="#0a0a0a"/>
+        <rect x="0"    y="600" width="1440" height="300" fill="#0a1628"/>
         <rect x="60"   y="540" width="30"   height="60"  fill="#111"/>
         <rect x="100"  y="510" width="20"   height="90"  fill="#0e0e0e"/>
         <rect x="130"  y="530" width="40"   height="70"  fill="#101010"/>
@@ -71,7 +71,7 @@
         <rect x="1280" y="505" width="28"   height="95"  fill="#0f0f0f"/>
         <rect x="1390" y="535" width="50"   height="65"  fill="#111"/>
         <!-- Window lights -->
-        <g fill="#C41E3A" opacity="0.08">
+        <g fill="#4fc3f7" opacity="0.06">
           <rect x="205" y="495" width="3" height="4"/><rect x="335" y="488" width="4" height="5"/>
           <rect x="445" y="468" width="4" height="5"/><rect x="540" y="478" width="5" height="6"/>
           <rect x="670" y="460" width="4" height="5"/><rect x="730" y="482" width="5" height="6"/>
@@ -79,11 +79,11 @@
           <rect x="1120" y="473" width="5" height="6"/>
         </g>
         <!-- Ambient glows -->
-        <ellipse cx="400"  cy="700" rx="300" ry="120" fill="#8B0000" opacity="0.015"/>
-        <ellipse cx="1000" cy="720" rx="250" ry="100" fill="#8B0000" opacity="0.010"/>
+        <ellipse cx="400"  cy="700" rx="300" ry="120" fill="#1e3a5f" opacity="0.015"/>
+        <ellipse cx="1000" cy="720" rx="250" ry="100" fill="#1e3a5f" opacity="0.010"/>
         <rect width="1440" height="900" fill="url(#gHero1)"/>
         <rect width="1440" height="900" fill="url(#gHero2)"/>
-        <line x1="0" y1="600" x2="1440" y2="600" stroke="#C41E3A" stroke-width="0.5" opacity="0.1"/>
+        <line x1="0" y1="600" x2="1440" y2="600" stroke="#4fc3f7" stroke-width="0.5" opacity="0.1"/>
       </svg>
     </div>
 
@@ -208,6 +208,7 @@
     </div>
   </footer>
 
+  <script src="js/supabase.js"></script>
   <script src="script.js"></script>
 
 </body>

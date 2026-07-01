@@ -1,15 +1,27 @@
+/* ── NAVY BLUE OVERRIDES ── */
+:root {
+  --bg:         #050d1a;
+  --surface:    #0a1628;
+  --card:       rgba(15,31,61,0.6);
+  --accent:     #4fc3f7;
+  --accent-dim: #1e88e5;
+  --accent-glow:rgba(79,195,247,0.15);
+  --white:      #e8f0fe;
+  --white-dim:  #7b9bbf;
+  --border:     rgba(79,195,247,0.12);
+}
 /* ============================================================
    M. EVAN ALMUNAWAR — Midnight Playlist
    style.css
 
    SYSTEM COLORS
    ────────────────────────────────────────
-   Background   : #050505 (--black)
-   Surface      : #0D0D0D (--black-soft), #111111 (--black-card)
-   Red accent   : #8B0000, #A31515, #C41E3A (--red-bright)
-   Text primary : #F0EDE8 (--white)
-   Text dim     : #9A9690 (--white-dim)
-   Border       : rgba(255,255,255,0.07) (--grey-border)
+   Background   : #050d1a (--black)
+   Surface      : #0a1628 (--black-soft), #0f1f3d (--black-card)
+   Red accent   : #1e3a5f, #1e88e5, #4fc3f7 (--red-bright)
+   Text primary : #e8f0fe (--white)
+   Text dim     : #7b9bbf (--white-dim)
+   Border       : rgba(79,195,247,0.1) (--grey-border)
    Gold accent  : #c8b89a (featured card & cover art only)
    Font display : Bebas Neue
    Font body    : Cormorant Garamond
@@ -21,18 +33,18 @@
 
 /* ===== DESIGN TOKENS ===== */
 :root {
-  --black:       #050505;
-  --black-soft:  #0D0D0D;
-  --black-card:  #111111;
+  --black:       #050d1a;
+  --black-soft:  #0a1628;
+  --black-card:  #0f1f3d;
 
-  --red:         #8B0000;
-  --red-mid:     #A31515;
-  --red-bright:  #C41E3A;
+  --red:         #1e3a5f;
+  --red-mid:     #1e88e5;
+  --red-bright:  #4fc3f7;
 
-  --white:       #F0EDE8;
-  --white-dim:   #9A9690;
+  --white:       #e8f0fe;
+  --white-dim:   #7b9bbf;
 
-  --grey-border: rgba(255,255,255,0.07);
+  --grey-border: rgba(79,195,247,0.1);
 
   --font-display: 'Bebas Neue', sans-serif;
   --font-body:    'Cormorant Garamond', serif;
@@ -69,11 +81,11 @@ body {
 /* Scrollbar */
 ::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: var(--black); }
-::-webkit-scrollbar-thumb { background: var(--red); border-radius: 2px; }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
 
 /* Selection */
 ::selection {
-  background: rgba(196,30,58,0.18);
+  background: rgba(79,195,247,0.18);
   color: var(--white);
 }
 
@@ -134,7 +146,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   font-family: var(--font-display);
   font-size: 1.5rem;
   letter-spacing: 0.15em;
-  color: var(--red-bright);
+  color: var(--accent);
 }
 
 .nav-back {
@@ -172,14 +184,14 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   text-align: center;
   overflow: hidden;
   padding: calc(var(--nav-h) + 2rem) clamp(1.5rem, 5vw, 3rem) 4rem;
-  background-color: #080808;
+  background-color: #050d1a;
 }
 
 .hero-bg {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: #080808;
+  background: var(--surface);
 }
 .hero-bg svg {
   position: absolute;
@@ -213,7 +225,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   font-size: 0.65rem;
   letter-spacing: 0.35em;
   text-transform: uppercase;
-  color: var(--red-bright);
+  color: var(--accent);
   margin-bottom: 1.25rem;
 }
 
@@ -252,7 +264,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   gap: 0.7rem;
   margin-top: 2.5rem;
   padding: 0.9rem 2.1rem;
-  border: 1px solid var(--red);
+  border: 1px solid var(--accent);
   background: transparent;
   color: var(--white);
   font-family: var(--font-mono);
@@ -265,8 +277,8 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
 }
 .hero-btn:hover,
 .hero-btn:focus-visible {
-  background-color: var(--red);
-  border-color: var(--red-bright);
+  background-color: var(--accent);
+  border-color: var(--accent);
   outline: none;
 }
 .hero-btn svg { transition: transform var(--t-fast); flex-shrink: 0; }
@@ -287,7 +299,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
 .scroll-line {
   width: 1px;
   height: 48px;
-  background: linear-gradient(to bottom, var(--red-bright), transparent);
+  background: linear-gradient(to bottom, var(--accent), transparent);
   animation: scrollPulse 2.5s ease-in-out infinite;
 }
 @keyframes scrollPulse {
@@ -305,7 +317,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   position: absolute;
   bottom: 0; left: 0; right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--red), transparent);
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
   z-index: 2;
   pointer-events: none;
 }
@@ -344,7 +356,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   font-size: 0.62rem;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--red-bright);
+  color: var(--accent);
   margin-bottom: 1rem;
 }
 .section-title {
@@ -435,9 +447,9 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   border-color: rgba(255,255,255,0.18);
 }
 .chip.active {
-  color: var(--red-bright);
-  border-color: rgba(196,30,58,0.4);
-  background: rgba(196,30,58,0.06);
+  color: var(--accent);
+  border-color: rgba(79,195,247,0.4);
+  background: rgba(79,195,247,0.06);
 }
 
 /* ── Songs header padding (accounts for sticky filter) ── */
@@ -456,7 +468,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
 */
 .song-card {
   position: relative;
-  background: var(--black-card);
+  background: var(--card);
   border: 1px solid var(--grey-border);
   overflow: hidden;
   contain: layout style;
@@ -482,7 +494,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   display: none;
 }
 .song-card.visible:hover {
-  border-color: rgba(196,30,58,0.3);
+  border-color: rgba(79,195,247,0.3);
   transform: translateY(-4px);
 }
 /* Hover glow */
@@ -490,7 +502,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 35%, rgba(196,30,58,0.07) 0%, transparent 65%);
+  background: radial-gradient(circle at 50% 35%, rgba(79,195,247,0.07) 0%, transparent 65%);
   opacity: 0;
   transition: opacity var(--t-fast);
   pointer-events: none;
@@ -513,7 +525,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   position: relative;
   aspect-ratio: 16/9;
   overflow: hidden;
-  background: #0a0a0a;
+  background: var(--surface);
   contain: paint;
 }
 
@@ -585,8 +597,8 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   .song-cover:hover .song-play-toggle { opacity: 1; }
 }
 .song-play-toggle:hover {
-  border-color: var(--red-bright);
-  background-color: rgba(196,30,58,0.12);
+  border-color: var(--accent);
+  background-color: rgba(79,195,247,0.12);
 }
 
 /* ── Song Body ── */
@@ -605,9 +617,9 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   font-size: 0.55rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--red-bright);
+  color: var(--accent);
   display: inline-block;
-  border: 1px solid rgba(196,30,58,0.25);
+  border: 1px solid rgba(79,195,247,0.25);
   padding: 0.18rem 0.55rem;
   margin-bottom: 0.35rem;
   align-self: flex-start;
@@ -658,7 +670,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
 */
 .playlist-card {
   position: relative;
-  background: var(--black-card);
+  background: var(--card);
   border: 1px solid var(--grey-border);
   overflow: hidden;
   contain: layout style;
@@ -680,7 +692,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
 }
 /* Playlist cards are NEVER hidden — no .hidden rule here */
 .playlist-card.visible:hover {
-  border-color: rgba(196,30,58,0.3);
+  border-color: rgba(79,195,247,0.3);
   transform: translateY(-4px);
 }
 
@@ -706,7 +718,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 35%, rgba(196,30,58,0.07) 0%, transparent 65%);
+  background: radial-gradient(circle at 50% 35%, rgba(79,195,247,0.07) 0%, transparent 65%);
   opacity: 0;
   transition: opacity var(--t-fast);
   pointer-events: none;
@@ -723,7 +735,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   position: relative;
   aspect-ratio: 16/9;
   overflow: hidden;
-  background: #0a0a0a;
+  background: var(--surface);
   contain: paint;
 }
 
@@ -796,8 +808,8 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   .card-cover:hover .card-play-toggle { opacity: 1; }
 }
 .card-play-toggle:hover {
-  border-color: var(--red-bright);
-  background-color: rgba(196,30,58,0.12);
+  border-color: var(--accent);
+  background-color: rgba(79,195,247,0.12);
 }
 
 
@@ -818,9 +830,9 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   font-size: 0.58rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--red-bright);
+  color: var(--accent);
   display: inline-block;
-  border: 1px solid rgba(196,30,58,0.25);
+  border: 1px solid rgba(79,195,247,0.25);
   padding: 0.2rem 0.6rem;
   margin-bottom: 0.5rem;
 }
@@ -862,8 +874,8 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   transition: color var(--t-fast), border-color var(--t-fast);
 }
 .card-btn:hover {
-  color: var(--red-bright);
-  border-color: rgba(196,30,58,0.5);
+  color: var(--accent);
+  border-color: rgba(79,195,247,0.5);
 }
 .card-btn--gold {
   color: var(--gold);
@@ -877,7 +889,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
 
 /* ===== QUOTE SECTION ===== */
 .quote-section {
-  background: var(--black-soft);
+  background: var(--bg);
   padding: 7rem 0;
   border-top: 1px solid var(--grey-border);
   border-bottom: 1px solid var(--grey-border);
@@ -891,7 +903,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   transform: translate(-50%, -50%);
   width: 500px; height: 300px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(196,30,58,0.03) 0%, transparent 60%);
+  background: radial-gradient(circle, rgba(79,195,247,0.03) 0%, transparent 60%);
   pointer-events: none;
 }
 
@@ -914,7 +926,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   font-family: var(--font-display);
   font-size: 5rem;
   line-height: 0.6;
-  color: var(--red-bright);
+  color: var(--accent);
   opacity: 0.2;
   margin-bottom: 0.75rem;
 }
@@ -951,7 +963,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   font-family: var(--font-display);
   font-size: 1rem;
   letter-spacing: 0.12em;
-  color: var(--red-bright);
+  color: var(--accent);
 }
 .footer-copy,
 .footer-craft {
@@ -1013,4 +1025,213 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   .song-card, .playlist-card { opacity: 1; transform: none; }
   .song-card.visible:hover,
   .playlist-card.visible:hover { transform: none; }
+}
+
+/* ══ TRACK LIST — Spotify-style ════════════════════════ */
+#songs-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.track-list-header {
+  display: grid;
+  grid-template-columns: 36px 44px 1fr 120px 44px;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid rgba(79,195,247,0.08);
+  margin-bottom: 0.25rem;
+  font-family: var(--font-mono, 'Space Mono', monospace);
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--white-dim, #7b9bbf);
+}
+
+/* Track row */
+.track-row {
+  border-radius: 6px;
+  overflow: hidden;
+  transition: background 0.18s;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.track-row:hover { background: rgba(79,195,247,0.06); }
+.track-row.track-open { background: rgba(79,195,247,0.08); }
+
+.track-row-main {
+  display: grid;
+  grid-template-columns: 36px 44px 1fr 120px 44px;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  min-height: 56px;
+}
+
+/* Number col */
+.tl-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 36px;
+}
+.tr-number {
+  font-family: var(--font-mono, 'Space Mono', monospace);
+  font-size: 0.7rem;
+  color: var(--white-dim, #7b9bbf);
+  transition: opacity 0.15s;
+}
+.tr-play-icon {
+  position: absolute;
+  opacity: 0;
+  color: var(--accent, #4fc3f7);
+  transition: opacity 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.track-row:hover .tr-number { opacity: 0; }
+.track-row:hover .tr-play-icon { opacity: 1; }
+.track-row.track-open .tr-number { display: none; }
+.track-row.track-open .tr-play-icon { opacity: 1; color: var(--accent, #4fc3f7); }
+
+/* Thumbnail */
+.tl-thumb {
+  width: 44px;
+  height: 44px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #0a1628;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+  position: relative;
+}
+.tl-thumb-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tl-thumb-fallback svg { width: 100%; height: 100%; }
+/* Hide fallback when bg image loaded */
+.tl-thumb[style*="background-image"] .tl-thumb-fallback { display: none; }
+
+/* Info col */
+.tl-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+.tl-title {
+  font-family: var(--font-body, 'Cormorant Garamond', serif);
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--white, #e8f0fe);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.15s;
+}
+.track-row:hover .tl-title,
+.track-row.track-open .tl-title { color: var(--accent, #4fc3f7); }
+.tl-artist {
+  font-family: var(--font-mono, 'Space Mono', monospace);
+  font-size: 0.58rem;
+  color: var(--white-dim, #7b9bbf);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Genre tag col */
+.tl-genre {
+  display: flex;
+  align-items: center;
+}
+.tl-genre-tag {
+  font-family: var(--font-mono, 'Space Mono', monospace);
+  font-size: 0.5rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--white-dim, #7b9bbf);
+  background: rgba(79,195,247,0.07);
+  border: 1px solid rgba(79,195,247,0.12);
+  border-radius: 20px;
+  padding: 0.2rem 0.6rem;
+  white-space: nowrap;
+}
+
+/* Action col */
+.tl-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tr-toggle-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(79,195,247,0.1);
+  border: 1px solid rgba(79,195,247,0.2);
+  border-radius: 50%;
+  color: var(--accent, #4fc3f7);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s, background 0.15s, transform 0.15s;
+}
+.track-row:hover .tr-toggle-btn,
+.track-row.track-open .tr-toggle-btn { opacity: 1; }
+.tr-toggle-btn:hover {
+  background: rgba(79,195,247,0.2);
+  transform: scale(1.08);
+}
+.track-row.track-open .tr-toggle-btn {
+  background: rgba(79,195,247,0.18);
+}
+
+/* Embed area — collapsed by default */
+.track-embed-wrap {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.38s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.track-row.track-open .track-embed-wrap {
+  max-height: 260px;
+}
+.track-embed-inner {
+  padding: 0 1rem 0.75rem;
+}
+.track-embed-inner iframe {
+  width: 100%;
+  height: 220px;
+  border: none;
+  border-radius: 6px;
+  display: block;
+}
+.track-embed-nolink p {
+  font-family: var(--font-mono, 'Space Mono', monospace);
+  font-size: 0.6rem;
+  color: var(--white-dim, #7b9bbf);
+  padding: 1rem 0;
+}
+
+/* Hide old song-card / songs-grid grid layout */
+.songs-grid { display: flex; flex-direction: column; }
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .track-list-header { grid-template-columns: 28px 36px 1fr 0 36px; }
+  .track-list-header .tl-genre { display: none; }
+  .track-row-main { grid-template-columns: 28px 36px 1fr 0 36px; gap: 0.5rem; padding: 0.4rem 0.6rem; }
+  .tl-genre { display: none; }
+  .tl-thumb { width: 36px; height: 36px; }
+  .track-row.track-open .track-embed-wrap { max-height: 220px; }
+  .track-embed-inner iframe { height: 180px; }
 }
