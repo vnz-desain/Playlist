@@ -187,7 +187,7 @@
         '      <span class="tr-play-icon" aria-hidden="true">' + svgPlay + '</span>',
         '    </span>',
         '    <div class="tl-thumb"' + thumbYt + thumbBg + '>',
-        '      <div class="tl-thumb-fallback"><svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="40" height="40" fill="#0a1628"/><circle cx="20" cy="18" r="6" fill="none" stroke="#4fc3f7" stroke-width="0.7" opacity="0.4"/><circle cx="20" cy="18" r="1.5" fill="#4fc3f7" opacity="0.5"/></svg></div>',
+        '      <div class="tl-thumb-fallback"><svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="40" height="40" fill="#161616"/><circle cx="20" cy="18" r="6" fill="none" stroke="#E8E4D8" stroke-width="0.7" opacity="0.4"/><circle cx="20" cy="18" r="1.5" fill="#E8E4D8" opacity="0.5"/></svg></div>',
         '    </div>',
         '    <div class="tl-info">',
         '      <span class="tl-title">' + esc(track.title) + '</span>',
@@ -267,18 +267,18 @@
     return [
       '<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="cover-svg">',
       '  <defs><radialGradient id="' + gradId + '" cx="50%" cy="50%" r="55%">',
-      '    <stop offset="0%" stop-color="#4fc3f7" stop-opacity="0.12"/>',
-      '    <stop offset="100%" stop-color="#050d1a" stop-opacity="0"/>',
+      '    <stop offset="0%" stop-color="#E8E4D8" stop-opacity="0.12"/>',
+      '    <stop offset="100%" stop-color="#0A0A0A" stop-opacity="0"/>',
       '  </radialGradient></defs>',
-      '  <rect width="200" height="200" fill="#0a1628"/>',
+      '  <rect width="200" height="200" fill="#161616"/>',
       '  <rect width="200" height="200" fill="url(#' + gradId + ')"/>',
-      '  <rect x="30" y="30" width="140" height="140" fill="none" stroke="#4fc3f7" stroke-width="0.5" opacity="0.2"/>',
-      '  <rect x="38" y="38" width="124" height="124" fill="none" stroke="#4fc3f7" stroke-width="0.3" opacity="0.1"/>',
-      '  <line x1="100" y1="55" x2="100" y2="145" stroke="#4fc3f7" stroke-width="0.6" opacity="0.3"/>',
-      '  <line x1="55" y1="100" x2="145" y2="100" stroke="#4fc3f7" stroke-width="0.6" opacity="0.3"/>',
-      '  <circle cx="100" cy="100" r="8" fill="none" stroke="#4fc3f7" stroke-width="0.8" opacity="0.4"/>',
-      '  <circle cx="100" cy="100" r="2" fill="#4fc3f7" opacity="0.6"/>',
-      '  <text x="100" y="175" text-anchor="middle" font-family="serif" font-size="8" fill="#4fc3f7" opacity="0.3" letter-spacing="4">' + esc(label.toUpperCase()) + '</text>',
+      '  <rect x="30" y="30" width="140" height="140" fill="none" stroke="#E8E4D8" stroke-width="0.5" opacity="0.2"/>',
+      '  <rect x="38" y="38" width="124" height="124" fill="none" stroke="#E8E4D8" stroke-width="0.3" opacity="0.1"/>',
+      '  <line x1="100" y1="55" x2="100" y2="145" stroke="#E8E4D8" stroke-width="0.6" opacity="0.3"/>',
+      '  <line x1="55" y1="100" x2="145" y2="100" stroke="#E8E4D8" stroke-width="0.6" opacity="0.3"/>',
+      '  <circle cx="100" cy="100" r="8" fill="none" stroke="#E8E4D8" stroke-width="0.8" opacity="0.4"/>',
+      '  <circle cx="100" cy="100" r="2" fill="#E8E4D8" opacity="0.6"/>',
+      '  <text x="100" y="175" text-anchor="middle" font-family="serif" font-size="8" fill="#E8E4D8" opacity="0.3" letter-spacing="4">' + esc(label.toUpperCase()) + '</text>',
       '</svg>'
     ].join('');
   }
@@ -500,7 +500,7 @@
     glow.style.cssText = [
       'position:fixed','top:0','left:0',
       'width:360px','height:360px','border-radius:50%',
-      'background:radial-gradient(circle,rgba(79,195,247,0.05) 0%,transparent 70%)',
+      'background:radial-gradient(circle,rgba(232,228,216,0.05) 0%,transparent 70%)',
       'pointer-events:none','z-index:9998',
       'transform:translate(-50%,-50%)','transition:opacity 0.5s',
       'opacity:0','will-change:transform'

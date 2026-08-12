@@ -1,14 +1,14 @@
-/* ── NAVY BLUE OVERRIDES ── */
+/* ── DARK MINIMAL OVERRIDES ── */
 :root {
-  --bg:         #050d1a;
-  --surface:    #0a1628;
-  --card:       rgba(15,31,61,0.6);
-  --accent:     #4fc3f7;
-  --accent-dim: #1e88e5;
-  --accent-glow:rgba(79,195,247,0.15);
-  --white:      #e8f0fe;
-  --white-dim:  #7b9bbf;
-  --border:     rgba(79,195,247,0.12);
+  --bg:         #0A0A0A;
+  --surface:    #161616;
+  --card:       rgba(20,20,20,0.6);
+  --accent:     #E8E4D8;
+  --accent-dim: #8C8C8C;
+  --accent-glow:rgba(232,228,216,0.15);
+  --white:      #FAFAFA;
+  --white-dim:  #A1A1A1;
+  --border:     rgba(232,228,216,0.12);
 }
 /* ============================================================
    M. EVAN ALMUNAWAR — Midnight Playlist
@@ -16,12 +16,12 @@
 
    SYSTEM COLORS
    ────────────────────────────────────────
-   Background   : #050d1a (--black)
-   Surface      : #0a1628 (--black-soft), #0f1f3d (--black-card)
-   Red accent   : #1e3a5f, #1e88e5, #4fc3f7 (--red-bright)
-   Text primary : #e8f0fe (--white)
-   Text dim     : #7b9bbf (--white-dim)
-   Border       : rgba(79,195,247,0.1) (--grey-border)
+   Background   : #0A0A0A (--black)
+   Surface      : #161616 (--black-soft), #1E1E1E (--black-card)
+   Accent       : #6B6B6B, #8C8C8C, #E8E4D8 (--red-bright)
+   Text primary : #FAFAFA (--white)
+   Text dim     : #A1A1A1 (--white-dim)
+   Border       : rgba(232,228,216,0.1) (--grey-border)
    Gold accent  : #c8b89a (featured card & cover art only)
    Font display : Bebas Neue
    Font body    : Cormorant Garamond
@@ -33,18 +33,18 @@
 
 /* ===== DESIGN TOKENS ===== */
 :root {
-  --black:       #050d1a;
-  --black-soft:  #0a1628;
-  --black-card:  #0f1f3d;
+  --black:       #0A0A0A;
+  --black-soft:  #161616;
+  --black-card:  #1E1E1E;
 
-  --red:         #1e3a5f;
-  --red-mid:     #1e88e5;
-  --red-bright:  #4fc3f7;
+  --red:         #6B6B6B;
+  --red-mid:     #8C8C8C;
+  --red-bright:  #E8E4D8;
 
-  --white:       #e8f0fe;
-  --white-dim:   #7b9bbf;
+  --white:       #FAFAFA;
+  --white-dim:   #A1A1A1;
 
-  --grey-border: rgba(79,195,247,0.1);
+  --grey-border: rgba(232,228,216,0.1);
 
   --font-display: 'Bebas Neue', sans-serif;
   --font-body:    'Cormorant Garamond', serif;
@@ -54,6 +54,8 @@
   --t-normal: 0.40s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
+  /* Gold TIDAK diubah — sengaja dipertahankan sebagai aksen khusus
+     featured card & cover art, terpisah dari sistem warna utama. */
   --gold:      #c8b89a;
   --gold-dim:  rgba(200,184,154,0.10);
 
@@ -85,7 +87,7 @@ body {
 
 /* Selection */
 ::selection {
-  background: rgba(79,195,247,0.18);
+  background: rgba(232,228,216,0.18);
   color: var(--white);
 }
 
@@ -136,7 +138,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   transition: background var(--t-normal), border-color var(--t-normal);
 }
 .nav.scrolled {
-  background: rgba(5,5,5,0.95);
+  background: rgba(10,10,10,0.95);
   border-bottom: 1px solid var(--grey-border);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -184,7 +186,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   text-align: center;
   overflow: hidden;
   padding: calc(var(--nav-h) + 2rem) clamp(1.5rem, 5vw, 3rem) 4rem;
-  background-color: #050d1a;
+  background-color: #0A0A0A;
 }
 
 .hero-bg {
@@ -206,9 +208,9 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   inset: 0;
   z-index: 1;
   background: linear-gradient(180deg,
-    rgba(5,5,5,0.40) 0%,
-    rgba(5,5,5,0.15) 40%,
-    rgba(5,5,5,0.80) 100%
+    rgba(10,10,10,0.40) 0%,
+    rgba(10,10,10,0.15) 40%,
+    rgba(10,10,10,0.80) 100%
   );
   pointer-events: none;
 }
@@ -448,8 +450,8 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
 }
 .chip.active {
   color: var(--accent);
-  border-color: rgba(79,195,247,0.4);
-  background: rgba(79,195,247,0.06);
+  border-color: rgba(232,228,216,0.4);
+  background: rgba(232,228,216,0.06);
 }
 
 /* ── Songs header padding (accounts for sticky filter) ── */
@@ -494,7 +496,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   display: none;
 }
 .song-card.visible:hover {
-  border-color: rgba(79,195,247,0.3);
+  border-color: rgba(232,228,216,0.3);
   transform: translateY(-4px);
 }
 /* Hover glow */
@@ -502,7 +504,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 35%, rgba(79,195,247,0.07) 0%, transparent 65%);
+  background: radial-gradient(circle at 50% 35%, rgba(232,228,216,0.07) 0%, transparent 65%);
   opacity: 0;
   transition: opacity var(--t-fast);
   pointer-events: none;
@@ -582,7 +584,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   z-index: 3;
   width: 34px;
   height: 34px;
-  background: rgba(5,5,5,0.82);
+  background: rgba(10,10,10,0.82);
   border: 1px solid var(--grey-border);
   color: var(--white);
   cursor: pointer;
@@ -598,7 +600,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
 }
 .song-play-toggle:hover {
   border-color: var(--accent);
-  background-color: rgba(79,195,247,0.12);
+  background-color: rgba(232,228,216,0.12);
 }
 
 /* ── Song Body ── */
@@ -619,7 +621,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   text-transform: uppercase;
   color: var(--accent);
   display: inline-block;
-  border: 1px solid rgba(79,195,247,0.25);
+  border: 1px solid rgba(232,228,216,0.25);
   padding: 0.18rem 0.55rem;
   margin-bottom: 0.35rem;
   align-self: flex-start;
@@ -692,7 +694,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
 }
 /* Playlist cards are NEVER hidden — no .hidden rule here */
 .playlist-card.visible:hover {
-  border-color: rgba(79,195,247,0.3);
+  border-color: rgba(232,228,216,0.3);
   transform: translateY(-4px);
 }
 
@@ -718,7 +720,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 35%, rgba(79,195,247,0.07) 0%, transparent 65%);
+  background: radial-gradient(circle at 50% 35%, rgba(232,228,216,0.07) 0%, transparent 65%);
   opacity: 0;
   transition: opacity var(--t-fast);
   pointer-events: none;
@@ -793,7 +795,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   z-index: 3;
   width: 36px;
   height: 36px;
-  background: rgba(5,5,5,0.82);
+  background: rgba(10,10,10,0.82);
   border: 1px solid var(--grey-border);
   color: var(--white);
   cursor: pointer;
@@ -809,7 +811,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
 }
 .card-play-toggle:hover {
   border-color: var(--accent);
-  background-color: rgba(79,195,247,0.12);
+  background-color: rgba(232,228,216,0.12);
 }
 
 
@@ -832,7 +834,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   text-transform: uppercase;
   color: var(--accent);
   display: inline-block;
-  border: 1px solid rgba(79,195,247,0.25);
+  border: 1px solid rgba(232,228,216,0.25);
   padding: 0.2rem 0.6rem;
   margin-bottom: 0.5rem;
 }
@@ -875,7 +877,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
 }
 .card-btn:hover {
   color: var(--accent);
-  border-color: rgba(79,195,247,0.5);
+  border-color: rgba(232,228,216,0.5);
 }
 .card-btn--gold {
   color: var(--gold);
@@ -903,7 +905,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   transform: translate(-50%, -50%);
   width: 500px; height: 300px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(79,195,247,0.03) 0%, transparent 60%);
+  background: radial-gradient(circle, rgba(232,228,216,0.03) 0%, transparent 60%);
   pointer-events: none;
 }
 
@@ -1040,13 +1042,13 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   align-items: center;
   gap: 0.75rem;
   padding: 0.5rem 1rem;
-  border-bottom: 1px solid rgba(79,195,247,0.08);
+  border-bottom: 1px solid rgba(232,228,216,0.08);
   margin-bottom: 0.25rem;
   font-family: var(--font-mono, 'Space Mono', monospace);
   font-size: 0.55rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--white-dim, #7b9bbf);
+  color: var(--white-dim, #A1A1A1);
 }
 
 /* Track row */
@@ -1057,8 +1059,8 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
-.track-row:hover { background: rgba(79,195,247,0.06); }
-.track-row.track-open { background: rgba(79,195,247,0.08); }
+.track-row:hover { background: rgba(232,228,216,0.06); }
+.track-row.track-open { background: rgba(232,228,216,0.08); }
 
 .track-row-main {
   display: grid;
@@ -1080,13 +1082,13 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
 .tr-number {
   font-family: var(--font-mono, 'Space Mono', monospace);
   font-size: 0.7rem;
-  color: var(--white-dim, #7b9bbf);
+  color: var(--white-dim, #A1A1A1);
   transition: opacity 0.15s;
 }
 .tr-play-icon {
   position: absolute;
   opacity: 0;
-  color: var(--accent, #4fc3f7);
+  color: var(--accent, #E8E4D8);
   transition: opacity 0.15s;
   display: flex;
   align-items: center;
@@ -1095,7 +1097,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
 .track-row:hover .tr-number { opacity: 0; }
 .track-row:hover .tr-play-icon { opacity: 1; }
 .track-row.track-open .tr-number { display: none; }
-.track-row.track-open .tr-play-icon { opacity: 1; color: var(--accent, #4fc3f7); }
+.track-row.track-open .tr-play-icon { opacity: 1; color: var(--accent, #E8E4D8); }
 
 /* Thumbnail */
 .tl-thumb {
@@ -1103,7 +1105,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   height: 44px;
   border-radius: 4px;
   overflow: hidden;
-  background: #0a1628;
+  background: #161616;
   background-size: cover;
   background-position: center;
   flex-shrink: 0;
@@ -1131,18 +1133,18 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   font-family: var(--font-body, 'Cormorant Garamond', serif);
   font-size: 0.95rem;
   font-weight: 400;
-  color: var(--white, #e8f0fe);
+  color: var(--white, #FAFAFA);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   transition: color 0.15s;
 }
 .track-row:hover .tl-title,
-.track-row.track-open .tl-title { color: var(--accent, #4fc3f7); }
+.track-row.track-open .tl-title { color: var(--accent, #E8E4D8); }
 .tl-artist {
   font-family: var(--font-mono, 'Space Mono', monospace);
   font-size: 0.58rem;
-  color: var(--white-dim, #7b9bbf);
+  color: var(--white-dim, #A1A1A1);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1158,9 +1160,9 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   font-size: 0.5rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--white-dim, #7b9bbf);
-  background: rgba(79,195,247,0.07);
-  border: 1px solid rgba(79,195,247,0.12);
+  color: var(--white-dim, #A1A1A1);
+  background: rgba(232,228,216,0.07);
+  border: 1px solid rgba(232,228,216,0.12);
   border-radius: 20px;
   padding: 0.2rem 0.6rem;
   white-space: nowrap;
@@ -1178,10 +1180,10 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(79,195,247,0.1);
-  border: 1px solid rgba(79,195,247,0.2);
+  background: rgba(232,228,216,0.1);
+  border: 1px solid rgba(232,228,216,0.2);
   border-radius: 50%;
-  color: var(--accent, #4fc3f7);
+  color: var(--accent, #E8E4D8);
   cursor: pointer;
   opacity: 0;
   transition: opacity 0.15s, background 0.15s, transform 0.15s;
@@ -1189,11 +1191,11 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
 .track-row:hover .tr-toggle-btn,
 .track-row.track-open .tr-toggle-btn { opacity: 1; }
 .tr-toggle-btn:hover {
-  background: rgba(79,195,247,0.2);
+  background: rgba(232,228,216,0.2);
   transform: scale(1.08);
 }
 .track-row.track-open .tr-toggle-btn {
-  background: rgba(79,195,247,0.18);
+  background: rgba(232,228,216,0.18);
 }
 
 /* Embed area — collapsed by default */
@@ -1218,7 +1220,7 @@ button { background: none; border: none; cursor: pointer; color: inherit; font: 
 .track-embed-nolink p {
   font-family: var(--font-mono, 'Space Mono', monospace);
   font-size: 0.6rem;
-  color: var(--white-dim, #7b9bbf);
+  color: var(--white-dim, #A1A1A1);
   padding: 1rem 0;
 }
 
